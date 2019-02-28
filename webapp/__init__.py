@@ -10,5 +10,6 @@ def main(global_config, **settings):
         config.include('pyramid_jinja2')
         config.include('.routes')
         config.scan('.views')
+        config.scan('.process_request')
         config.add_static_view('deform_static', 'deform:static/')
     return config.make_wsgi_app()

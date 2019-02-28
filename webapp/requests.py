@@ -12,11 +12,13 @@ class MyRequest(Request):
         # register callback to close the session automatically after
         # everything else in request lifecycle is done
         self.add_finished_callback( self.close_dbs_1 )
+        print(self.registry.db1_factory.get_session())
         return self.registry.db1_factory.get_session()
 
     @reify
     def db2_session(self):
         self.add_finished_callback( self.close_dbs_2 )
+        print(self.registry.db2_factory.get_session())
         return self.registry.db2_factory.get_session()
 
     def close_dbs_1(self, request):

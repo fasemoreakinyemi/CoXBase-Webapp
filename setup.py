@@ -23,6 +23,7 @@ requires = [
     'pymysql',
     'deform',
     'pyramid_chameleon',
+    'cornice'
 ]
 
 tests_require = [
