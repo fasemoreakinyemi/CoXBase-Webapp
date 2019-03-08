@@ -7,12 +7,23 @@ class RequestProcessor():
     __model_dict = {'SampleYear' : models.SampleMetadata.SampleYear,
                     'SampleHost' : models.SampleMetadata.SampleHost,
                     'SampleCountry' : models.SampleMetadata.SampleCountry,
-                    'CountryProvince' : models.SampleMetadata.CountryProvince}
+                    'CountryProvince' : models.SampleMetadata.CountryProvince,
+                    'SampleSource' : models.SampleMetadata.SampleSource,
+                    'PlasmidID' : models.SampleMetadata.PlasmidID,
+                    'MSTID' : models.SampleMetadata.MSTID,
+                    'MLVAID' : models.SampleMetadata.MLVAID,
+                    'TypingID' : models.SampleMetadata.TypingID}
 
     @classmethod
     def get_model(cls, column_from_path):
         query_model = cls.__model_dict.get(column_from_path, None)
         return query_model
+    
+    @classmethod
+    def get_model_filter(cls, _filter):
+        filter_model = cls.__model_dict.get(_filter, None)
+        return filter_model
+
     
     @staticmethod
     def to_dict(args):
@@ -20,10 +31,11 @@ class RequestProcessor():
         _result_dict = {}
         tidy_list = [item for item, in args]
         for items in tidy_list:
-            if not str(items) in _result_dict:
-                _result_dict[str(items)] = base_count
-            else:
-                _result_dict[str(items)] = _result_dict.get(str(items)) + 1
+            if items:
+                if not str(items) in _result_dict:
+                    _result_dict[str(items)] = base_count
+                else:
+                    _result_dict[str(items)] = _result_dict.get(str(items)) + 1
         return _result_dict
     
     @staticmethod
