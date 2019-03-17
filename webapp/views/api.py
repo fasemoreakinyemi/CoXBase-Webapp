@@ -40,3 +40,13 @@ def model_filter(request):
         return result_dict
     else:
         return {'NOT': 'working'}
+
+@view_config(route_name='api_map', renderer='json')
+def map_filter(request):
+    RP = process_request.RequestProcessor()
+    _column = request.matchdict['column']
+    _filter_value = request.matchdict['state']
+    query = request.db2_session.query(models.SampleMetadata)
+    model = RP.get_model(_column)
+    result = query.filter(model == _filter_value).all()
+    return RP._serialize(result)

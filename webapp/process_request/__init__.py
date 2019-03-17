@@ -39,6 +39,20 @@ class RequestProcessor():
         return _result_dict
     
     @staticmethod
+    def _serialize(obj):
+        list_container = []
+        for items in obj:
+            item_dict = {}
+            item_dict['name'] = items.SampleStrain
+            item_dict['year'] = items.SampleYear
+            item_dict['host'] = items.SampleHost
+            item_dict['source'] = items.SampleSource
+            item_dict['Genotype'] = items.MLVAID
+            list_container.append(item_dict)
+        return list_container
+
+    
+    @staticmethod
     def response_error():
         db_err_msg = """\
         Pyramid is having a problem using your SQL database.  The problem

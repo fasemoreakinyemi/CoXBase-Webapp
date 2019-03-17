@@ -17,4 +17,5 @@ def includeme(config):
     config.add_route('search', '/search')
     config.add_route('dashboard', '/dashboard')
     config.add_route('dashboard_new', '/dashboard/{path}')
+    config.add_route('api_map', '/api_map/{column}/{state}')
 
