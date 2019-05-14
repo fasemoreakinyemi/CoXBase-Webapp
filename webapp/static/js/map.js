@@ -64,7 +64,7 @@ function show_details(e){
 	layer = e.target
 	var data;
       var state = layer.feature["properties"]["State"] //(feature ? feature["properties"]["State"] : 'none');
-	var url = "http://localhost:6543/api_map/CountryProvince/" + state;
+	var url = "http://129.70.51.32/webapp/api_map/CountryProvince/" + state;
 	$.get(url, 'json').done(function(results) {
 		create_table(results)
 		//alert(results['2']['GENUS'])

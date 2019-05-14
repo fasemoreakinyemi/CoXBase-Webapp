@@ -41,7 +41,7 @@ $(document).ready(function()
     }
 });
 
-	var url = "http://localhost:6543/api/" + "SampleHost"
+	var url = "http://129.70.51.32/webapp/api/" + "SampleHost"
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -63,7 +63,7 @@ $(document).ready(function()
 
 $("#SampleYear").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[2]
-	var url = "http://localhost:6543/api/" + "SampleYear"
+	var url = "http://129.70.51.32/webapp/api/" + "SampleYear"
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -86,7 +86,7 @@ $("#SampleYear").on ("click", function () {
 
 $("#SampleHost").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[2]
-	var url = "http://localhost:6543/api/" + "SampleHost"
+	var url = "http://129.70.51.32/webapp/api/" + "SampleHost"
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -108,7 +108,7 @@ $("#SampleHost").on ("click", function () {
 });
 $("#SampleCountry").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[2]
-	var url = "http://localhost:6543/api/" + "SampleCountry"
+	var url = "http://129.70.51.32/webapp/api/" + "SampleCountry"
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -130,7 +130,7 @@ $("#SampleCountry").on ("click", function () {
 });
 $("#TypingID").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[2]
-	var url = "http://localhost:6543/api/" + "TypingID"
+	var url = "http://129.70.51.32/webapp/api/" + "TypingID"
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -152,7 +152,7 @@ $("#TypingID").on ("click", function () {
 });
 $("#CountryProvince").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[2]
-	var url = "http://localhost:6543/api/" + "CountryProvince"
+	var url = "http://129.70.51.32/webapp/api/" + "CountryProvince"
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: iso-8859-15 -*-
+
 from pyramid.view import view_config
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
@@ -9,10 +12,6 @@ from .. import process_request
 
 from .. import models
 
-@view_config(route_name='dashboard', renderer='../templates/dashboard.jinja2')
-def my_view(request):
+@view_config(route_name='mlvaquery', renderer='../templates/mlva_query.jinja2')
+def mlva_view(request):
     return {}
-
-
-
-
