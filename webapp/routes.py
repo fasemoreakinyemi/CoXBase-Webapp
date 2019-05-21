@@ -1,5 +1,5 @@
 def includeme(config):
-    config.add_static_view('static', 'static', cache_max_age=1)
+    config.add_static_view('static', 'static', cache_max_age=0)
     config.add_route('home', '/')
     config.add_route('No_entry', '/result/noentry/{item}')
     config.add_route('api', '/api')
@@ -7,5 +7,13 @@ def includeme(config):
     config.add_route('api_column', '/api/{column}')
     config.add_route('dashboard', '/dashboard')
     config.add_route('mlvaquery', '/mlvaquery')
+    config.add_route('test', '/testapi/{num}')
+    config.add_route('hello_baby', '/log')
+    config.add_route('fp_query_api', '/fp_query/{ms01}/{ms03}/{ms20}/{ms21}/{ms22}/{ms23}/{ms24}/{ms26}/{ms27}/{ms28}/{ms30}/{ms31}/{ms33}/{ms34}')
     config.add_route('api_map', '/api_map/{column}/{state}')
+    config.add_route('api_query3', '/api_query/{ms24}/{ms28}/{ms33}')
+    config.add_route('api_query6', '/api_query/{ms23}/{ms24}/{ms27}{ms28}/{ms33}/{ms34}')
+    config.add_route('api_query141', '/api_query/{ms01}/{ms03}/{ms07}/{ms20}/{ms21}/{ms22}/{ms24}/{ms26}/{ms27}/{ms28}/{ms30}/{ms31}/{ms33}/{ms34}')
+    config.add_route('api_query15', '/api_query/{ms01}/{ms03}/{ms07}/{ms12}/{ms20}/{ms21}/{ms22}/{ms24}/{ms26}/{ms27}/{ms28}/{ms30}/{ms31}/{ms33}/{ms34}')
+    config.add_route('api_query16', '/api_query/{ms01}/{ms03}/{ms07}/{ms12}/{ms20}/{ms21}/{ms22}/{ms24}/{ms26}/{ms27}/{ms28}/{ms30}/{ms31}/{ms33}/{ms34}/{ms36}')
 

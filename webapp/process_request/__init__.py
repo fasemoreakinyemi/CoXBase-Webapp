@@ -14,6 +14,20 @@ class RequestProcessor():
                     'MLVAID' : models.SampleMetadata.MLVAID,
                     'TypingID' : models.SampleMetadata.TypingID}
 
+    __repeat_model_dict = {'ms01' : models.mlvaProfile.ms01,
+                           'ms03' : models.mlvaProfile.ms03,
+                           'ms20' : models.mlvaProfile.ms20,
+                           'ms21' : models.mlvaProfile.ms21,
+                           'ms22' : models.mlvaProfile.ms22,
+                           'ms23' : models.mlvaProfile.ms23,
+                           'ms24' : models.mlvaProfile.ms24,
+                           'ms26' : models.mlvaProfile.ms26,
+                           'ms27' : models.mlvaProfile.ms27,
+                           'ms28' : models.mlvaProfile.ms28,
+                           'ms30' : models.mlvaProfile.ms30,
+                           'ms31' : models.mlvaProfile.ms31,
+                           'ms33' : models.mlvaProfile.ms33,
+                           'ms34' : models.mlvaProfile.ms34}
     @classmethod
     def get_model(cls, column_from_path):
         query_model = cls.__model_dict.get(column_from_path, None)
@@ -24,6 +38,10 @@ class RequestProcessor():
         filter_model = cls.__model_dict.get(_filter, None)
         return filter_model
 
+    @classmethod
+    def get_repeat_model(cls, column_from_path):
+        query_model = cls.__repeat_model_dict.get(column_from_path, None)
+        return query_model
     
     @staticmethod
     def to_dict(args):
@@ -51,6 +69,27 @@ class RequestProcessor():
             list_container.append(item_dict)
         return list_container
 
+    @staticmethod
+    def _serialize_mlva(obj):
+        list_container = []
+        for items in obj:
+            item_dict = {}
+            item_dict['ms01'] = int(items.ms01)
+            item_dict['ms03'] = int(items.ms03)
+            item_dict['ms20'] = str(float(round(items.ms20, 2)))
+            item_dict['ms21'] = int(items.ms21)
+            item_dict['ms22'] = int(items.ms22)
+            item_dict['ms23'] = int(items.ms23)
+            item_dict['ms24'] = int(items.ms24)
+            item_dict['ms26'] = int(items.ms26)
+            item_dict['ms27'] = int(items.ms27)
+            item_dict['ms28'] = int(items.ms28)
+            item_dict['ms30'] = str(float(round(items.ms30, 2)))
+            item_dict['ms31'] = int(items.ms31)
+            item_dict['ms33'] = int(items.ms33)
+            item_dict['ms34'] = int(items.ms34)
+            list_container.append(item_dict)
+        return list_container
     
     @staticmethod
     def response_error():

@@ -4,6 +4,14 @@ body {
   font-weight: 300;
   background: #fff;
 }
+input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
 .mlva_table {
 	padding:1em;
 }
@@ -22,6 +30,8 @@ body {
 .tr_entry {
 	width:5em;
 }
+
+
 .navbar-default {
   background-color: #28a745 !important;
 }
@@ -245,3 +255,4 @@ white-space: nowrap;
 	  
 }
  
+
