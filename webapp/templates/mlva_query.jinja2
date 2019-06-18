@@ -7,7 +7,7 @@
     <meta name="description" content="pyramid web application">
     <meta name="Mandela" content="Search form">
     <link rel="shortcut icon" href="{{request.static_url('webapp:static/pyramid-16x16.png')}}">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <title>Coxbase</title>
 
     <!-- Bootstrap core CSS -->
@@ -22,45 +22,23 @@
   </head>
 
   <body>
-	<nav class="navbar navbar-default">
-  	<ul class="nav navbar-nav navbar-right">
-    		<li class="">
-      		<a class="" href="#">Annotations</a>
-    		</li>
-    		<li class="">
-			<a href="#" >MLVA Search</a>
-   		</li>
-    		<li class="">
-     		 <a class="" href="#">Tandem Repeats</a>
-    		</li>
-    		<li class="">
-      		<a class="" href="#">Database</a>
-    		</li>
-	
-		<form class="navbar-form navbar-left" action="/action_page.php">
-      		<div class="form-group">
-        	<input type="text" class="form-control" placeholder="Search">
-      		</div>
-      		<button type="submit" class="btn btn-default">Submit</button>
-    		</form>
-	</ul>
-	</nav>
 
+	  {% include 'nav.jinja2' %}
     <!--main-->
     
       <div class="container">
 	      <div class="card_mlva">
-		      <form>
+		      <form id="mlva_form">
 			      <fieldset>
 				      <div class="custom-select" style="width:200px;">
-					      <p>Select Query panel:</p>
+					      <p>Select query panel:</p>
  					<select id="select_panel">
-    						<option value="3">3 panel </option>
-    						<option value="6">6 panel</option>
-    						<option value="141">14 panel Australia</option>
-    						<option value="142">14 panel Frangoulids</option>
-    						<option value="15">15 panel</option>
-    						<option value="16">16 panel</option>
+    						<option value="3">3 panels </option>
+    						<option value="6">6 panels</option>
+    						<option value="141">14 panels Australia</option>
+    						<option value="142">14 panels Frangoulids</option>
+    						<option value="15">15 panels</option>
+    						<option value="16">16 panels</option>
 					</select>
 				      </div>
 			      </fieldset>
@@ -85,30 +63,34 @@
 						      <th class="query_table_header">ms34</th>
 					      </tr>
 					      <tr>
-						      <td><input class="tr_entry" type="number"></td>
-						      <td><input class="tr_entry" type="number"></td>
-						      <td><input class="tr_entry" type="number"></td>
-						      <td><input class="tr_entry" type="number"></td>
-						      <td><input class="tr_entry" type="number"></td>
-						      <td><input class="tr_entry" type="number"></td>
-						      <td><input class="tr_entry" type="number"></td>
-						      <td><input class="tr_entry" type="number"></td>
-						      <td><input class="tr_entry" type="number"></td>
-						      <td><input class="tr_entry" type="number"></td>
-						      <td><input class="tr_entry" type="number"></td>
-						      <td><input class="tr_entry" type="number"></td>
-						      <td><input class="tr_entry" type="number"></td>
-						      <td><input class="tr_entry" type="number"></td>
+						      <td><input class="tr_entry" name="ms01" type="number"></td>
+						      <td><input class="tr_entry" name="ms03" type="number"></td>
+						      <td><input class="tr_entry" name="ms20" type="number"></td>
+						      <td><input class="tr_entry" name="ms21" type="number"></td>
+						      <td><input class="tr_entry" name="ms22" type="number"></td>
+						      <td><input class="tr_entry" name="ms23" type="number"></td>
+						      <td><input class="tr_entry" name="ms24" type="number"></td>
+						      <td><input class="tr_entry" name="ms26" type="number"></td>
+						      <td><input class="tr_entry" name="ms27" type="number"></td>
+						      <td><input class="tr_entry" name="ms28" type="number"></td>
+						      <td><input class="tr_entry" name="ms30" type="number"></td>
+						      <td><input class="tr_entry" name="ms31" type="number"></td>
+						      <td><input class="tr_entry" name="ms33" type="number"></td>
+						      <td><input class="tr_entry" name="ms34" type="number"></td>
 					      </tr>
 				      </table>
 				      </div>
 			      </fieldset>
-			      <fieldset>
-				      <input type="submit">
-			      </fieldset>
+			<input type="submit">
 
 		      </form>
 	      </div>
+      </div>
+      <div id="empty_error">
+      </div>
+      <div class="container">
+		      <div id="result" class="result_info">
+		      </div>
       </div>
 
 

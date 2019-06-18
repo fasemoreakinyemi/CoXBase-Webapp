@@ -1,0 +1,28 @@
+	<nav class="navbar navbar-default">
+  	<ul class="nav navbar-nav navbar-right">
+    		<li class="">
+		<a href="{{request.route_url('home')}}"><i class="fa fa-home" style="font-size:20px"></i></a>
+    		</li>
+    		<li class="">
+    		<li class="">
+		<a href="{{request.route_url('dashboard')}}">Dashboard</a>
+    		</li>
+    		<li class="">
+			<a href="{{request.route_url('mlvaquery')}}">MLVA Search</a>
+   		</li>
+    		<li class="">
+     		 <a class="" href="#">Tandem Repeats</a>
+    		</li>
+    		<li class="">
+      		<a class="" href="#">Annotation</a>
+    		</li>
+	
+		<form class="navbar-form navbar-left" action="/action_page.php">
+      		<div class="form-group">
+        	<input type="text" class="form-control" placeholder="Search">
+      		</div>
+      		<button type="submit" class="btn btn-default">Submit</button>
+    		</form>
+	</ul>
+	</nav>
+

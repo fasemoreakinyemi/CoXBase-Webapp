@@ -7,6 +7,7 @@
     <meta name="description" content="pyramid web application">
     <meta name="Mandela" content="Search form">
     <link rel="shortcut icon" href="{{request.static_url('webapp:static/pyramid-16x16.png')}}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
     <title>Coxbase</title>
 
@@ -30,60 +31,31 @@
   </head>
 
   <body>
-	<nav class="navbar navbar-default">
-  	<ul class="nav navbar-nav navbar-right">
-    		<li class="">
-      		<a class="" href="#">Annotations</a>
-    		</li>
-    		<li class="">
-			<a href="{{request.route_url('mlvaquery')}}" >MLVA Search</a>
-   		</li>
-    		<li class="">
-     		 <a class="" href="#">Tandem Repeats</a>
-    		</li>
-    		<li class="">
-      		<a class="" href="#">Database</a>
-    		</li>
-	
-		<form class="navbar-form navbar-left" action="/action_page.php">
-      		<div class="form-group">
-        	<input type="text" class="form-control" placeholder="Search">
-      		</div>
-      		<button type="submit" class="btn btn-default">Submit</button>
-    		</form>
-	</ul>
-	</nav>
-
+	  {% include 'nav.jinja2' %}
     <!--main-->
     <h1 class="banner"> Coxbase [ Demo-page ]</h1>
       <div class="container">
 	      <div class="card">
-		    <div id="menu-outer">
   			<div class="table">
 				<h3> Charts </h3>
     			<ul id="horizontal-list">
 			    <li><button class="my_button" ID="SampleYear">Year</button></li>
 			    <li><button class="my_button" ID="SampleHost">Host</button></li>
 			    <li><button class="my_button" ID="TypingID">TypingID</button></li>
-			    <!-- <li><button class="my_button" ID="SampleCountry">Country</button></li>-->
 			    <li><button class="my_button" ID="CountryProvince">State</button></li>
 			</ul>
 			</div>
+        		<div class="row1">
+			<canvas id="barchart"></canvas>
+		</div>
 		    </div>
 	      </div>
       </div>
 	
-      <div class="container">
-	      <div class="card">
-        	<div class="row1">
-		<canvas id="barchart"></canvas>
-		</div>
-	      </div>
-      </div>
    
       <div class="container2">
 	      <div class="card">
-			<h3> Geographical Information of Isolates</h3>
+			<h3> Geographical Information of German Isolates</h3>
 			<div class=row1>
 			<div id='map' style="float:left;"></div>
 			<div id='new-parent' class="info" style="margin-bottom:20pt;"></div>
@@ -95,7 +67,7 @@
 		
 		<h3> Genotyping Information</h3 >
 
-		<div class="outer_row">
+		<!--	<div class="outer_row">-->
 		<div class="row1" style="float:right; clear:both;">
 
 			<p id="genotype_info">Filter Tree: </p>

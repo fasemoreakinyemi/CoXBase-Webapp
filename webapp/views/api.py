@@ -50,3 +50,11 @@ def map_filter(request):
     model = RP.get_model(_column)
     result = query.filter(model == _filter_value).all()
     return RP._serialize(result)
+
+@view_config(route_name='api_view_map', renderer='json')
+def get_coordinates(request):
+    RP = process_request.RequestProcessor()
+    _column = request.matchdict['ID']
+    query = request.db2_session.query(models.SampleMetadata).filter(
+        models.SampleMetadata.MLVAID == _column).all()
+    return RP._serialize_coord(query)

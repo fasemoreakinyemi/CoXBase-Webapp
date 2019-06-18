@@ -12,16 +12,16 @@ class Search_form(colander.MappingSchema):
     sf = colander.SchemaNode(colander.String())
                              #widget=deform.widget.RichTextWidget())
 
-@view_config(route_name='home', renderer='../templates/mytemplate.jinja2')
-def my_view(request):
-
-    try:
-        query = request.db1_session.query(models.organism)
-        one = query.filter(models.organism.NCBIASSEMBLY ==
-                           'GCF_000007765.2').first()
-    except DBAPIError:
-        return Response(db_err_msg, content_type='text/plain', status=500)
-    return {'Genus': one.GENUS, 'project': 'coxbase_webapp'}
+#@view_config(route_name='home', renderer='../templates/mytemplate.jinja2')
+#def my_view(request):
+#
+#    try:
+#        query = request.db1_session.query(models.organism)
+#        one = query.filter(models.organism.NCBIASSEMBLY ==
+#                           'GCF_000007765.2').first()
+#    except DBAPIError:
+#        return Response(db_err_msg, content_type='text/plain', status=500)
+#    return {'Genus': one.GENUS, 'project': 'coxbase_webapp'}
 
 
 db_err_msg = """\

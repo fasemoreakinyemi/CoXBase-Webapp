@@ -74,6 +74,7 @@ class RequestProcessor():
         list_container = []
         for items in obj:
             item_dict = {}
+            item_dict['ID'] = int(items.ID)
             item_dict['ms01'] = int(items.ms01)
             item_dict['ms03'] = int(items.ms03)
             item_dict['ms20'] = str(float(round(items.ms20, 2)))
@@ -88,6 +89,17 @@ class RequestProcessor():
             item_dict['ms31'] = int(items.ms31)
             item_dict['ms33'] = int(items.ms33)
             item_dict['ms34'] = int(items.ms34)
+            list_container.append(item_dict)
+        return list_container
+    
+    @staticmethod
+    def _serialize_coord(obj):
+        list_container = []
+        for items in obj:
+            item_dict = {}
+            item_dict['name'] = items.SampleStrain
+            item_dict['lat'] = str(items.Latitude)
+            item_dict['long'] = str(items.Longitude)
             list_container.append(item_dict)
         return list_container
     
