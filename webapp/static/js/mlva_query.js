@@ -1,7 +1,6 @@
 $(document).ready(function()
 {
 
-
 var dict = {
 	3: ["ms24","ms28","ms33"],
 	6: ["ms23","ms24","ms27","ms28","ms33","ms34"],
@@ -70,7 +69,8 @@ $(".tr_entry").each(function(){
 	map[$(this).attr("name")] = $(this).val();
 });
 var len = Object.values(map).length;
-var url = "http://129.70.51.32/webapp/fp_query";
+var hst = location.host;
+var url = "http://" + hst + "/webapp/fp_query"
 for (var i=0; i<len; i++) {
 	if(Object.values(map)[i] == "")
 	{
@@ -109,7 +109,7 @@ function throw_empty_error(){
 $(".result_info").on("click", ".btnView",function(){
 	var currentRow=$(this).closest("tr");
 	var MLVAID=currentRow.find("td:eq(0)").text();
-	var url = "http://129.70.51.32/webapp/view/" + MLVAID
+	var url = "http://coxiella.net/webapp/view/" + MLVAID
 	window.open(url, '_blank');
 
 });

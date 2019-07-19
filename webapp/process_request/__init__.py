@@ -93,6 +93,25 @@ class RequestProcessor():
         return list_container
     
     @staticmethod
+    def _serialize_mst(obj):
+        list_container = []
+        for items in obj:
+            item_dict = {}
+            item_dict['MST ID'] = int(items.groupid)
+            item_dict['cox2'] = int(items.COX2)
+            item_dict['cox5'] = int(items.COX5)
+            item_dict['cox18'] = int(items.COX18)
+            item_dict['cox20'] = int(items.COX20)
+            item_dict['cox22'] = int(items.COX22)
+            item_dict['cox37'] = int(items.COX37)
+            item_dict['cox51'] = int(items.COX51)
+            item_dict['cox56'] = int(items.COX56)
+            item_dict['cox57'] = int(items.COX57)
+            item_dict['cox61'] = int(items.COX61)
+            list_container.append(item_dict)
+        return list_container
+    
+    @staticmethod
     def _serialize_coord(obj):
         list_container = []
         for items in obj:

@@ -1,3 +1,4 @@
+
 	<nav class="navbar navbar-default">
   	<ul class="nav navbar-nav navbar-right">
     		<li class="">
@@ -7,8 +8,14 @@
     		<li class="">
 		<a href="{{request.route_url('dashboard')}}">Dashboard</a>
     		</li>
-    		<li class="">
-			<a href="{{request.route_url('mlvaquery')}}">MLVA Search</a>
+    		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Typing Query <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+		<li><a href="{{request.route_url('mlvaquery')}}">MLVA</a></li>
+                <li class="divider"></li>
+                <li><a href="{{request.route_url('mstquery')}}">MST</a></li>
+                <li class="divider"></li>
+                <li><a href="#">IS1111</a></li></ul>
    		</li>
     		<li class="">
      		 <a class="" href="#">Tandem Repeats</a>

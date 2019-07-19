@@ -4,7 +4,8 @@ $(document).ready(function()
 
 var path_name = window.location.href;
 var wanted_id = path_name.split("/")[5];
-var url = "http://129.70.51.32/webapp/api_view_map/" + wanted_id
+var hst = location.host;
+var url = "http://" + hst + "/webapp/api_view_map/" + wanted_id
 
 $.get(url, 'json').done(function(results) {
 		draw_map(results)

@@ -41,7 +41,8 @@ $(document).ready(function()
     }
 });
 
-	var url = "http://129.70.51.32/webapp/api/" + "SampleHost"
+	var hst = location.host;
+	var url = "http://" + hst + "/webapp/api/SampleHost"
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -63,7 +64,8 @@ $(document).ready(function()
 
 $("#SampleYear").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[2]
-	var url = "http://129.70.51.32/webapp/api/" + "SampleYear"
+	var hst = location.host;
+	var url = "http://" + hst + "/webapp/api/SampleYear"
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -86,7 +88,8 @@ $("#SampleYear").on ("click", function () {
 
 $("#SampleHost").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[2]
-	var url = "http://129.70.51.32/webapp/api/" + "SampleHost"
+	var hst = location.host;
+	var url = "http://" + hst + "/webapp/api/SampleHost"
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -108,7 +111,8 @@ $("#SampleHost").on ("click", function () {
 });
 $("#SampleCountry").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[2]
-	var url = "http://129.70.51.32/webapp/api/" + "SampleCountry"
+	var hst = location.host;
+	var url = "http://" + hst + "/webapp/api/SampleCountry"
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -130,7 +134,8 @@ $("#SampleCountry").on ("click", function () {
 });
 $("#TypingID").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[2]
-	var url = "http://129.70.51.32/webapp/api/" + "TypingID"
+	var hst = location.host;
+	var url = "http://" + hst + "/webapp/api/TypingID"
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -152,7 +157,8 @@ $("#TypingID").on ("click", function () {
 });
 $("#CountryProvince").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[2]
-	var url = "http://129.70.51.32/webapp/api/" + "CountryProvince"
+	var hst = location.host;
+	var url = "http://" + hst + "/webapp/api/CountryProvince"
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
