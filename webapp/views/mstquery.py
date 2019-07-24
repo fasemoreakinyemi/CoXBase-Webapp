@@ -14,6 +14,11 @@ import logging
 import traceback
 import  sys
 
+Base = automap_base()
+settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
+engine = engine_from_config(settings, 'db2.')
+Base.prepare(engine, reflect=True)
+
 @view_config(route_name='mstquery', renderer='../templates/mst_query.jinja2')
 def mst_view(request):
     return {}
@@ -21,10 +26,10 @@ def mst_view(request):
 @view_config(route_name='mst_query_api', renderer='json')
 def mstq_view(request):
     RP = process_request.RequestProcessor()
-    Base = automap_base()
-    settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
-    engine = engine_from_config(settings, 'db2.')
-    Base.prepare(engine, reflect=True)
+ #   Base = automap_base()
+ #   settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
+ #   engine = engine_from_config(settings, 'db2.')
+ #   Base.prepare(engine, reflect=True)
     mstgroups = Base.classes.mstgroups
     spacer_list = ['COX2', 'COX5', 'COX18', 'COX20', 
                  'COX22', 'COX37', 'COX51', 'COX56', 
@@ -59,4 +64,14 @@ def mstq_view(request):
           #  query = request.db2_session.query(mstgroups).filter(*conditionAnd).all()
     return RP._serialize_mst(query)#{len(conditionOr):len(conditionAnd)}
 
+@view_config(route_name='mst_isolate_view', renderer='../templates/mst_view.jinja2')
+def detailed_mst_view(request):
+    ID = request.matchdict['ID']
+    isolates = Base.classes.isolates
+    try:
+        query = request.db2_session.query(isolates).filter(
+            isolates.mstGroup == ID)
+    except DBAPIError:
+        return Response(db_err_msg, content_type='text/plain', status=500)
+    return {'count' : query.count(), 'results' : query.all()}
 

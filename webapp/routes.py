@@ -10,6 +10,7 @@ def includeme(config):
     config.add_route('mstquery', '/mstquery')
     config.add_route('test', '/testapi/{num}')
     config.add_route('detailed_view', '/view/{ID}')
+    config.add_route('mst_isolate_view', '/mst_isolate/{ID}')
     config.add_route('fp_query_api', '/fp_query/{ms01}/{ms03}/{ms20}/{ms21}/{ms22}/{ms23}/{ms24}/{ms26}/{ms27}/{ms28}/{ms30}/{ms31}/{ms33}/{ms34}')
     config.add_route('mst_query_api', '/mst_query/{COX2}/{COX5}/{COX18}/{COX20}/{COX22}/{COX37}/{COX51}/{COX56}/{COX57}/{COX61}')
     config.add_route('api_map', '/api_map/{column}/{state}')
