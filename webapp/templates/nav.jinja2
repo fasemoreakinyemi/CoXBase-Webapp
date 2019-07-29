@@ -17,9 +17,15 @@
                 <li class="divider"></li>
                 <li><a href="#">IS1111</a></li></ul>
    		</li>
-    		<li class="">
-     		 <a class="" href="#">Tandem Repeats</a>
-    		</li>
+    		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Analysis <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+		<li><a href="{{request.route_url('primerquery')}}">Find Primer sequence for typing </a></li>
+                <li class="divider"></li>
+                <li><a href="{{request.route_url('mlvaanalysis')}}">MLVA analysis</a></li>
+                <li class="divider"></li>
+                <li><a href="#">IS1111 analysis</a></li></ul>
+   		</li>
     		<li class="">
       		<a class="" href="#">Annotation</a>
     		</li>
