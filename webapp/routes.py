@@ -11,6 +11,8 @@ def includeme(config):
     config.add_route('primerquery', '/primer')
     config.add_route('primerquery_results', '/primer_results/*selection')
     config.add_route('mlvaanalysis', '/mlvaanalysis')
+    config.add_route('mlvaresult', '/mlvaresult')
+    config.add_route('resMLVA', '/mlvaresult/{ID}')
     config.add_route('test', '/testapi/{num}')
     config.add_route('detailed_view', '/view/{ID}')
     config.add_route('mst_isolate_view', '/mst_isolate/{ID}')

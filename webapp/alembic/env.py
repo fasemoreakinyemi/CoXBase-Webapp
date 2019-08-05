@@ -25,7 +25,7 @@ def run_migrations_offline():
     script output.
 
     """
-    context.configure(url=settings['sqlalchemy.url'])
+    context.configure(url=settings['db2.url'])
     with context.begin_transaction():
         context.run_migrations()
 
@@ -37,7 +37,7 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    engine = engine_from_config(settings, prefix='sqlalchemy.')
+    engine = engine_from_config(settings, prefix='db2.')
 
     connection = engine.connect()
     context.configure(

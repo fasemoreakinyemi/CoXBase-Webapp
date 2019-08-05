@@ -24,7 +24,9 @@ requires = [
     'pymysql',
     'deform',
     'pyramid_chameleon',
-    'cornice'
+    'cornice',
+    'pandas',
+    'numpy'
 ]
 
 tests_require = [
