@@ -1,42 +1,16 @@
 $(document).ready(function()
 {
-formdata = new FormData();
 
-$('#fileInput').change(function(){    
-    //on change event  
-    if($(this).prop('files').length > 0)
-    {
-        file =$(this).prop('files')[0];
-        formdata.append("fastafile", file);
-    }
-});
-
-$( "#lva_form" ).submit(function( event ) {
-	event.preventDefault();
-	var myfile = $('#fileInput').prop('files')[0];
-	var hst = location.host;
-	var url = "http://" + hst + "/webapp/mlvaresult"
-	$.ajax({
-                    method: 'POST',
-                    url: url,
-                    data:formdata,
-		    processData: false,
-    		    contentType: false,
-                    success: function(response) {
-                        console.log(response)
-                    },
-                    error: function(response) {
-                        console.error(response)
-                    }
-                });
-
-})
-});
-
+window.validateform = function(){
+	if (document.forms['mlvaInput']['fastaentry'].value == "" && document.forms['mlvaInput']['fastafile'].value == "") {
+		throw_empty_error()
+		return false;
+	}
+};
 
 function throw_empty_error(){
 	$('#result').empty()
-	$('#empty_error').html("<div class='container'><div class='well blue'><span class='error_well'><i class='fas fa-exclamation-triangle fa-2x'></i></span></div><div class='well white'>You did not select any method</div></div>")
+	$('#empty_error_mlva').html("<div class=''><div class='well blue_card'><span><i class='fas fa-exclamation-triangle fa-2x'></i></span> Please upload a file in fasta format or paste your sequence in the sequence field <span><i class='fas fa-exclamation-triangle fa-2x'></i></span></div>")
 }
 
 function downloadCSV(csv, filename) {
@@ -82,4 +56,5 @@ function exportprimertableToCSV(filename) {
     downloadCSV(csv.join("\n"), filename);
 }
 
+});
 

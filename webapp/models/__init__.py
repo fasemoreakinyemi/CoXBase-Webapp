@@ -8,7 +8,8 @@ from sqlalchemy import create_engine
 # Base.metadata prior to any initialization routines
 from .mymodel import Base, organism, Features  # flake8: noqa
 from .mlva import Base, plasmid, mst, TypingMeta, mlvaProfile, SampleMetadata
-from .mlva_results import Base, ProductLength, FlankLength, RepeatSize, RepeatNumber 
+from .mlva_results import Base, ProductLength, FlankLength, RepeatSize, RepeatNumber
+from .submission import Base, SubmissionTable
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup
 configure_mappers()

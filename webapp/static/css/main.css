@@ -15,6 +15,164 @@ ul {
   list-style-type: none;
 }
 
+.popbutton {
+	background-color: #ff8b6d;
+}
+
+.popbutton:hover {
+	background-color: #ffded5;
+}
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend p {
+    color: #555;
+    font-weight: 10px;
+}
+.legend > p > span {
+	display: inline-block;
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+.outer_circle_big
+{
+  background-color: #db4453;
+  border-radius:50%;
+  width:80px;
+  height:80px;
+}
+.outer_circle_medium
+{
+  background-color: #684d91;
+  border-radius:50%;
+  width:60px;
+  height:60px;
+}
+.outer_circle_small
+{
+  background-color: #ffc300;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+}
+.inner_circle
+{
+  width: 60%;
+  height:60%;
+  border-radius: 50%;
+  font-size: 20px;
+  color: #34495e;
+  position:absolute;
+  text-align: center;
+  background-color: #fff;
+  margin-top:25%;
+  margin-left:25%;
+  border:1px solid black;
+  font-weight: bold;
+
+}
+/*### TABLE STYLING MLVA ANALYSIS RESULT ###*/
+.blue_card{
+	background-color:#15aabf;
+	display: inline-block;
+	margin-right: 700px;
+
+}
+
+#mlva_form{
+	margin-bottom: 40px;
+}
+#empty_error_mlva{
+	margin-left: 60px;
+	text-align: center;
+	color: #fff;
+	font-weight: bold;
+}
+.btn-group_mlva > button{
+	border-right: 2px #646464;
+  	color: #334c8c; /* White text */
+  	padding: 10px 24px; /* Some padding */
+  	cursor: pointer; /* Pointer/hand icon */
+	margin-bottom: 30px;
+}
+.btn-group-mlva:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.white{
+	background-color:#fff;
+        width: 80%;
+	height: 50%;
+	padding: 30px;
+	display: inline-block;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+
+}
+
+.card_body{
+	text-align: center;
+}
+.info_mlva_table {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+   /* box-shadow: 0 0 15px rgba(0,0,0,0.2);*/
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom:500px
+}
+.info_mlva_table h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.info_mlva_table table {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+
+
+.info_mlva_table table td, .info_mlva_table table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.info_mlva_table table tr:nth-child(even){background-color: #f2f2f2;}
+
+#rz_indicator{
+	border: 3px solid #bb6954;
+	font-weight: bold;}
+
+
+.info_mlva_table table td:first-child{
+	background-color: #34495e;
+  	color: white
+	}
+
+.info_mlva_table table th:first-child{background-color: #fff; border: none;}
+
+.info_mlva_table table tr:hover {background-color: #ddd;}
+
+.info_mlva_table table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #34495e;
+  color: white
+  }
+
+/*### TABLE STYLING ###*/
+
+
 /*### MLVA analysis  ###*/
 
 .container_mlva_banner {
@@ -207,6 +365,7 @@ ul {
 /*### BOOTSTRAP WELL MODIFICATION AND ERROR ###*/
 .blue{
 	background-color:#15aabf;
+
 }
 
 .cream{
@@ -214,12 +373,7 @@ ul {
 	width: 100%;
 }
 
-.white{
-	background-color:#fff;
-        width: 30%;
-	color:red;
 
-}
 .fa-exclamation-triangle {
 	background-color:#15aabf;
 	color: #fff;

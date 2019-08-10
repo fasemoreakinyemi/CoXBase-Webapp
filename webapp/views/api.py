@@ -1,4 +1,7 @@
 from pyramid.view import view_config
+from pyramid.paster import get_appsettings
+from sqlalchemy import engine_from_config, create_engine
+from sqlalchemy.ext.automap import automap_base
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
 from sqlalchemy.exc import DBAPIError
@@ -7,6 +10,7 @@ from .. import process_request
 
 
 
+RP = process_request.RequestProcessor()
 @view_config(route_name='api_column', renderer='json')
 def api_filter(request):
     RP = process_request.RequestProcessor()
@@ -58,3 +62,14 @@ def get_coordinates(request):
     query = request.db2_session.query(models.SampleMetadata).filter(
         models.SampleMetadata.MLVAID == _column).all()
     return RP._serialize_coord(query)
+
+@view_config(route_name='api_coxviewer', renderer='json')
+def get_geo_details(request):
+    Base = automap_base()
+    settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
+    engine = engine_from_config(settings, 'db2.')
+    Base.prepare(engine, reflect=True)
+    isolates = Base.classes.isolates
+    query = request.db2_session.query(isolates.country).all()
+    return RP.to_geoloc_dict(query)
+

@@ -2,6 +2,8 @@
 # -*- coding: iso-8859-15 -*-
 from .. import models
 from pyramid.response import Response
+import pandas as pd
+import numpy as np
 
 class RequestProcessor():
     __model_dict = {'SampleYear' : models.SampleMetadata.SampleYear,
@@ -55,6 +57,34 @@ class RequestProcessor():
                 else:
                     _result_dict[str(items)] = _result_dict.get(str(items)) + 1
         return _result_dict
+
+    @staticmethod
+    def to_geoloc_dict(args):
+        file_path = '/home/ubuntu/countries.csv'
+        geofile = pd.read_csv(file_path, sep=",")
+        base_count = 1
+        _result_dict = {}
+        tidy_list = [item for item, in args]
+        for items in tidy_list:
+            if items:
+                if not str(items) in _result_dict:
+                    _result_dict[str(items)] = base_count
+                else:
+                    _result_dict[str(items)] = _result_dict.get(str(items)) + 1
+        list_container = []
+        for keys in _result_dict:
+            item_dict = {}
+            query = geofile.loc[geofile['country'] == keys] #geofile.query("country=='{}'".format(keys))
+            item_dict['ID'] = keys
+            item_dict['count'] = str(_result_dict.get(keys, None))
+            item_dict['name'] = str("".join(list(query['name'].values)))
+            item_dict['lat'] = "".join(map(str, query['latitude'].values))
+            item_dict['long'] = "".join(map(str, query['longitude'].values))
+            if item_dict['name'] == "":
+                continue
+            else:
+                list_container.append(item_dict)
+        return list_container
     
     @staticmethod
     def _serialize(obj):

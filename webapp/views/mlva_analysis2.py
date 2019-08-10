@@ -22,7 +22,7 @@ import json
 
 @view_config(route_name='mlvaresult')
 def mlvaprocess_view(request):
-    if 'fastafile' not in request.POST:
+    if 'fastafile' not in request.POST or 'fastaentry' not in request.POST:
         raise HTTPNotFound()
     filename = request.POST['fastafile'].filename
     inputfile = request.POST['fastafile'].file
@@ -77,7 +77,11 @@ def mlvaprocess_view(request):
             repeat_num = float((int(prod) - int(flank_len))/ int(rep_size))
             repeat_num2 = int((int(prod) - int(flank_len))/ int(rep_size))
             out_repeat_dict[keys] = repeat_num2
+    submission_dict = {'ID' : process_ID, 
+                       'AnalysisType': 'MLVA Insilico typing',
+                       'IPaddress' : request.remote_addr} 
     session = request.db2_session
+    session.execute(insert(models.SubmissionTable).values([submission_dict]))
     session.execute(insert(models.ProductLength).values([out_prod_dict]))
     session.execute(insert(models.RepeatSize).values([out_rsize_dict]))
     session.execute(insert(models.RepeatNumber).values([out_repeat_dict]))
@@ -85,14 +89,22 @@ def mlvaprocess_view(request):
     session.commit()
     url = request.route_url('resMLVA', ID=process_ID)
     return HTTPFound(location=url)
-@view_config(route_name='resMLVA', renderer="../templates/mlvaresult.jinja2")
+@view_config(route_name='resMLVA',
+             renderer="../templates/mlva_analysis_result_table.jinja2")
 def resMLVA_view(request):
     process_ID = request.matchdict['ID']
-    query = request.db2_session.query(models.ProductLength).filter(
+    query1 = request.db2_session.query(models.ProductLength).filter(
         models.ProductLength.ID == process_ID).first()
-    if query is None:
+    if query1 is None:
         raise HTTPNotFound()
-    return  {'count' :query}
+    query2 = request.db2_session.query(models.FlankLength).filter(
+        models.FlankLength.ID == process_ID).first()
+    query3 = request.db2_session.query(models.RepeatSize).filter(
+        models.RepeatSize.ID == process_ID).first()
+    query4 = request.db2_session.query(models.RepeatNumber).filter(
+        models.RepeatNumber.ID == process_ID).first()
+    return  {'ProductLength' :query1, 'FlankLength': query2, 
+             'RepeatSize': query3, 'RepeatNumber': query4}
 
 
 

@@ -20,7 +20,7 @@ settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini"
 engine = engine_from_config(settings, 'db2.')
 Base.prepare(engine, reflect=True)
 
-@view_config(route_name='mlvaanalysis', renderer='../templates/mlvaanalysis.jinja2')
+@view_config(route_name='mlvaanalysis', renderer='../templates/mlva_analysis.jinja2')
 def mlvaanalysis_view(request):
     return {}
 
