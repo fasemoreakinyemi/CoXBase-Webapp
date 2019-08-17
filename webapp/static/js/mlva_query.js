@@ -11,7 +11,7 @@ var dict = {
 
 function json2table(json){
 	var cols = dict[142] //Object.keys(json[0]);
-	var headerRow = '<th>ID</th>';
+	var headerRow = '<tr>';
 	var bodyRows = '';
 	function capitalizeFirstLetter(string) {
 		return string;
@@ -19,13 +19,14 @@ function json2table(json){
 	cols.map(function(col) {
 	 headerRow += '<th>' + capitalizeFirstLetter(col) + '</th>';
 		});
+	headerRow += '<th>Genotype</th></tr>';
 
 json.map(function(row) {
 	bodyRows += '<tr>';
-	bodyRows += '<td>' + row['ID'] + '</td>';
 	cols.map(function(colName) {
 		bodyRows += '<td>' + row[colName] + '</td>';
 				});
+	bodyRows += '<td>' + row['Genotype'] + '</td>';
 	bodyRows += '<td><button class="btnView">View profile entries</button></td>';
 	bodyRows += '</tr>';
 

@@ -46,7 +46,9 @@ function get_class(cnt){
 
 		});
 
-		mypopup = '<div class=""><h2>Details</h2><table class="table"><tbody><tr><td>Country</td><td>' + row['name'] + '</td></tr><tr><td>No of Isolates </td><td>' + row['count'] +'</td></tr><tr><td>Isolates table</td><td><a href="http://coxiella.net/webapp/"><button class="popbutton">here</button></a></td></tr></tbody></table></div>'
+		var hst = location.host;
+		var url = "http://" + hst + "/webapp/coxviewer_table/" + row['ID']
+		mypopup = '<div class=""><h2>Details</h2><table class="table"><tbody><tr><td>Country</td><td>' + row['name'] + '</td></tr><tr><td>No of Isolates </td><td>' + row['count'] + '</td></tr><tr><td>Isolates table</td><td><a href=' + url + '><button class="popbutton">here</button></a></td></tr></tbody></table></div>'
 
 		var customOptions = { 'maxWidth': '250', 'className' : 'custom' }
 		marker = new L.marker(L.latLng(parseFloat(row['lat']),parseFloat(row['long'])), {icon: myIcon}).bindPopup(mypopup, customOptions).addTo(map)

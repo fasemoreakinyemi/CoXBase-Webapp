@@ -106,7 +106,27 @@ def resMLVA_view(request):
     return  {'ProductLength' :query1, 'FlankLength': query2, 
              'RepeatSize': query3, 'RepeatNumber': query4}
 
+@view_config(route_name='subMLVA',
+             renderer="../templates/mlva_analysis_submission_table.jinja2")
+def subMLVA_view(request):
+    process_ID = request.matchdict['ID']
+    query = request.db2_session.query(models.SubmissionTable).filter(
+        models.SubmissionTable.ID == process_ID).first()
+    if query is None:
+        raise HTTPNotFound()
+    return  {'submission' :query }
 
+
+
+@view_config(route_name='phlMLVA',
+             renderer="../templates/mlva_analysis_phylogenetics.jinja2")
+def phlMLVA_view(request):
+    process_ID = request.matchdict['ID']
+    query = request.db2_session.query(models.RepeatNumber).filter(
+        models.RepeatNumber.ID == process_ID).first()
+    if query is None:
+        raise HTTPNotFound()
+    return  {'RepeatNumber' :query }
 
 
 

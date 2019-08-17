@@ -14,12 +14,29 @@ html, body {
 ul {
   list-style-type: none;
 }
+ 
+/*### COXVIEWER TABLE ###*/
+.handsontable th {
+  background-color: #ff8b6d;
+  letter-spacing: 1px;
+}
+.ht_master tr:nth-of-type(even) > td {
+	background-color: #f2f2f2;
+}
 
-.popbutton {
+.coxviewertable_container {
+	text-align: center;
+}
+#coxviewertable {
+	display: inline-block;
+}
+/*### COXVIEWER TABLE###*/
+/*### COXVIEWER ###*/
+.popbutton:hover {
 	background-color: #ff8b6d;
 }
 
-.popbutton:hover {
+.popbutton {
 	background-color: #ffded5;
 }
 .legend {
@@ -75,6 +92,7 @@ ul {
   font-weight: bold;
 
 }
+/*### COXVIEWER ###*/
 /*### TABLE STYLING MLVA ANALYSIS RESULT ###*/
 .blue_card{
 	background-color:#15aabf;
@@ -126,7 +144,7 @@ ul {
    /* box-shadow: 0 0 15px rgba(0,0,0,0.2);*/
     border-radius: 5px;
     display: inline-block;
-    margin-bottom:500px
+    margin-bottom:1px;
 }
 .info_mlva_table h4 {
     margin: 0 0 5px;

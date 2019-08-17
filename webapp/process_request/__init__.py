@@ -4,8 +4,15 @@ from .. import models
 from pyramid.response import Response
 import pandas as pd
 import numpy as np
+from pyramid.paster import get_appsettings
+from sqlalchemy import engine_from_config, create_engine
+from sqlalchemy.ext.automap import automap_base
 
 class RequestProcessor():
+    Base = automap_base()
+    settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
+    engine = engine_from_config(settings, 'db2.')
+    Base.prepare(engine, reflect=True)
     __model_dict = {'SampleYear' : models.SampleMetadata.SampleYear,
                     'SampleHost' : models.SampleMetadata.SampleHost,
                     'SampleCountry' : models.SampleMetadata.SampleCountry,
@@ -16,7 +23,7 @@ class RequestProcessor():
                     'MLVAID' : models.SampleMetadata.MLVAID,
                     'TypingID' : models.SampleMetadata.TypingID}
 
-    __repeat_model_dict = {'ms01' : models.mlvaProfile.ms01,
+    __repeat_model_dict_prev = {'ms01' : models.mlvaProfile.ms01,
                            'ms03' : models.mlvaProfile.ms03,
                            'ms20' : models.mlvaProfile.ms20,
                            'ms21' : models.mlvaProfile.ms21,
@@ -30,6 +37,36 @@ class RequestProcessor():
                            'ms31' : models.mlvaProfile.ms31,
                            'ms33' : models.mlvaProfile.ms33,
                            'ms34' : models.mlvaProfile.ms34}
+
+    __repeat_model_dict = {'ms01' : Base.classes.mlva_normalized.ms01,
+                           'ms03' : Base.classes.mlva_normalized.ms03,
+                           'ms20' : Base.classes.mlva_normalized.ms20,
+                           'ms21' : Base.classes.mlva_normalized.ms21,
+                           'ms22' : Base.classes.mlva_normalized.ms22,
+                           'ms23' : Base.classes.mlva_normalized.ms23,
+                           'ms24' : Base.classes.mlva_normalized.ms24,
+                           'ms26' : Base.classes.mlva_normalized.ms26,
+                           'ms27' : Base.classes.mlva_normalized.ms27,
+                           'ms28' : Base.classes.mlva_normalized.ms28,
+                           'ms30' : Base.classes.mlva_normalized.ms30,
+                           'ms31' : Base.classes.mlva_normalized.ms31,
+                           'ms33' : Base.classes.mlva_normalized.ms33,
+                           'ms34' : Base.classes.mlva_normalized.ms34}
+
+
+    @staticmethod
+    def check_nonetype_int(item):
+        if item == None:
+            return None
+        else:
+            return str(item)
+    @staticmethod
+    def check_nonetype_str(item):
+        if item == None:
+            return None
+        else:
+            return str(float(round(item, 2)))
+
     @classmethod
     def get_model(cls, column_from_path):
         query_model = cls.__model_dict.get(column_from_path, None)
@@ -85,7 +122,7 @@ class RequestProcessor():
             else:
                 list_container.append(item_dict)
         return list_container
-    
+    # json for front end table
     @staticmethod
     def _serialize(obj):
         list_container = []
@@ -98,30 +135,30 @@ class RequestProcessor():
             item_dict['Genotype'] = items.MLVAID
             list_container.append(item_dict)
         return list_container
-
-    @staticmethod
-    def _serialize_mlva(obj):
+    # mlva result to json serializer
+    @classmethod
+    def _serialize_mlva(cls, obj):
         list_container = []
         for items in obj:
             item_dict = {}
-            item_dict['ID'] = int(items.ID)
-            item_dict['ms01'] = int(items.ms01)
-            item_dict['ms03'] = int(items.ms03)
-            item_dict['ms20'] = str(float(round(items.ms20, 2)))
-            item_dict['ms21'] = int(items.ms21)
-            item_dict['ms22'] = int(items.ms22)
-            item_dict['ms23'] = int(items.ms23)
-            item_dict['ms24'] = int(items.ms24)
-            item_dict['ms26'] = int(items.ms26)
-            item_dict['ms27'] = int(items.ms27)
-            item_dict['ms28'] = int(items.ms28)
-            item_dict['ms30'] = str(float(round(items.ms30, 2)))
-            item_dict['ms31'] = int(items.ms31)
-            item_dict['ms33'] = int(items.ms33)
-            item_dict['ms34'] = int(items.ms34)
+            item_dict['Genotype'] = items.ngt
+            item_dict['ms01'] = cls.check_nonetype_int(items.ms01)
+            item_dict['ms03'] = cls.check_nonetype_int(items.ms03)
+            item_dict['ms20'] = cls.check_nonetype_str(items.ms20)
+            item_dict['ms21'] = cls.check_nonetype_int(items.ms21)
+            item_dict['ms22'] = cls.check_nonetype_int(items.ms22)
+            item_dict['ms23'] = cls.check_nonetype_int(items.ms23)
+            item_dict['ms24'] = cls.check_nonetype_int(items.ms24)
+            item_dict['ms26'] = cls.check_nonetype_int(items.ms26)
+            item_dict['ms27'] = cls.check_nonetype_int(items.ms27)
+            item_dict['ms28'] = cls.check_nonetype_int(items.ms28)
+            item_dict['ms30'] = cls.check_nonetype_str(items.ms30)
+            item_dict['ms31'] = cls.check_nonetype_int(items.ms31)
+            item_dict['ms33'] = cls.check_nonetype_int(items.ms33)
+            item_dict['ms34'] = cls.check_nonetype_int(items.ms34)
             list_container.append(item_dict)
         return list_container
-    
+    # mst results to json serializer
     @staticmethod
     def _serialize_mst(obj):
         list_container = []
@@ -140,7 +177,7 @@ class RequestProcessor():
             item_dict['cox61'] = int(items.COX61)
             list_container.append(item_dict)
         return list_container
-    
+    # geographical details for map
     @staticmethod
     def _serialize_coord(obj):
         list_container = []
@@ -151,6 +188,47 @@ class RequestProcessor():
             item_dict['long'] = str(items.Longitude)
             list_container.append(item_dict)
         return list_container
+   
+   # country list for coxviewer
+    @staticmethod
+    def _serialize_ctr_dts(obj):
+        list_container = []
+        for items in obj:
+            item_dict = {}
+            item_dict['name'] = items.name
+            item_dict['doi'] = str(items.yearOfIsolation)
+            item_dict['host'] = items.host
+            item_dict['source'] = items.tissue
+            item_dict['location'] = items.geographicOrigin
+            item_dict['province'] = items.province
+            item_dict['plasmid'] = items.plasmidType
+            item_dict['adagene'] = items.adaGene
+            item_dict['mlva'] = items.mlvaGenotype
+            item_dict['mst'] = items.mstGroup
+            item_dict['isgroup'] = items.isGroup
+            list_container.append(item_dict)
+        return list_container
+   
+   # country list for coxviewer list method
+    @staticmethod
+    def _serialize_ctr_dts_ls(obj):
+        list_container = []
+        for items in obj:
+            item_list = []
+            item_list.append(items.name)
+            item_list.append(str(items.yearOfIsolation))
+            item_list.append(items.host)
+            item_list.append(items.tissue)
+            item_list.append(items.geographicOrigin)
+            item_list.append(items.province)
+            item_list.append(items.plasmidType)
+            item_list.append(items.adaGene)
+            item_list.append(items.mlvaGenotype)
+            item_list.append(items.mstGroup)
+            item_list.append(items.isGroup)
+            list_container.append(item_list)
+        return list_container
+    
     
     @staticmethod
     def response_error():

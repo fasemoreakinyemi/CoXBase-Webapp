@@ -26,9 +26,9 @@
     <div class="card_body">
       <div class="well well-lg white">
 	      <div class="btn-group_mlva">
-  		<button class="res_tab">Result table</button>
-  		<button class="sub_det">Submission details</button>
-  		<button class="phy_ana">Phylogenetic analysis</button>
+		      <button class="res_tab" onclick="window.location.href='{{request.route_url('resMLVA', ID=ProductLength.ID)}}';">Result table</button>
+  		<button class="sub_det" onclick="window.location.href='{{request.route_url('subMLVA', ID=ProductLength.ID)}}';">Submission details</button>
+  		<button class="phy_ana" onclick="window.location.href='{{request.route_url('phlMLVA', ID=ProductLength.ID)}}';">Phylogenetic analysis</button>
 	      </div>
 		  <div class="info_mlva_table">
 			  <table>

@@ -73,3 +73,14 @@ def get_geo_details(request):
     query = request.db2_session.query(isolates.country).all()
     return RP.to_geoloc_dict(query)
 
+@view_config(route_name='api_coxviewer2', renderer='json')
+def get_country_details(request):
+    country_id = request.matchdict['ID']
+    Base = automap_base()
+    settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
+    engine = engine_from_config(settings, 'db2.')
+    Base.prepare(engine, reflect=True)
+    isolates = Base.classes.isolates
+    query = request.db2_session.query(isolates).filter(isolates.country == country_id).all()
+    return RP._serialize_ctr_dts_ls(query)
+
