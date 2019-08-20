@@ -17,7 +17,7 @@
   crossorigin=""/>
 
     <!-- Custom styles for this scaffold -->
-    <link href="{{request.static_url('webapp:static/css/main.css')}}" rel="stylesheet">
+    <link href="{{request.static_url('webapp:static/css/dashboard.css')}}" rel="stylesheet">
     <link href="{{request.static_url('webapp:static/css/phylotree.css')}}" rel="stylesheet">
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -31,29 +31,72 @@
   <body>
 	  {% include 'nav.jinja2' %}
     <!--main-->
-    <h1 class="banner"></h1>
+    <h1 class="banner"> Coxbase [ Demo-page ]</h1>
       <div class="container">
 	      <div class="card">
   			<div class="table">
-				<h3> Distribution Charts </h3>
+				<h3> Charts </h3>
     			<ul id="horizontal-list">
-			    <li><button class="my_button" ID="SampleYear">by Year</button></li>
-			    <li><button class="my_button" ID="SampleHost">by Host</button></li>
-			    <li><button class="my_button" ID="TypingID">by Genotype</button></li>
-			    <li><button class="my_button" ID="CountryProvince">by Province</button></li>
+			    <li><button class="my_button" ID="SampleYear">Year</button></li>
+			    <li><button class="my_button" ID="SampleHost">Host</button></li>
+			    <li><button class="my_button" ID="TypingID">TypingID</button></li>
+			    <li><button class="my_button" ID="CountryProvince">State</button></li>
 			</ul>
 			</div>
         		<div class="row1">
-			<canvas id="chart"></canvas>
+			<canvas id="barchart"></canvas>
 		</div>
 		    </div>
 	      </div>
       </div>
 	
    
+      <div class="container2">
+	      <div class="card">
+			<h3> Geographical Information of German Isolates</h3>
+			<div class=row1>
+			<div id='map' style="float:left;"></div>
+			<div id='new-parent' class="info" style="margin-bottom:20pt;"></div>
+			</div>
+	      </div>
+      </div>
+      <div class="container2">
+	<div class="card">
+		
+		<h3> Genotyping Information</h3 >
+
+		<!--	<div class="outer_row">-->
+		<div class="row1" style="float:right; clear:both;">
+
+			<p id="genotype_info">Filter Tree: </p>
+			<div class="form-group navbar-form navbar-right" id=""> <!--style="float:right; clear:both;">-->
+			<input type="text" id = 'branch_filter' class="form-control" placeholder="Filter branches with ID">
+			</div>
+			<p id="genotype_info" style> Change tree ID: </p>
+			<div class="btn-group" id="genotype_info">
+				<button id="Country">Country</button>
+  				<button id="Host">Host</button>
+			</div>
+	</div>
+	</div>
+
+	<div class="row1">
+	<svg id="tree_display" width="258.4"></svg>
+	</div>
+	</div>
+	</div>
 	</div>
  
 
+      <!--  <div class="row2">
+			  <select name="species">
+			  {% for item in Province %}
+			  <option value="{{item}}">{{item}}</option>
+			  {% endfor %}
+				</select>
+		<canvas id="barchartfilter"></canvas>
+
+      </div>-->
       </div>
     </div>
 

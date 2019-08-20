@@ -52,84 +52,88 @@
 			  <tr id='rz_indicator'> 
 				  <td>Repeat number</td>
                                   {% if RepeatNumber.ms01 %}
-				  <td>{{RepeatNumber.ms01}}</td>
+				  <td class="entry">{{RepeatNumber.ms01}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                                   {% if RepeatNumber.ms03 %}
-				  <td>{{RepeatNumber.ms03}}</td>
+				  <td class="entry">{{RepeatNumber.ms03}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                                   {% if RepeatNumber.ms20 %}
-				  <td>{{RepeatNumber.ms20}}</td>
+				  <td class="entry">{{RepeatNumber.ms20}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                                   {% if RepeatNumber.ms21 %}
-				  <td>{{RepeatNumber.ms21}}</td>
+				  <td class="entry">{{RepeatNumber.ms21}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                                   {% if RepeatNumber.ms22 %}
-				  <td>{{RepeatNumber.ms22}}</td>
+				  <td class="entry">{{RepeatNumber.ms22}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                                   {% if RepeatNumber.ms23 %}
-				  <td>{{RepeatNumber.ms23}}</td>
+				  <td class="entry">{{RepeatNumber.ms23}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                                   {% if RepeatNumber.ms24 %}
-				  <td>{{RepeatNumber.ms24}}</td>
+				  <td class="entry">{{RepeatNumber.ms24}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                                   {% if RepeatNumber.ms26 %}
-				  <td>{{RepeatNumber.ms26}}</td>
+				  <td class="entry">{{RepeatNumber.ms26}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                                   {% if RepeatNumber.ms27 %}
-				  <td>{{RepeatNumber.ms27}}</td>
+				  <td class="entry">{{RepeatNumber.ms27}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                                   {% if RepeatNumber.ms28 %}
-				  <td>{{RepeatNumber.ms28}}</td>
+				  <td class="entry">{{RepeatNumber.ms28}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                                   {% if RepeatNumber.ms30 %}
-				  <td>{{RepeatNumber.ms30}}</td>
+				  <td class="entry">{{RepeatNumber.ms30}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                                   {% if RepeatNumber.ms31 %}
-				  <td>{{RepeatNumber.ms31}}</td>
+				  <td class="entry">{{RepeatNumber.ms31}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                                   {% if RepeatNumber.ms33 %}
-				  <td>{{RepeatNumber.ms33}}</td>
+				  <td class="entry">{{RepeatNumber.ms33}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                                   {% if RepeatNumber.ms34 %}
-				  <td>{{RepeatNumber.ms34}}</td>
+				  <td class="entry">{{RepeatNumber.ms34}}</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                           </tr>
                   </table>
       </div>
-      <div style="margin-top:1px;">
-      <button> Submit result as query to MLVA Database </button>
+      <div style="margin-bottom:20px;">
+      <button class="submitMLVA"> Submit result as query to MLVA Database </button>
       </div>
       </div>
+      <div class="">
+		      <div id="result" class="result_info">
+		      </div>
       </div>
       </div>
+
 
 
 

@@ -96,6 +96,37 @@ if (len === empty_field.length) {
 event.preventDefault();
 });
 
+$( ".submitMLVA" ).click(function( event ) {
+var empty_field = [];
+var map_list = [];
+$(".entry").each(function(){
+	if ($(this).text() == " Not detected") {
+		var empty_cell = 0
+		map_list.push(empty_cell)
+	} else {
+
+	map_list.push($(this).text());
+	}
+
+});
+
+var len = map_list.length;
+var hst = location.host;
+var url = "http://" + hst + "/webapp/fp_query"
+for (var i=0; i<len; i++) {
+		url+="/" + map_list[i]
+}
+	$.get(url, 'json').done(function(results) {
+		create_result(results)
+	}).fail(function (e){
+		if (e.error) {
+		alert("error due to" + e.error)
+		}
+		});
+
+event.preventDefault();
+});
+
 
 function create_result(data){
 $('#result').html("<div class='result_header'><h1>Found profile(s)</h1></div>" + json2table(data))
@@ -109,8 +140,9 @@ function throw_empty_error(){
 
 $(".result_info").on("click", ".btnView",function(){
 	var currentRow=$(this).closest("tr");
-	var MLVAID=currentRow.find("td:eq(0)").text();
-	var url = "http://coxiella.net/webapp/view/" + MLVAID
+	var MLVAID=currentRow.find("td:eq(14)").text();
+	var hst = location.host;
+	var url = "http://" + hst + "/webapp/view/" + MLVAID
 	window.open(url, '_blank');
 
 });

@@ -183,9 +183,10 @@ class RequestProcessor():
         list_container = []
         for items in obj:
             item_dict = {}
-            item_dict['name'] = items.SampleStrain
-            item_dict['lat'] = str(items.Latitude)
-            item_dict['long'] = str(items.Longitude)
+            item_dict['ID'] = items.ID
+            item_dict['name'] = items.name
+            item_dict['lat'] = str(items.latitude)
+            item_dict['long'] = str(items.longitude)
             list_container.append(item_dict)
         return list_container
    

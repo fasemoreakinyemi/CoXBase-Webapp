@@ -26,7 +26,9 @@ function make_grid(data){
   	dropdownMenu: ['filter_by_condition', 'filter_action_bar', 'filter_by_value'],
 	licenseKey: "non-commercial-and-evaluation"
 });
-}
+	hot.updateSettings({
+        readOnly: true
+    });}
 });
 
 

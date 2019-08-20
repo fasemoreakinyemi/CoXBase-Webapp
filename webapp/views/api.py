@@ -9,8 +9,72 @@ from .. import models
 from .. import process_request
 
 
+Base = automap_base()
+settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
+engine = engine_from_config(settings, 'db2.')
+Base.prepare(engine, reflect=True)
 
 RP = process_request.RequestProcessor()
+@view_config(route_name='api_dashboard_year', renderer='json')
+def api_dashboard_year(request):
+    RP = process_request.RequestProcessor()
+    _column = request.matchdict['ID']
+    model = Base.classes.isolates
+    if model:
+        try:
+            query = request.db2_session.query(model.yearOfIsolation).filter(
+                model.country == _column).all()
+            result_dict = RP.to_dict(query)
+        except DBAPIError:
+            return RP.response_error()
+        return result_dict
+    else:
+        return {'NOT': 'working'}
+@view_config(route_name='api_dashboard_host', renderer='json')
+def api_dashboard_host(request):
+    RP = process_request.RequestProcessor()
+    _column = request.matchdict['ID']
+    model = Base.classes.isolates
+    if model:
+        try:
+            query = request.db2_session.query(model.host).filter(
+                model.country == _column).all()
+            result_dict = RP.to_dict(query)
+        except DBAPIError:
+            return RP.response_error()
+        return result_dict
+    else:
+        return {'NOT': 'working'}
+@view_config(route_name='api_dashboard_province', renderer='json')
+def api_dashboard_province(request):
+    RP = process_request.RequestProcessor()
+    _column = request.matchdict['ID']
+    model = Base.classes.isolates
+    if model:
+        try:
+            query = request.db2_session.query(model.province).filter(
+                model.country == _column).all()
+            result_dict = RP.to_dict(query)
+        except DBAPIError:
+            return RP.response_error()
+        return result_dict
+    else:
+        return {'NOT': 'working'}
+@view_config(route_name='api_dashboard_genotype', renderer='json')
+def api_dashboard_genotype(request):
+    RP = process_request.RequestProcessor()
+    _column = request.matchdict['ID']
+    model = Base.classes.isolates
+    if model:
+        try:
+            query = request.db2_session.query(model.mlvaGenotype).filter(
+                model.country == _column).all()
+            result_dict = RP.to_dict(query)
+        except DBAPIError:
+            return RP.response_error()
+        return result_dict
+    else:
+        return {'NOT': 'working'}
 @view_config(route_name='api_column', renderer='json')
 def api_filter(request):
     RP = process_request.RequestProcessor()
@@ -57,10 +121,10 @@ def map_filter(request):
 
 @view_config(route_name='api_view_map', renderer='json')
 def get_coordinates(request):
-    RP = process_request.RequestProcessor()
+    geoTable = Base.classes.isolates_geolocation
     _column = request.matchdict['ID']
-    query = request.db2_session.query(models.SampleMetadata).filter(
-        models.SampleMetadata.MLVAID == _column).all()
+    query = request.db2_session.query(geoTable).filter(
+        geoTable.mlvaGenotype == _column).all()
     return RP._serialize_coord(query)
 
 @view_config(route_name='api_coxviewer', renderer='json')
@@ -76,10 +140,6 @@ def get_geo_details(request):
 @view_config(route_name='api_coxviewer2', renderer='json')
 def get_country_details(request):
     country_id = request.matchdict['ID']
-    Base = automap_base()
-    settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
-    engine = engine_from_config(settings, 'db2.')
-    Base.prepare(engine, reflect=True)
     isolates = Base.classes.isolates
     query = request.db2_session.query(isolates).filter(isolates.country == country_id).all()
     return RP._serialize_ctr_dts_ls(query)

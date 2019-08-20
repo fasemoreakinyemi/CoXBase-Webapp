@@ -5,6 +5,9 @@ from pyramid.view import view_config
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
 from sqlalchemy.exc import DBAPIError
+from pyramid.paster import get_appsettings
+from sqlalchemy import engine_from_config, create_engine
+from sqlalchemy.ext.automap import automap_base
 from .. import process_request
 from sqlalchemy import or_
 from .. import models
@@ -15,9 +18,14 @@ import  sys
 @view_config(route_name='detailed_view', renderer='../templates/mlva_query_view.jinja2')
 def detailed_mlva_view(request):
     ID = request.matchdict['ID']
+    Base = automap_base()
+    settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
+    engine = engine_from_config(settings, 'db2.')
+    Base.prepare(engine, reflect=True)
+    isolates = Base.classes.isolates
     try:
-        query = request.db2_session.query(models.SampleMetadata).filter(
-            models.SampleMetadata.MLVAID == ID)
+        query = request.db2_session.query(isolates).filter(
+            isolates.mlvaGenotype == ID)
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
     return {'count' : query.count(), 'results' : query.all()}

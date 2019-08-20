@@ -14,5 +14,8 @@ def my_view(request):
     return {}
 
 
+@view_config(route_name='dashboard_coxviewer', renderer='../templates/dashboard.jinja2')
+def dashboard_view(request):
+    return {}
 
 

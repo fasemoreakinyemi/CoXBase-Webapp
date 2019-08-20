@@ -6,25 +6,25 @@
     		</li>
     		<li class="">
     		<li class="">
-		<a href="{{request.route_url('dashboard')}}">Dashboard</a>
+		<a href="{{request.route_url('coxviewer')}}">Distribution map</a>
     		</li>
     		<li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Typing Query <b class="caret"></b></a>
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Query <b class="caret"></b></a>
               <ul class="dropdown-menu">
-		<li><a href="{{request.route_url('mlvaquery')}}">MLVA</a></li>
+		<li><a href="{{request.route_url('mlvaquery')}}">MLVA data</a></li>
                 <li class="divider"></li>
-                <li><a href="{{request.route_url('mstquery')}}">MST</a></li>
+                <li><a href="{{request.route_url('mstquery')}}">MST data</a></li>
                 <li class="divider"></li>
-                <li><a href="#">IS1111</a></li></ul>
+		<li><a href="{{request.route_url('primerquery')}}">Primer sequence</a></li>
+                <li class="divider"></li>
+                <li><a href="#">IS1111 data</a></li></ul>
    		</li>
     		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Analysis <b class="caret"></b></a>
               <ul class="dropdown-menu">
-		<li><a href="{{request.route_url('primerquery')}}">Primer sequence query</a></li>
+                <li><a href="{{request.route_url('mlvaanalysis')}}">MLVA</a></li>
                 <li class="divider"></li>
-                <li><a href="{{request.route_url('mlvaanalysis')}}">MLVA analysis</a></li>
-                <li class="divider"></li>
-                <li><a href="#">IS1111 analysis</a></li></ul>
+                <li><a href="#">IS1111</a></li></ul>
    		</li>
     		<li class="">
       		<a class="" href="#">Annotation</a>
