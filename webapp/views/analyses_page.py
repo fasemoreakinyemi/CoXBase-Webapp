@@ -15,12 +15,11 @@ import logging
 import traceback
 import  sys
 
-Base = automap_base()
-settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
-engine = engine_from_config(settings, 'db2.')
-Base.prepare(engine, reflect=True)
 
 @view_config(route_name='mlvaanalysis', renderer='../templates/mlva_analysis.jinja2')
 def mlvaanalysis_view(request):
     return {}
 
+@view_config(route_name='mstanalysis', renderer='../templates/mst_analysis.jinja2')
+def mstanalysis_view(request):
+    return {}

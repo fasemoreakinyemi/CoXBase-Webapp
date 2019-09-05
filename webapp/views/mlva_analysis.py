@@ -36,7 +36,7 @@ def mlvaprocess_view(request):
     out_file = "/home/ubuntu/temp/output.tab"
     Path(out_file).touch()
     sts_file = "/home/ubuntu/coxbase/coxbase/scripts/input/coxiella_ms.sts"
-    command = ["/home/ubuntu/Linux-x86_64/e-PCR", "-w7", "-f","1","-m100","-o", out_file,"-t3", sts_file, file_path]
+    command = ["/home/ubuntu/tools/Linux-x86_64/e-PCR", "-w7", "-f","1","-m100","-o", out_file,"-t3", sts_file, file_path]
     subprocess.call(command)
     flank_len_dict = {"ms01": 176, "ms03": 142,
                   "ms20": 96, "ms21": 137,
