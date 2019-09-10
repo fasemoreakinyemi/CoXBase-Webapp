@@ -15,7 +15,10 @@ function draw_map(results){
 
 var coord_array = JSON.parse(JSON.stringify(results));
 var map = L.map('coxviewermap').setView([35, 0], 2.8).setMaxBounds([[-90, -180],[90, 180]]);
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd'}).addTo(map);
+/*L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);*/
 
 function get_iconAnchor(cnt){
 	return cnt > 50 ?  [40, 80] :

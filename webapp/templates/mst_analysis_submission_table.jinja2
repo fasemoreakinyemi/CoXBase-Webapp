@@ -26,77 +26,25 @@
     <div class="card_body">
       <div class="well well-lg white">
 	      <div class="btn-group_mlva">
-		      <button class="res_tab" onclick="window.location.href='{{request.route_url('resMST', ID=results.ID)}}';">Result table</button>
-  		<button class="sub_det" onclick="window.location.href='{{request.route_url('subMST', ID=results.ID)}}';">Submission details</button>
-  		<button class="phy_ana" onclick="window.location.href='{{request.route_url('phlMST', ID=results.ID)}}';">Phylogenetic analysis</button>
+		      <button class="res_tab" onclick="window.location.href='{{request.route_url('resMST', ID=submission.ID)}}';">Result table</button>
+  		<button class="sub_det" onclick="window.location.href='{{request.route_url('subMST', ID=submission.ID)}}';">Submission details</button>
+  		<button class="phy_ana" onclick="window.location.href='{{request.route_url('phlMST', ID=submission.ID)}}';">Phylogenetic analysis</button>
+  		<button class="phy_ana" onclick="window.location.href='{{request.route_url('phlMST', ID=submission.ID)}}';">Phylogenetic analysis</button>
 	      </div>
-		  <div class="info_mst_table">
+		  <div class="info_mlva_table">
 			  <table>
-                          <tr>
-                                  <th>cox2</th>
-                                  <th>cox5</th>
-                                  <th>cox18</th>
-                                  <th>cox20</th>
-                                  <th>cox22</th>
-                                  <th>cox37</th>
-                                  <th>cox51</th>
-                                  <th>cox56</th>
-                                  <th>cox57</th>
-                                  <th>cox61</th>
-			  </tr>
-			  <tr id='rz_indicator'> 
-                                  {% if results.cox2 %}
-				  <td>{{results.cox2}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox5 %}
-				  <td>{{results.cox5}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox18 %}
-				  <td>{{results.cox18}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox20 %}
-				  <td>{{results.cox20}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox22 %}
-				  <td>{{results.cox22}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox37 %}
-				  <td>{{results.cox37}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox51 %}
-				  <td>{{results.cox51}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox56 %}
-				  <td>{{results.cox56}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox57 %}
-				  <td>{{results.cox57}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox61 %}
-				  <td>{{results.cox61}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
+			  <tr> 
+				  <td>Submission ID</td>
+				  <td>{{submission.ID}}</td>
                           </tr>
-
+			  <tr> 
+				  <td>Submission Time</td>
+				  <td>{{submission.SubmissionDate}}</td>
+                          </tr>
+			  <tr> 
+				  <td>Analysis type</td>
+				  <td>{{submission.AnalysisType}}</td>
+                          </tr>
                   </table>
       </div>
       </div>

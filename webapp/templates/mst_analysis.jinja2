@@ -37,7 +37,7 @@
     <div class="container_mlva_banner">
 	    <h1> Multispacer Sequence Typing (MST) </h1>
 	    <p> Multispacer Sequence Typing (MST) was developed in the Raoult lab in 2005. It exploits the differences in intergenic spacer regions of <i>Coxiella burnetii</i> to type Coxiella species into over over 20 groups.</br> According to the publication, (found <a href="https://www.ncbi.nlm.nih.gov/pubmed/16102309">here</a>), These regions are potentially variable hence they are subject to lower selection pressure than the adjacent genes.  </p>
-	    <form name="mlvaInput" action="/webapp/mstresult" id="mlva_form" method=POST onsubmit="return validateform()" enctype=multipart/form-data>
+	    <form name="mlvaInput" action="/webapp/result/mst" id="mlva_form" method=POST onsubmit="return validateform()" enctype=multipart/form-data>
 		    <p> <b>Enter Sequence in Fasta Format</b></p>
 		    <p> <textarea name="fastaentry" rows="7" cols="100"></textarea> <br>
 		    OR, upload a file <label for="fastafile"></label>

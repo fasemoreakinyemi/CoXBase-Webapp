@@ -6,11 +6,20 @@ window.validateform = function(){
 		throw_empty_error()
 		return false;
 	}
+	else if (document.forms['mlvaInput']['fastaentry'].value !== "" && document.forms['mlvaInput']['fastafile'].value !== "") {
+		throw_multiple_error()
+		return false;
+	}
+	
 };
 
 function throw_empty_error(){
 	$('#result').empty()
 	$('#empty_error_mlva').html("<div class=''><div class='well blue_card'><span><i class='fas fa-exclamation-triangle fa-2x'></i></span> Please upload a file in fasta format or paste your sequence in the sequence field <span><i class='fas fa-exclamation-triangle fa-2x'></i></span></div>")
+}
+function throw_multiple_error(){
+	$('#result').empty()
+	$('#empty_error_mlva').html("<div class=''><div class='well blue_card'><span><i class='fas fa-exclamation-triangle fa-2x'></i></span> Please upload either a fasta file  or sequence input not both <span><i class='fas fa-exclamation-triangle fa-2x'></i></span></div>")
 }
 
 function downloadCSV(csv, filename) {

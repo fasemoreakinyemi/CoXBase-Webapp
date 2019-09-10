@@ -14,7 +14,55 @@ html, body {
 ul {
   list-style-type: none;
 }
- 
+/*## TABLE STYLING MST ANALYSIS RESULT TABLE ##*/  
+.info_mst_table {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+   /* box-shadow: 0 0 15px rgba(0,0,0,0.2);*/
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom:1px;
+}
+.info_mst_table h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.info_mst_table table {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+
+
+.info_mst_table table td, .info_mst_table table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.info_mst_table table tr:nth-child(even){background-color: #f2f2f2;}
+
+#rz_indicator{
+	border: 3px solid #bb6954;
+	font-weight: bold;}
+
+
+
+.info_mst_table table tr:hover {background-color: #ddd;}
+
+.info_mst_table table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #34495e;
+  color: white
+  }
+
+/*### TABLE STYLING ###*/
+
 /*### COXVIEWER TABLE ###*/
 .handsontable th {
   background-color: #ff8b6d;

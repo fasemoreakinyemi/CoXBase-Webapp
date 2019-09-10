@@ -26,106 +26,81 @@
     <div class="card_body">
       <div class="well well-lg white">
 	      <div class="btn-group_mlva">
-		      <button class="res_tab" onclick="window.location.href='{{request.route_url('resMLVA', ID=RepeatNumber.ID)}}';">Result table</button>
-  		<button class="sub_det" onclick="window.location.href='{{request.route_url('subMLVA', ID=RepeatNumber.ID)}}';">Submission details</button>
-  		<button class="phy_ana" onclick="window.location.href='{{request.route_url('phlMLVA', ID=RepeatNumber.ID)}}';">Phylogenetic analysis</button>
+		      <button class="res_tab" onclick="window.location.href='{{request.route_url('resMST', ID=results.ID)}}';">Result table</button>
+  		<button class="sub_det" onclick="window.location.href='{{request.route_url('subMST', ID=results.ID)}}';">Submission details</button>
+  		<button class="phy_ana" onclick="window.location.href='{{request.route_url('phlMST', ID=results.ID)}}';">Phylogenetic analysis</button>
 	      </div>
-		  <div class="info_mlva_table">
+		  <div class="info_mst_table">
 			  <table>
                           <tr>
-				  <th></th>
-                                  <th>ms01</th>
-                                  <th>ms03</th>
-                                  <th>ms20</th>
-                                  <th>ms21</th>
-                                  <th>ms22</th>
-                                  <th>ms23</th>
-                                  <th>ms24</th>
-                                  <th>ms26</th>
-                                  <th>ms27</th>
-                                  <th>ms28</th>
-                                  <th>ms30</th>
-                                  <th>ms31</th>
-                                  <th>ms33</th>
-                                  <th>ms34</th>
+                                  <th>cox2</th>
+                                  <th>cox5</th>
+                                  <th>cox18</th>
+                                  <th>cox20</th>
+                                  <th>cox22</th>
+                                  <th>cox37</th>
+                                  <th>cox51</th>
+                                  <th>cox56</th>
+                                  <th>cox57</th>
+                                  <th>cox61</th>
 			  </tr>
 			  <tr id='rz_indicator'> 
-				  <td>Repeat number</td>
-                                  {% if RepeatNumber.ms01 %}
-				  <td class="entry">{{RepeatNumber.ms01}}</td>
+                                  {% if results.cox2 %}
+				  <td class="entry">{{results.cox2}}</td>
 				  {% else %}
 				  <td class="entry"> Not detected</td>
 				  {%- endif %}
-                                  {% if RepeatNumber.ms03 %}
-				  <td class="entry">{{RepeatNumber.ms03}}</td>
+                                  {% if results.cox5 %}
+				  <td class="entry">{{results.cox5}}</td>
 				  {% else %}
 				  <td class="entry"> Not detected</td>
 				  {%- endif %}
-                                  {% if RepeatNumber.ms20 %}
-				  <td class="entry">{{RepeatNumber.ms20}}</td>
+                                  {% if results.cox18 %}
+				  <td class="entry">{{results.cox18}}</td>
 				  {% else %}
 				  <td class="entry"> Not detected</td>
 				  {%- endif %}
-                                  {% if RepeatNumber.ms21 %}
-				  <td class="entry">{{RepeatNumber.ms21}}</td>
+                                  {% if results.cox20 %}
+				  <td class="entry">{{results.cox20}}</td>
 				  {% else %}
 				  <td class="entry"> Not detected</td>
 				  {%- endif %}
-                                  {% if RepeatNumber.ms22 %}
-				  <td class="entry">{{RepeatNumber.ms22}}</td>
+                                  {% if results.cox22 %}
+				  <td class="entry">{{results.cox22}}</td>
 				  {% else %}
 				  <td class="entry"> Not detected</td>
 				  {%- endif %}
-                                  {% if RepeatNumber.ms23 %}
-				  <td class="entry">{{RepeatNumber.ms23}}</td>
+                                  {% if results.cox37 %}
+				  <td class="entry">{{results.cox37}}</td>
 				  {% else %}
 				  <td class="entry"> Not detected</td>
 				  {%- endif %}
-                                  {% if RepeatNumber.ms24 %}
-				  <td class="entry">{{RepeatNumber.ms24}}</td>
+                                  {% if results.cox51 %}
+				  <td class="entry">{{results.cox51}}</td>
 				  {% else %}
 				  <td class="entry"> Not detected</td>
 				  {%- endif %}
-                                  {% if RepeatNumber.ms26 %}
-				  <td class="entry">{{RepeatNumber.ms26}}</td>
+                                  {% if results.cox56 %}
+				  <td class="entry">{{results.cox56}}</td>
 				  {% else %}
 				  <td class="entry"> Not detected</td>
 				  {%- endif %}
-                                  {% if RepeatNumber.ms27 %}
-				  <td class="entry">{{RepeatNumber.ms27}}</td>
+                                  {% if results.cox57 %}
+				  <td class="entry">{{results.cox57}}</td>
 				  {% else %}
 				  <td class="entry"> Not detected</td>
 				  {%- endif %}
-                                  {% if RepeatNumber.ms28 %}
-				  <td class="entry">{{RepeatNumber.ms28}}</td>
-				  {% else %}
-				  <td class="entry"> Not detected</td>
-				  {%- endif %}
-                                  {% if RepeatNumber.ms30 %}
-				  <td class="entry">{{RepeatNumber.ms30}}</td>
-				  {% else %}
-				  <td class="entry"> Not detected</td>
-				  {%- endif %}
-                                  {% if RepeatNumber.ms31 %}
-				  <td class="entry">{{RepeatNumber.ms31}}</td>
-				  {% else %}
-				  <td class="entry"> Not detected</td>
-				  {%- endif %}
-                                  {% if RepeatNumber.ms33 %}
-				  <td class="entry">{{RepeatNumber.ms33}}</td>
-				  {% else %}
-				  <td class="entry"> Not detected</td>
-				  {%- endif %}
-                                  {% if RepeatNumber.ms34 %}
-				  <td class="entry">{{RepeatNumber.ms34}}</td>
+                                  {% if results.cox61 %}
+				  <td class="entry">{{results.cox61}}</td>
 				  {% else %}
 				  <td class="entry"> Not detected</td>
 				  {%- endif %}
                           </tr>
+
                   </table>
       </div>
       <div style="margin-bottom:20px;">
-      <button class="submitMLVA"> Submit result as query to MLVA Database </button>
+      <button class="submitMST"> Submit result as query to MST Database </button>
       </div>
       </div>
       <div class="">
@@ -146,7 +121,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <script src="{{request.static_url('webapp:static/js/mlva_query.js')}}" type="text/javascript"></script>
+    <script src="{{request.static_url('webapp:static/js/mst_query.js')}}" type="text/javascript"></script>
     <script src="{{request.static_url('webapp:static/js/view_map.js')}}" type="text/javascript"></script>
     <script src="{{request.static_url('webapp:static/js/extras.js')}}" type="text/javascript"></script>
   </body>
