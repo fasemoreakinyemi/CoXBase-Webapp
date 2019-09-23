@@ -3,7 +3,7 @@ from sqlalchemy.sql import insert
 from pyramid.httpexceptions import (
     HTTPFound,
     HTTPNotFound,
-    )
+    HTTPNotAcceptable)
 from pyramid.httpexceptions import HTTPBadRequest
 from pathlib2 import Path
 from .. import models
@@ -34,7 +34,10 @@ def mstprocess_view(request):
     else:
         sequence = memoryview(request.POST['fastaentry'].encode('utf-8'))
         file_path = VP.create_file_from_fastaentry(sequence, process_ID)
-    spacer_dict = VP.mstprocessor(file_path, process_ID)
+    try:
+        spacer_dict = VP.mstprocessor(file_path, process_ID)
+    except:
+        raise HTTPNotAcceptable("Please check your submission \n Strongly recommend to use a whole genome file")
     submission_dict = {'ID' : process_ID, 
                        'AnalysisType': 'MST Insilico typing',
                        'IPaddress' : request.remote_addr} 

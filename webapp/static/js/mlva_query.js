@@ -142,7 +142,7 @@ $(".result_info").on("click", ".btnView",function(){
 	var currentRow=$(this).closest("tr");
 	var MLVAID=currentRow.find("td:eq(14)").text();
 	var hst = location.host;
-	var url = "http://" + hst + "/webapp/view/" + MLVAID
+	var url = "http://" + hst + "/webapp/eview/mlva/" + MLVAID
 	window.open(url, '_blank');
 
 });

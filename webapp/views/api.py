@@ -119,12 +119,20 @@ def map_filter(request):
     result = query.filter(model == _filter_value).all()
     return RP._serialize(result)
 
-@view_config(route_name='api_view_map', renderer='json')
-def get_coordinates(request):
+@view_config(route_name='api_mlva_map', renderer='json')
+def get_mlva_coordinates(request):
     geoTable = Base.classes.isolates_geolocation
     _column = request.matchdict['ID']
     query = request.db2_session.query(geoTable).filter(
         geoTable.mlvaGenotype == _column).all()
+    return RP._serialize_coord(query)
+
+@view_config(route_name='api_mst_map', renderer='json')
+def get_mst_coordinates(request):
+    geoTable = Base.classes.isolates_geolocation
+    _column = request.matchdict['ID']
+    query = request.db2_session.query(geoTable).filter(
+        geoTable.mstGroup == _column).all()
     return RP._serialize_coord(query)
 
 @view_config(route_name='api_coxviewer', renderer='json')

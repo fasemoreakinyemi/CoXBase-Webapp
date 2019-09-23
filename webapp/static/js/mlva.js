@@ -22,6 +22,33 @@ function throw_multiple_error(){
 	$('#empty_error_mlva').html("<div class=''><div class='well blue_card'><span><i class='fas fa-exclamation-triangle fa-2x'></i></span> Please upload either a fasta file  or sequence input not both <span><i class='fas fa-exclamation-triangle fa-2x'></i></span></div>")
 }
 
+function to_file(input_id){
+	var text = document.getElementById(input_id).innerHTML;
+	var textFile = new Blob([text], {type: 'text/plain'});
+	return textFile
+}
+
+function send_to_backend(file){
+	var formdata = new FormData();
+	formdata.append('fastafile', file)
+	$.ajax({
+ 	 url: 'http://coxiella.net/webapp/result/mst',
+  	data: formdata,
+  	processData: false,
+  	contentType: false,
+  	type: 'POST',
+  	success: function(data){
+   	 alert(data);
+  		}
+	});
+
+//	var xhr = new XMLHttpRequest();
+//	xhr.open('POST', 'http://coxiella.net/webapp/result/mst', true)
+//	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+//	xhr.send(formdata)
+}
+
+
 function downloadCSV(csv, filename) {
     var csvFile;
     var downloadLink;

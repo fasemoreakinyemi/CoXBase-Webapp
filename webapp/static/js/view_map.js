@@ -2,11 +2,16 @@
 $(document).ready(function()
 {
 
+var url;
 var path_name = window.location.href;
-var wanted_id = path_name.split("/")[5];
+var wanted_id = path_name.split("/")[6];
+var typing_method =  path_name.split("/")[5];
 var hst = location.host;
-var url = "http://" + hst + "/webapp/api_view_map/" + wanted_id
-
+if (typing_method === "mlva"){
+	var url = "http://" + hst + "/webapp/api_mlva_map/" + wanted_id
+}else{
+	var url = "http://" + hst + "/webapp/api_mst_map/" + wanted_id
+}
 $.get(url, 'json').done(function(results) {
 		draw_map(results)
 	}).fail(function (e){
@@ -28,9 +33,15 @@ var mymap = L.map('view_map').setView([51, -10], 4);
 			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 		id: 'mapbox.streets'
 	}).addTo(mymap);
+	var redMarker = L.AwesomeMarkers.icon({
+    		icon: 'bug',
+		prefix : 'ion',
+    		markerColor: 'orange',
+		iconColor: 'black'
+  		});
 	coord_array.forEach(function(row){
 
-		marker = new L.marker(L.latLng(parseFloat(row['lat']),parseFloat(row['long']))).bindPopup(row['name']).addTo(mymap)
+		marker = new L.marker(L.latLng(parseFloat(row['lat']),parseFloat(row['long'])), {icon: redMarker}).bindPopup(row['name']).addTo(mymap)
 	})
 }
 });

@@ -134,7 +134,7 @@ function throw_empty_error(){
 $(".result_info").on("click", ".btnView",function(){
 	var currentRow=$(this).closest("tr");
 	var MLVAID=currentRow.find("td:eq(0)").text();
-	var url = "http://coxiella.net/webapp/mst_isolate/" + MLVAID
+	var url = "http://coxiella.net/webapp/eview/mst/" + MLVAID
 	window.open(url, '_blank');
 
 });

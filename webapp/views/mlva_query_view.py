@@ -15,7 +15,7 @@ import logging
 import traceback
 import  sys
 
-@view_config(route_name='detailed_view', renderer='../templates/mlva_query_view.jinja2')
+@view_config(route_name='entry_view_mlva', renderer='../templates/mlva_query_view.jinja2')
 def detailed_mlva_view(request):
     ID = request.matchdict['ID']
     Base = automap_base()

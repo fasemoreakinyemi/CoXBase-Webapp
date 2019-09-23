@@ -5,7 +5,6 @@
 		<a href="{{request.route_url('home')}}"><i class="fa fa-home" style="font-size:20px"></i></a>
     		</li>
     		<li class="">
-    		<li class="">
 		<a href="{{request.route_url('coxviewer')}}">Distribution map</a>
     		</li>
     		<li class="dropdown">
@@ -16,8 +15,7 @@
                 <li><a href="{{request.route_url('mstquery')}}">MST data</a></li>
                 <li class="divider"></li>
 		<li><a href="{{request.route_url('primerquery')}}">Primer sequence</a></li>
-                <li class="divider"></li>
-                <li><a href="#">IS1111 data</a></li></ul>
+                </ul>
    		</li>
     		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Analysis <b class="caret"></b></a>
@@ -25,11 +23,16 @@
                 <li><a href="{{request.route_url('mlvaanalysis')}}">MLVA</a></li>
                 <li class="divider"></li>
                 <li><a href="{{request.route_url('mstanalysis')}}">MST</a></li>
-                <li class="divider"></li>
-                <li><a href="#">IS1111</a></li></ul>
+                </ul>
+   		</li>
+    		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Annotations <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{request.route_url('sequenceviewer')}}">Sequence viewer</a></li>
+                </ul>
    		</li>
     		<li class="">
-      		<a class="" href="#">Annotation</a>
+      		<a class="" href="#">Submisssions</a>
     		</li>
 	
 		<form class="navbar-form navbar-left" action="/action_page.php">

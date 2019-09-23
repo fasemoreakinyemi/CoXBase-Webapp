@@ -64,7 +64,7 @@ def mstq_view(request):
           #  query = request.db2_session.query(mstgroups).filter(*conditionAnd).all()
     return RP._serialize_mst(query)#{len(conditionOr):len(conditionAnd)}
 
-@view_config(route_name='mst_isolate_view', renderer='../templates/mst_view.jinja2')
+@view_config(route_name='entry_view_mst', renderer='../templates/mst_view.jinja2')
 def detailed_mst_view(request):
     ID = request.matchdict['ID']
     isolates = Base.classes.isolates
