@@ -37,7 +37,7 @@ def primer_results_view(request):
     wanted_seq = request.matchdict["selection"]
     if len(wanted_seq) == 1:
         try:
-            query = request.db2_session.query(primers).filter(query_dict.get(wanted_seq[0]))
+            query = request.db2_session.query(primers).filter(query_dict.get(wanted_seq[0])).filter(primers.pmid > 0)
         except DBAPIError:
             return Response(db_err_msg, content_type='text/plain', status=500)
         return {'count' : query.count(), 'results' : query.all()}
@@ -45,7 +45,7 @@ def primer_results_view(request):
         for items in wanted_seq:
             condition_list.append(query_dict.get(items, None))
         try:
-            query = request.db2_session.query(primers).filter(or_(*condition_list)) 
+            query = request.db2_session.query(primers).filter(or_(*condition_list)).filter(primers.pmid > 0)
         except DBAPIError:
             return Response(db_err_msg, content_type='text/plain', status=500)
         return {'count' : query.count(), 'results' : query.all()}

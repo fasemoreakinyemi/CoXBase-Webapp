@@ -23,8 +23,10 @@ def detailed_mlva_view(request):
     engine = engine_from_config(settings, 'db2.')
     Base.prepare(engine, reflect=True)
     isolates = Base.classes.isolates
+    isolatesRef = Base.classes.isolate_refs
     try:
-        query = request.db2_session.query(isolates).filter(
+        #query = request.db2_session.query(isolates).filter(isolates.mlvaGenotype == ID)
+        query = request.db2_session.query(isolates).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(
             isolates.mlvaGenotype == ID)
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)

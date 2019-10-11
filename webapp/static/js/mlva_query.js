@@ -7,7 +7,7 @@ var dict = {
 	141: [ "ms01", "ms03", "ms07", "ms20", "ms21", "ms22", "ms24", "ms26", "ms27", "ms28", "ms30", "ms31", "ms33", "ms34"],
 	142: [ "ms01", "ms03", "ms20", "ms21", "ms22", "ms23", "ms24", "ms26", "ms27", "ms28", "ms30", "ms31", "ms33", "ms34"],
 	15: [ "ms01", "ms03", "ms07", "ms12", "ms20", "ms21", "ms22", "ms24", "ms26", "ms27", "ms28", "ms30", "ms31", "ms33", "ms34"],
-	16: [ "ms01", "ms03", "ms07", "ms12", "ms20", "ms21", "ms22", "ms24", "ms26", "ms27", "ms28", "ms30", "ms31", "ms33", "ms34", "ms36"]};
+	16: [ "ms01", "ms03", "ms07", "ms12", "ms21", "ms22", "ms23", "ms24", "ms26", "ms27", "ms28", "ms30", "ms31", "ms33", "ms34", "ms36"]};
 
 function json2table(json){
 	var cols = dict[142] //Object.keys(json[0]);

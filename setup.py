@@ -26,7 +26,8 @@ requires = [
     'pyramid_chameleon',
     'cornice',
     'pandas',
-    'numpy'
+    'numpy',
+    'pyramid_mailer'
 ]
 
 tests_require = [

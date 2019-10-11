@@ -23,6 +23,10 @@ function make_grid(data){
 			'Province', 'PlasmidType', 'adaGeneType', 'MLVA genotype',
 				'MST genotype', 'is Group'],
   	filters: true,
+	hiddenColumns: {
+    		columns: [4],
+    		indicators: false
+	},
   	dropdownMenu: ['filter_by_condition', 'filter_action_bar', 'filter_by_value'],
 	licenseKey: "non-commercial-and-evaluation"
 });

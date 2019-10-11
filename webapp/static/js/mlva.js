@@ -10,6 +10,7 @@ window.validateform = function(){
 		throw_multiple_error()
 		return false;
 	}
+
 	
 };
 

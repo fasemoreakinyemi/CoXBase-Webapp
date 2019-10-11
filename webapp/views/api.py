@@ -20,9 +20,11 @@ def api_dashboard_year(request):
     RP = process_request.RequestProcessor()
     _column = request.matchdict['ID']
     model = Base.classes.isolates
+    isolatesRef = Base.classes.isolate_refs
     if model:
         try:
-            query = request.db2_session.query(model.yearOfIsolation).filter(
+            #query = request.db2_session.query(model.yearOfIsolation).filter(model.country == _column).all()
+            query = request.db2_session.query(model.yearOfIsolation).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(
                 model.country == _column).all()
             result_dict = RP.to_dict(query)
         except DBAPIError:
@@ -35,10 +37,11 @@ def api_dashboard_host(request):
     RP = process_request.RequestProcessor()
     _column = request.matchdict['ID']
     model = Base.classes.isolates
+    isolatesRef = Base.classes.isolate_refs
     if model:
         try:
-            query = request.db2_session.query(model.host).filter(
-                model.country == _column).all()
+            #query = request.db2_session.query(model.host).filter( model.country == _column).all()
+            query = request.db2_session.query(model.host).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
             result_dict = RP.to_dict(query)
         except DBAPIError:
             return RP.response_error()
@@ -50,10 +53,11 @@ def api_dashboard_province(request):
     RP = process_request.RequestProcessor()
     _column = request.matchdict['ID']
     model = Base.classes.isolates
+    isolatesRef = Base.classes.isolate_refs
     if model:
         try:
-            query = request.db2_session.query(model.province).filter(
-                model.country == _column).all()
+            #query = request.db2_session.query(model.province).filter(model.country == _column).all()
+            query = request.db2_session.query(model.province).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
             result_dict = RP.to_dict(query)
         except DBAPIError:
             return RP.response_error()
@@ -65,10 +69,11 @@ def api_dashboard_genotype(request):
     RP = process_request.RequestProcessor()
     _column = request.matchdict['ID']
     model = Base.classes.isolates
+    isolatesRef = Base.classes.isolate_refs
     if model:
         try:
-            query = request.db2_session.query(model.mlvaGenotype).filter(
-                model.country == _column).all()
+            #query = request.db2_session.query(model.mlvaGenotype).filter(model.country == _column).all()
+            query = request.db2_session.query(model.mlvaGenotype).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
             result_dict = RP.to_dict(query)
         except DBAPIError:
             return RP.response_error()
@@ -142,13 +147,17 @@ def get_geo_details(request):
     engine = engine_from_config(settings, 'db2.')
     Base.prepare(engine, reflect=True)
     isolates = Base.classes.isolates
-    query = request.db2_session.query(isolates.country).all()
+    isolatesRef = Base.classes.isolate_refs
+    query = request.db2_session.query(isolates.country).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).all()
+    #query = request.db2_session.query(isolates.country).all()
     return RP.to_geoloc_dict(query)
 
 @view_config(route_name='api_coxviewer2', renderer='json')
 def get_country_details(request):
     country_id = request.matchdict['ID']
     isolates = Base.classes.isolates
-    query = request.db2_session.query(isolates).filter(isolates.country == country_id).all()
+    isolatesRef = Base.classes.isolate_refs
+    query = request.db2_session.query(isolates).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(isolates.country == country_id).all()
+    #query = request.db2_session.query(isolates).filter(isolates.country == country_id).all()
     return RP._serialize_ctr_dts_ls(query)
 

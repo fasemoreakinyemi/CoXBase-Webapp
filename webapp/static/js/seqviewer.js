@@ -13,7 +13,7 @@ var orghref =  "https://www.ncbi.nlm.nih.gov/projects/sviewer/embedded_iframe.ht
     $('iframe#seqviewerPanel').attr('src', orghref);
 });
 
-
+ $('.js-example-basic-single').select2();
 //SeqViewOnReady(function() {
 
 //var app = new SeqView.App("seqviewerPanel")
