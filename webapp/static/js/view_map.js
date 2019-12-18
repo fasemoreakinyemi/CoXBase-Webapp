@@ -8,9 +8,9 @@ var wanted_id = path_name.split("/")[6];
 var typing_method =  path_name.split("/")[5];
 var hst = location.host;
 if (typing_method === "mlva"){
-	var url = "http://" + hst + "/webapp/api_mlva_map/" + wanted_id
+	var url = "https://" + hst + "/webapp/api_mlva_map/" + wanted_id
 }else{
-	var url = "http://" + hst + "/webapp/api_mst_map/" + wanted_id
+	var url = "https://" + hst + "/webapp/api_mst_map/" + wanted_id
 }
 $.get(url, 'json').done(function(results) {
 		draw_map(results)

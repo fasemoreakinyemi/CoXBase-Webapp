@@ -2,7 +2,7 @@
 $(document).ready(function(){
 
 var hst = location.host;
-var url = "http://" + hst + "/webapp/coxviewer_api"
+var url = "https://" + hst + "/webapp/coxviewer_api"
 $.get(url, 'json').done(function(results) {
 		draw_map(results)
 	}).fail(function (e){
@@ -50,8 +50,8 @@ function get_class(cnt){
 		});
 
 		var hst = location.host;
-		var table_url = "http://" + hst + "/webapp/coxviewer_table/" + row['ID']
-		var dashboard_url = "http://" + hst + "/webapp/dashboard/" + row['ID']
+		var table_url = "https://" + hst + "/webapp/coxviewer_table/" + row['ID']
+		var dashboard_url = "https://" + hst + "/webapp/dashboard/" + row['ID']
 		if (row['count'] > 10) {
 		mypopup = '<div class=""><h2>Details</h2><table class="table"><tbody><tr><td>Country</td><td>' + row['name'] + '</td></tr><tr><td>No of Isolates </td><td>' + row['count'] + '</td></tr><tr><td>Isolates table</td><td><a href=' + table_url + '><button class="popbutton">here</button></a></td><tr><td>Dashboard</td><td><a href=' + dashboard_url + '><button class="popbutton">here</button></a></td></tr></tbody></table></div>'
 		} else {

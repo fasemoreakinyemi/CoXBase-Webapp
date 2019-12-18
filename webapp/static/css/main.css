@@ -6,14 +6,33 @@ body {
 }
 
 html, body {
+	height: 100%;
 	max-width: 100%;
 	overflow-x: hidden;
-
+	position:relative;
 }
+
 
 ul {
   list-style-type: none;
 }
+
+/*## footer ##*/
+
+.footer{
+
+position: fixed;
+background: #f8f8f8;
+height: 200px;
+text-align: center;
+justify-content: center;
+width: 100%;
+bottom: 0;
+left: 0;
+padding-top: 10px;
+}
+/*## footer ##*/
+
 
 /*## Seqviewer ##*/
 .seqviewerContainer{
@@ -24,7 +43,7 @@ ul {
 
 }
 #seqviewerPanel{
-	width: 1300px;
+	width: 100%;
 	height: 300px;
 }
 /*## TABLE STYLING MST ANALYSIS RESULT TABLE ##*/  
@@ -268,10 +287,9 @@ ul {
 
 }
 
-.container_mlva_banner > form > textarea{
-	max-width: 100%;
-	width: 80%;
-	height: auto;
+.container_mlva_banner > form > p > textarea{
+	width: 800px;
+	height:200px;
 }
 
 .container_mlva_banner > form > input[type=submit]{
@@ -418,6 +436,14 @@ ul {
     margin-top:40px;
 }
 
+.jumbotron > form > label { 
+	display: inline-block; width: 210px; text-align: right; 
+}
+
+label.error {
+color: #F00;
+font-weight: bold;
+}
 /*### LANDING PAGE ###*/
 
 /*### MLVA VIEW PAGE ###*/
@@ -425,7 +451,7 @@ ul {
 	float:right;
 	margin-right:10px;
 	margin-left:20px;
-	width: 25%;
+	width: 26%;
  	height: 500px;
   	overflow: auto;
 }
@@ -545,6 +571,10 @@ fieldset.table_opt {
 	flex-wrap: wrap;
 	flex: 0 0 25em;
   	justify-content: center;
+}
+.container3{
+	min-height: 100%;
+
 }
 .container{
 	text-align:center;
@@ -686,7 +716,6 @@ ul#horizontal-list li {
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     border-radius: 5px;
     display: inline-block;
-    margin-bottom:500px
 }
 .result_info h4 {
     margin: 0 0 5px;
@@ -768,14 +797,47 @@ white-space: nowrap;
 
 /*### BUTTON STYLING FOR TREE###*/
 
+/* media queries */
+/* For devices with width of 480px and less, like phones */
+@media only screen and (max-width: 480px) {
 
-@media screen and (max-width: 600px) {
-  .container {
+#coxviewertable {
+	display: inline-block;
+	width: 300px;
+	height: 500px;
+	overflow: hidden;
+}
+.container {
     width: 100%;
-    /*overflow-x:auto;*/
-  }
+    overflow: hidden;
 
-  body {
+}
+
+.card_mlva {
+    display: block;
+    width: 100%;
+    overflow:auto;
+    height: 500px;
+}
+
+.card_body {
+    width: 100%;
+    overflow: hidden;
+
+}
+
+.info_mlva_table {
+    display: block;
+    width: 100%;
+    overflow:auto;
+}
+.info_mst_table {
+    display: block;
+    width: 100%;
+    overflow:auto;
+}
+
+body {
 	  padding:10px;
 	  
 }
@@ -794,7 +856,7 @@ white-space: nowrap;
   transition: 0.3s;
   margin-bottom:10px;
   display.flex;
-  padding:2em;
+  padding:1em;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -802,25 +864,254 @@ white-space: nowrap;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
+.table {
+	display: table;   /* Allow the centering to work */
+	margin: 0 auto;
+}
+
+
+ul#horizontal-list { /*make list vertical*/
+	display: block;
+	width: 300px;
+	list-style: none;
+	padding-top: 20px;
+	}
+ul#horizontal-list li {
+		display: block;
+		text-align: center;
+	
+}
+
+
 .my_button {
   background-color: #008CBA; /* Green */
   border: none;
   color: white;
-  padding: 5px 11px;
+  padding: 5px 6px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 8px;
+  font-size: 10px;
   margin: 2px 1px;
   cursor: pointer;
   background-color: white;
   color: black;
-  border: 1px solid #4CAF50;
+  border: 2px solid #4CAF50;
   border-radius: 4px;
+  width: 100px;
 }
 .row1 {
 	display: inline-block;
-	width:400px;
+	width:300px;
+}
+
+.result_control{
+	display: flex;
+	justify-content:center;
+	margin-bottom: 20px;
+}
+
+.info {
+    display: block;
+    width: 100%;
+    overflow:auto;
+    height: 100%;
+
+}
+
+.result_info {
+    display: block;
+    width: 100%;
+    overflow:auto;
+    height: 100%;
+
+}
+.container_mlva_banner {
+	margin-top: 50px;
+	text-align:left;
+	display:block;
+  	margin-left: 20px;
+
+}
+.container_mlva_banner > h1{
+	font-weight: 300px;
+	font-size: 2.5rem;
+	margin-bottom:30px;
+
+}
+
+.container_mlva_banner > form > p > textarea{
+	width: 250px;
+	height: 80px;
+}
+
+.container_mlva_banner > form > input[type=submit]{
+	margin-left: 100px;
+}
+
+
+
+
+} /*End of first media query*/
+
+/* Special media for mlva_query_table*/
+
+@media only screen and (max-width: 1024px) {
+
+.container_well {
+	width: 100%;
+	margin-left: 20px;
+	margin-right: 20px;
+	float:none;
+}
+
+.view_table_container {
+	width: 100%;
+	margin-left: 20px;
+	margin-right: 20px;
+	float:none;
+}
+
+} /*end of query*/
+@media only screen and (min-width: 1024px) {
+
+.view_table_container {
+	float:right;
+	margin-right:10px;
+	margin-left:20px;
+	width: 30%;
+ 	height: 500px;
+  	overflow: auto;
+}
+
+.container_well {
+
+	width: 65%;
+	margin-left: 20px;
+	float:left;
+}
+
+
+}
+/* For devices with width between 481px and 768px, like larger phones and portrait tablets */
+@media only screen and (min-width: 481px) {
+
+#coxviewertable {
+	display: inline-block;
+	width: 650px;
+	height: 500px;
+	overflow: hidden;
+}
+.container {
+    width: 100%;
+    /*overflow-x:auto;*/
+  }
+.card_mlva {
+    display: block;
+    width: 100%;
+    overflow:auto;
+    height: 500px;
+}
+
+  body {
+	  padding:10px;
+	  
+}
+
+.navbar-default {
+	padding:10px;
+	border: 0;
+    	-webkit-box-shadow: none;
+    	box-shadow: none;
+}
+
+.result_control{
+	display: flex;
+	justify-content:center;
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+
+.info {
+    display: block;
+    width: 100%;
+    overflow:auto;
+    height: 100%;
+
+}
+
+.result_info {
+    overflow:auto;
+
+}
+.container_mlva_banner > form > p > textarea{
+	width: 400px;
+	height: 80px;
+}
+.container_mlva_banner {
+  	margin-left: 40px;
+
+}
+
+.container_mlva_banner > form > input[type=submit]{
+	margin-left: 200px;
+}
+
+
+.card_body {
+    width: 100%;
+    overflow: hidden;
+
+}
+
+.info_mlva_table {
+    display: block;
+    width: 100%;
+    overflow:auto;
+}
+
+.info_mst_table {
+    overflow:auto;
+}
+
+} /* End of  second Media query */
+
+
+/* For devices with width between 769px and 1279px, like landscape tablets and laptops */
+@media only screen and (min-width: 769px) {
+
+.container_mlva_banner > form > p > textarea{
+	width: 700px;
+	height: 200px;
+}
+.container_mlva_banner {
+  	margin-left: 50px;
+
+}
+} 
+
+
+@media only screen and (min-width: 1280px) {
+
+
+#coxviewertable {
+	display: inline-block;
+	width: 1400px;
+	height: 800px;
+	overflow: auto;
+}
+
+.card_mlva {
+    display: block;
+    width: 100%;
+    overflow:hidden;
+    height: 500px;
+}
+.container_mlva_banner {
+  	margin-left: 200px;
+
 }
 }
 
+
+/* For devices with width of 1280px and more, like desktop computers */

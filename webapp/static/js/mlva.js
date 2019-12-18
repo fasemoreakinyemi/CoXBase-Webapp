@@ -31,9 +31,10 @@ function to_file(input_id){
 
 function send_to_backend(file){
 	var formdata = new FormData();
+	var hst = location.host;
 	formdata.append('fastafile', file)
 	$.ajax({
- 	 url: 'http://coxiella.net/webapp/result/mst',
+ 	 url: 'https://'+ hst +'/webapp/result/mst',
   	data: formdata,
   	processData: false,
   	contentType: false,

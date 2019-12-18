@@ -45,4 +45,9 @@ def includeme(config):
     config.add_route('api_query15', '/api_query/{ms01}/{ms03}/{ms07}/{ms12}/{ms20}/{ms21}/{ms22}/{ms24}/{ms26}/{ms27}/{ms28}/{ms30}/{ms31}/{ms33}/{ms34}')
     config.add_route('api_query16', '/api_query/{ms01}/{ms03}/{ms07}/{ms12}/{ms20}/{ms21}/{ms22}/{ms24}/{ms26}/{ms27}/{ms28}/{ms30}/{ms31}/{ms33}/{ms34}/{ms36}')
     config.add_route('sequenceviewer', '/sequenceviewer')
+    config.add_route('login', '/login')
+    config.add_route('logout', '/logout')
+    config.add_route('signup', '/signup')
+    config.add_route('register', '/register')
+    config.add_route('help', '/help')
 

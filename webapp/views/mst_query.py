@@ -68,7 +68,7 @@ def mstq_view(request):
 def detailed_mst_view(request):
     ID = request.matchdict['ID']
     isolates = Base.classes.isolates
-    isolatesRef = Base.classes.isolate_refs
+    isolatesRef = Base.classes.isolate_refs2
     try:
        # query = request.db2_session.query(isolates).filter(isolates.mstGroup == ID)
         query = request.db2_session.query(isolates).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(isolates.mstGroup == ID)

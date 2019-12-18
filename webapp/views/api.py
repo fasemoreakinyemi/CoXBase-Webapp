@@ -15,71 +15,64 @@ engine = engine_from_config(settings, 'db2.')
 Base.prepare(engine, reflect=True)
 
 RP = process_request.RequestProcessor()
+
+# view controller for year plot on dashboard
 @view_config(route_name='api_dashboard_year', renderer='json')
 def api_dashboard_year(request):
     RP = process_request.RequestProcessor()
-    _column = request.matchdict['ID']
+    _column = request.matchdict['ID'] # _column is country
     model = Base.classes.isolates
-    isolatesRef = Base.classes.isolate_refs
-    if model:
-        try:
-            #query = request.db2_session.query(model.yearOfIsolation).filter(model.country == _column).all()
-            query = request.db2_session.query(model.yearOfIsolation).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(
-                model.country == _column).all()
-            result_dict = RP.to_dict(query)
-        except DBAPIError:
-            return RP.response_error()
-        return result_dict
+    isolatesRef = Base.classes.isolate_refs2
+    if request.authenticated_userid:
+        query = request.db2_session.query(model.yearOfIsolation).filter(model.country == _column).all()
     else:
-        return {'NOT': 'working'}
+        query = request.db2_session.query(model.yearOfIsolation).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(
+                model.country == _column).all()
+    result_dict = RP.to_dict(query)
+    return result_dict
+
+# view controller for host plot on dashboard
 @view_config(route_name='api_dashboard_host', renderer='json')
 def api_dashboard_host(request):
     RP = process_request.RequestProcessor()
-    _column = request.matchdict['ID']
+    _column = request.matchdict['ID'] # _column is country
     model = Base.classes.isolates
-    isolatesRef = Base.classes.isolate_refs
-    if model:
-        try:
-            #query = request.db2_session.query(model.host).filter( model.country == _column).all()
-            query = request.db2_session.query(model.host).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
-            result_dict = RP.to_dict(query)
-        except DBAPIError:
-            return RP.response_error()
-        return result_dict
+    isolatesRef = Base.classes.isolate_refs2
+    if request.authenticated_userid:
+        query = request.db2_session.query(model.host).filter( model.country == _column).all()
     else:
-        return {'NOT': 'working'}
+        query = request.db2_session.query(model.host).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
+    result_dict = RP.to_dict(query)
+    return result_dict
+
+# view controller for province plot on dashboard
 @view_config(route_name='api_dashboard_province', renderer='json')
 def api_dashboard_province(request):
     RP = process_request.RequestProcessor()
-    _column = request.matchdict['ID']
+    _column = request.matchdict['ID'] # _column is country
     model = Base.classes.isolates
-    isolatesRef = Base.classes.isolate_refs
-    if model:
-        try:
-            #query = request.db2_session.query(model.province).filter(model.country == _column).all()
-            query = request.db2_session.query(model.province).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
-            result_dict = RP.to_dict(query)
-        except DBAPIError:
-            return RP.response_error()
-        return result_dict
+    isolatesRef = Base.classes.isolate_refs2
+    if request.authenticated_userid:
+        query = request.db2_session.query(model.province).filter(model.country == _column).all()
     else:
-        return {'NOT': 'working'}
+        query = request.db2_session.query(model.province).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
+    result_dict = RP.to_dict(query)
+    return result_dict
+
+# view controller for genotype plot on dashboard
 @view_config(route_name='api_dashboard_genotype', renderer='json')
 def api_dashboard_genotype(request):
     RP = process_request.RequestProcessor()
-    _column = request.matchdict['ID']
+    _column = request.matchdict['ID'] # _column is country
     model = Base.classes.isolates
-    isolatesRef = Base.classes.isolate_refs
-    if model:
-        try:
-            #query = request.db2_session.query(model.mlvaGenotype).filter(model.country == _column).all()
-            query = request.db2_session.query(model.mlvaGenotype).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
-            result_dict = RP.to_dict(query)
-        except DBAPIError:
-            return RP.response_error()
-        return result_dict
+    isolatesRef = Base.classes.isolate_refs2
+    if request.authenticated_userid:
+        query = request.db2_session.query(model.mlvaGenotype).filter(model.country == _column).all()
     else:
-        return {'NOT': 'working'}
+        query = request.db2_session.query(model.mlvaGenotype).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
+    result_dict = RP.to_dict(query)
+    return result_dict
+
 @view_config(route_name='api_column', renderer='json')
 def api_filter(request):
     RP = process_request.RequestProcessor()
@@ -147,16 +140,19 @@ def get_geo_details(request):
     engine = engine_from_config(settings, 'db2.')
     Base.prepare(engine, reflect=True)
     isolates = Base.classes.isolates
-    isolatesRef = Base.classes.isolate_refs
-    query = request.db2_session.query(isolates.country).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).all()
-    #query = request.db2_session.query(isolates.country).all()
+    isolatesRef = Base.classes.isolate_refs2
+    if request.authenticated_userid:
+        query = request.db2_session.query(isolates.country).all()
+    else:
+        query = request.db2_session.query(isolates.country).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).all()
+
     return RP.to_geoloc_dict(query)
 
 @view_config(route_name='api_coxviewer2', renderer='json')
 def get_country_details(request):
     country_id = request.matchdict['ID']
     isolates = Base.classes.isolates
-    isolatesRef = Base.classes.isolate_refs
+    isolatesRef = Base.classes.isolate_refs2
     query = request.db2_session.query(isolates).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(isolates.country == country_id).all()
     #query = request.db2_session.query(isolates).filter(isolates.country == country_id).all()
     return RP._serialize_ctr_dts_ls(query)

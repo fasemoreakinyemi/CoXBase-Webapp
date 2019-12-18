@@ -7,11 +7,17 @@ import deform.widget
 from sqlalchemy.exc import DBAPIError
 from .. import process_request
 
+from .. import security
 from .. import models
 
+SP = security.SecurityProcessor()
 @view_config(route_name='home', renderer='../templates/landing_page.jinja2')
 def my_view(request):
-    return {}
+    if request.authenticated_userid:
+        status = "Log out"
+        route = 'logout'
+        return {'status': status, 'route': route}
+    return {'status': "Log in", 'route': 'login'}
 
 
 

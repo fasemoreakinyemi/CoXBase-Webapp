@@ -44,7 +44,7 @@ $(document).ready(function()
 
 	var hst = location.host;
 	var url_path = window.location.pathname.split("/")[3]
-	var url = "http://" + hst + "/webapp/api_country/" + url_path
+	var url = "https://" + hst + "/webapp/api_country/" + url_path
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -67,7 +67,7 @@ $(document).ready(function()
 $("#SampleYear").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[3]
 	var hst = location.host;
-	var url = "http://" + hst + "/webapp/api_country/" + url_path
+	var url = "https://" + hst + "/webapp/api_country/" + url_path
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -130,7 +130,7 @@ $("#SampleYear").on ("click", function () {
 $("#SampleHost").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[3]
 	var hst = location.host;
-	var url = "http://" + hst + "/webapp/api_host/" + url_path
+	var url = "https://" + hst + "/webapp/api_host/" + url_path
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -181,7 +181,7 @@ $("#SampleHost").on ("click", function () {
 $("#TypingID").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[3]
 	var hst = location.host;
-	var url = "http://" + hst + "/webapp/api_genotype/" + url_path
+	var url = "https://" + hst + "/webapp/api_genotype/" + url_path
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))
@@ -237,7 +237,7 @@ $("#TypingID").on ("click", function () {
 $("#CountryProvince").on ("click", function () {
 	var url_path = window.location.pathname.split("/")[3]
 	var hst = location.host;
-	var url = "http://" + hst + "/webapp/api_province/" + url_path
+	var url = "https://" + hst + "/webapp/api_province/" + url_path
 
 	$.get(url, 'json').done(function(results) {
 		item = JSON.parse(JSON.stringify(results))

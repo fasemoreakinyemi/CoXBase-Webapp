@@ -65,7 +65,7 @@ function show_details(e){
 	var data;
       var state = layer.feature["properties"]["State"] //(feature ? feature["properties"]["State"] : 'none');
 	var hst = location.host;
-	var url = "http://" + hst + "/webapp/api_map/CountryProvince/" + state;
+	var url = "https://" + hst + "/webapp/api_map/CountryProvince/" + state;
 	$.get(url, 'json').done(function(results) {
 		create_table(results)
 		//alert(results['2']['GENUS'])

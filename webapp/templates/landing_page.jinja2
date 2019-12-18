@@ -17,7 +17,7 @@
   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
   crossorigin=""/>
 
-    <link href="{{request.static_url('webapp:static/css/dashboard.css')}}" rel="stylesheet">
+    <link href="{{request.static_url('webapp:static/css/main.css')}}" rel="stylesheet">
   </head>
 
   <body>
@@ -26,12 +26,13 @@
 <div class="container">
   <div class="jumbotron">
 	  <img class="img-responsive" src="{{request.static_url('webapp:static/img/logo_transparent.png') }}" width="300px" alt="logo">
-	  <h3> Website under construction </h3>
+	  <h3> Welcome </h3>
   </div>
 </div>
     <!--main-->
 
 
+    <!--{% include 'footer.jinja2' %}-->
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

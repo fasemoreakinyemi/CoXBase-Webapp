@@ -10,7 +10,7 @@ $( "#primer_form" ).submit(function( event ) {
 	}
 	else{
 		var hst = location.host;
-		var url = "http://" + hst + "/webapp/primer_results/" + wanted.join("/")
+		var url = "https://" + hst + "/webapp/primer_results/" + wanted.join("/")
 		window.open(url, "_self")
 	}
 })

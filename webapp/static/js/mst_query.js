@@ -64,7 +64,7 @@ $(".tr_entry").each(function(){
 });
 var len = Object.values(map).length;
 var hst = location.host;
-var url = "http://" + hst + "/webapp/mst_query"
+var url = "https://" + hst + "/webapp/mst_query"
 for (var i=0; i<len; i++) {
 	if(Object.values(map)[i] == "")
 	{
@@ -106,7 +106,7 @@ $(".entry").each(function(){
 
 var len = map_list.length;
 var hst = location.host;
-var url = "http://" + hst + "/webapp/mst_query"
+var url = "https://" + hst + "/webapp/mst_query"
 for (var i=0; i<len; i++) {
 		url+="/" + map_list[i]
 }
@@ -134,9 +134,23 @@ function throw_empty_error(){
 $(".result_info").on("click", ".btnView",function(){
 	var currentRow=$(this).closest("tr");
 	var MLVAID=currentRow.find("td:eq(0)").text();
-	var url = "http://coxiella.net/webapp/eview/mst/" + MLVAID
+	var hst = location.host;
+	var url = "https://" + hst + "/webapp/eview/mst/" + MLVAID
 	window.open(url, '_blank');
 
 });
+
+$("#sampleQuery").click(function() {
+	$('input[name="ms01"]').val(4);
+	$('input[name="ms03"]').val(6);
+	$('input[name="ms20"]').val(3);
+	$('input[name="ms21"]').val(5);
+	$('input[name="ms22"]').val(6);
+	$('input[name="ms23"]').val(2);
+	$('input[name="ms24"]').val(8);
+	$('input[name="ms26"]').val(2);
+	$('input[name="ms27"]').val(5);
+	$('input[name="ms28"]').val(6);
+})
 });	
 

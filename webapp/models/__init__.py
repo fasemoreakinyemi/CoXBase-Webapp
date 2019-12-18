@@ -11,6 +11,7 @@ from .mlva import Base, plasmid, mst, TypingMeta, mlvaProfile, SampleMetadata
 from .mlva_results import Base, ProductLength, FlankLength, RepeatSize, RepeatNumber
 from .submission import Base, SubmissionTable, mlvaSubmission, mstSubmission, isolateSubmission
 from .mst_results import Base, mstSpacerResult
+from .signup import UserTable
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup
 configure_mappers()

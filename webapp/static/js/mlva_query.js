@@ -71,7 +71,7 @@ $(".tr_entry").each(function(){
 });
 var len = Object.values(map).length;
 var hst = location.host;
-var url = "http://" + hst + "/webapp/fp_query"
+var url = "https://" + hst + "/webapp/fp_query"
 for (var i=0; i<len; i++) {
 	if(Object.values(map)[i] == "")
 	{
@@ -112,7 +112,7 @@ $(".entry").each(function(){
 
 var len = map_list.length;
 var hst = location.host;
-var url = "http://" + hst + "/webapp/fp_query"
+var url = "https://" + hst + "/webapp/fp_query"
 for (var i=0; i<len; i++) {
 		url+="/" + map_list[i]
 }
@@ -142,8 +142,25 @@ $(".result_info").on("click", ".btnView",function(){
 	var currentRow=$(this).closest("tr");
 	var MLVAID=currentRow.find("td:eq(14)").text();
 	var hst = location.host;
-	var url = "http://" + hst + "/webapp/eview/mlva/" + MLVAID
+	var url = "https://" + hst + "/webapp/eview/mlva/" + MLVAID
 	window.open(url, '_blank');
 
 });
+
+$("#sampleQuery").click(function() {
+	$('input[name="ms01"]').val(4);
+	$('input[name="ms03"]').val(7);
+	$('input[name="ms20"]').val(11.5);
+	$('input[name="ms21"]').val(6);
+	$('input[name="ms22"]').val(6);
+	$('input[name="ms23"]').val(3);
+	$('input[name="ms24"]').val(2);
+	$('input[name="ms26"]').val(1);
+	$('input[name="ms27"]').val(5);
+	$('input[name="ms28"]').val(6);
+	$('input[name="ms30"]').val(2);
+	$('input[name="ms31"]').val(4);
+	$('input[name="ms33"]').val(7);
+	$('input[name="ms34"]').val(4);
+})
 }); 
