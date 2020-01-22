@@ -41,6 +41,14 @@ class ViewProcessor():
         sts_file = "/home/ubuntu/coxbase/coxbase/scripts/input/coxiella_ms.sts"
         command = ["/home/ubuntu/tools/Linux-x86_64/e-PCR", "-w7", "-f","1","-m100","-o", out_file,"-t3", sts_file, file_path]
         return command
+    
+    @staticmethod
+    def create_epcr_command_is1111(file_path, process_ID):
+        out_file = "/home/ubuntu/temp/epcr_{}_output.tab".format(process_ID)
+        Path(out_file).touch()
+        sts_file = "/home/ubuntu/coxbase/coxbase/scripts/input/coxiella_IS.sts"
+        command = ["/home/ubuntu/tools/Linux-x86_64/e-PCR", "-w7", "-f","1","-m100","-o", out_file,"-t3", sts_file, file_path]
+        return command
 
     @staticmethod
     def extract_mlva_values(process_ID):
@@ -88,6 +96,29 @@ class ViewProcessor():
                        "repeatSize" : out_rsize_dict,
                        "flank" :  out_flnk_dict}
         return values_dict
+    
+    @staticmethod
+    def extract_is1111_values(process_ID):
+        element_list = ['IS1111_1','IS1111_2','IS1111_3','IS1111_4','IS1111_5','IS1111_6','IS1111_7','IS1111_8','IS1111_9',
+        'IS1111_10','IS1111_11','IS1111_12','IS1111_13','IS1111_14','IS1111_15','IS1111_16','IS1111_17','IS1111_18',
+        'IS1111_19','IS1111_20','IS1111_21','IS1111_22','IS1111_23','IS1111_24','IS1111_25','IS1111_26','IS1111_27',
+        'IS1111_28','IS1111_29','IS1111_30','IS1111_31','IS1111_32','IS1111_33','IS1111_34','IS1111_35','IS1111_36',
+        'IS1111_37','IS1111_38','IS1111_39','IS1111_40','IS1111_41','IS1111_42','IS1111_43','IS1111_44','IS1111_45',
+        'IS1111_46','IS1111_47','IS1111_48','IS1111_49','IS1111_50','IS1111_51','IS1111_53','IS1111_54',
+        'IS1111_55','IS1111_56','IS1111_57','IS1111_58','IS1111_59','IS1111_60','IS1111_61','IS1111_84']
+        out_file = "/home/ubuntu/temp/epcr_{}_output.tab".format(process_ID)
+        epcr_df = pd.read_table(out_file, sep="\t", header=None)
+        header = ["id", "is_id", "strand", "start", "end", "length", "un1",
+          "un2", "desc"]
+        epcr_df.columns = header
+        detected_element_list = epcr_df.is_id.tolist()
+        detected_element_dict = {'ID': process_ID}
+        for element in element_list:
+            if element in detected_element_list:
+                detected_element_dict[element] = 1
+            else:
+                detected_element_dict[element] = 0
+        return detected_element_dict
 
     @staticmethod
     def mstprocessor(file_path, process_ID):

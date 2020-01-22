@@ -23,3 +23,7 @@ def mlvaanalysis_view(request):
 @view_config(route_name='mstanalysis', renderer='../templates/mst_analysis.jinja2')
 def mstanalysis_view(request):
     return {}
+
+@view_config(route_name='is1111analysis', renderer='../templates/is1111_analysis.jinja2')
+def is1111alysis_view(request):
+    return {}

@@ -12,6 +12,7 @@ from .mlva_results import Base, ProductLength, FlankLength, RepeatSize, RepeatNu
 from .submission import Base, SubmissionTable, mlvaSubmission, mstSubmission, isolateSubmission
 from .mst_results import Base, mstSpacerResult
 from .signup import UserTable
+from .is1111 import is1111Profile
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup
 configure_mappers()
