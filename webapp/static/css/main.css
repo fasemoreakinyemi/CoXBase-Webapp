@@ -278,6 +278,7 @@ padding-top: 10px;
 	text-align:left;
 	display:block;
   	margin-left: 200px;
+	margin-bottom:200px;
 
 }
 .container_mlva_banner > h1{
@@ -575,6 +576,12 @@ fieldset.table_opt {
 .container3{
 	min-height: 100%;
 
+}
+.container_custom{
+	text-align:center;
+	display:flex;
+	flex-wrap: wrap;
+  	justify-content: center;
 }
 .container{
 	text-align:center;
@@ -1042,6 +1049,7 @@ ul#horizontal-list li {
 
 .result_info {
     overflow:auto;
+    margin-bottom:200px;
 
 }
 .container_mlva_banner > form > p > textarea{

@@ -27,3 +27,7 @@ def mstanalysis_view(request):
 @view_config(route_name='is1111analysis', renderer='../templates/is1111_analysis.jinja2')
 def is1111alysis_view(request):
     return {}
+
+@view_config(route_name='adaanalysis', renderer='../templates/adaA_analysis.jinja2')
+def adaAanalysis_view(request):
+    return {}

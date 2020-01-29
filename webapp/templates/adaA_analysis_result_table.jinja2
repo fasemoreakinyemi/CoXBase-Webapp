@@ -26,77 +26,26 @@
     <div class="card_body">
       <div class="well well-lg white">
 	      <div class="btn-group_mlva">
-		      <button class="res_tab" onclick="window.location.href='{{request.route_url('resMST', ID=results.ID)}}';">Result table</button>
-  		<button class="sub_det" onclick="window.location.href='{{request.route_url('subMST', ID=results.ID)}}';">Submission details</button>
-  		<button class="phy_ana" onclick="window.location.href='{{request.route_url('phlMST', ID=results.ID)}}';">Phylogenetic analysis</button>
+		      <button class="res_tab" >Result table</button>
+  		<button class="sub_det" >Submission details</button>
+  		<button class="phy_ana">Phylogenetic analysis</button>
 	      </div>
 		  <div class="info_mst_table">
 			  <table>
                           <tr>
-                                  <th>cox2</th>
-                                  <th>cox5</th>
-                                  <th>cox18</th>
-                                  <th>cox20</th>
-                                  <th>cox22</th>
-                                  <th>cox37</th>
-                                  <th>cox51</th>
-                                  <th>cox56</th>
-                                  <th>cox57</th>
-                                  <th>cox61</th>
+				  <th>AdaA phenotype</th>
+                                  <th>Genotype</th>
+                                  <th>Plasmid type</th>
 			  </tr>
-			  <tr id='rz_indicator'> 
-                                  {% if results.cox2 %}
-				  <td>{{results.cox2}}</td>
+			  <tr> 
+                                  {% if result.adaAStatus == 1 %}
+				  <td style="color: green;"> AdaA positive</td>
 				  {% else %}
-				  <td> Not detected</td>
+				  <td style="color: red;">AdaA negative</td>
 				  {%- endif %}
-                                  {% if results.cox5 %}
-				  <td>{{results.cox5}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox18 %}
-				  <td>{{results.cox18}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox20 %}
-				  <td>{{results.cox20}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox22 %}
-				  <td>{{results.cox22}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox37 %}
-				  <td>{{results.cox37}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox51 %}
-				  <td>{{results.cox51}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox56 %}
-				  <td>{{results.cox56}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox57 %}
-				  <td>{{results.cox57}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                                  {% if results.cox61 %}
-				  <td>{{results.cox61}}</td>
-				  {% else %}
-				  <td> Not detected</td>
-				  {%- endif %}
-                          </tr>
-
+				  <td>{{result.genotype}}</td>
+				  <td>{{result.plasmidType}}</td>
+			  </tr>
                   </table>
       </div>
       </div>

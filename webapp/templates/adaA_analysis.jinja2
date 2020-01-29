@@ -35,9 +35,10 @@
 	  {% include 'nav.jinja2' %}
     <!--main-->
     <div class="container_mlva_banner">
-	    <h1> Multiple-Locus Variable number tandem repeat Analysis (MLVA) </h1>
-	    <p> Multiple-Locus Variable number tandem repeat Analysis (MLVA) is a method used to perform molecular typing of microorganisms (often pathogenic species) for epidemiological purposes.</br> It exploits naturally occurring variation in the number of tandem repeated DNA sequences found in many different loci in the genome of bacterial species. The earliest application of this </br>method was in forensic science where it was used for DNA fingerprinting samples from human origin. MLVA has been for genome typing several species of bacteria including <i>Staphylococcus</br> lugdunensis</i>, <i>Salmonella Typhimurium</i>, <i>Mycobacterium tuberculosis</i> among others </p>
-	    <form name="mlvaInput" action="/webapp/result/mlva" id="mlva_form" method=POST onsubmit="return validateform()" enctype=multipart/form-data>
+	    <h1> AdaA typing </h1>
+	    <p>The acute disease antigen A (adaA) gene has been hypothesized to be allied to <i>Coxiella burnetii</i> strains causing acute Q fever. </br>A recent publication by Frangoulidis et al. 2013, showed that this relationship might have been oversimplified and is more complex than initially described.</br> They also descibed a discrimination system based on the sequence of the AdaA gene. This system is implemented on this platform as AdaA typing. </br> <b>Citations</b>: Microevolution of the Chromosomal Region of Acute Disease Antigen A (adaA) in the Query (Q) Fever Agent Coxiella burnetii
+Frangoulidis D, Splettstoesser WD, Landt O, Dehnhardt J, Henning K, et al. (2013) Microevolution of the Chromosomal Region of Acute Disease Antigen A (adaA) in the Query (Q) Fever Agent Coxiella burnetii. PLOS ONE 8(1): e53440. https://doi.org/10.1371/journal.pone.0053440</p>
+	    <form name="mlvaInput" action="/webapp/result/adaA" id="mlva_form" method=POST onsubmit="return validateform()" enctype=multipart/form-data>
 		    <p> <b>Enter Sequence in Fasta Format</b></p>
 		    <p> <textarea name="fastaentry"></textarea> <br>
 		    OR, upload a file <label for="fastafile"></label>
@@ -52,8 +53,8 @@
       </div>
     
 
-
     {% include 'footer.jinja2' %}
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

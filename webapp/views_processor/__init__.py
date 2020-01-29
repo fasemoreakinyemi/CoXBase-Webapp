@@ -13,7 +13,6 @@ import pyfastcopy
 from Bio import pairwise2, SeqIO
 import subprocess
 
-
 class ViewProcessor():
 
     @staticmethod
@@ -152,7 +151,47 @@ class ViewProcessor():
                 len_records = len(records.seq)
                 if len_records == len(spacer_fasta.seq):
                     alignments = pairwise2.align.globalxs(records.seq, spacer_fasta.seq.upper(), -2,-1, score_only=True)
-                    if alignments == len_records:
+                    if alignments == len_records: # check for mismatch
                         spacer_id = records.id.split(".")[1]
                         spacer_dict[spacer] = spacer_id
         return spacer_dict
+    
+    @staticmethod
+    def adaprocessor(file_path, process_ID):
+        os.mkdir("/home/ubuntu/temp/{}".format(process_ID))
+        typing_dict = {"ID": process_ID}
+        primer_dict = {
+            "adaA" : ["AGGAGGAGGTCACTTGAAAAAACTA","AACTTTTCTAGCGTTATTTGCCTAT"],
+            "QpH1" : ["TGACAAATAGAATTTCTTCATTTTGATG","GCTTATTTTCTTCCTCGAATCTATGAAT"],
+            "QpRS" : ["CTCGTACCCAAAGACTATGAATATATCC","CACATTGGGTATCGTACTGTCCCT"],
+            "QpDG" : ["ggCgAggTgTTCggTATgAG","CTTAgCgATTTATggTTCCgTC"],
+            "QpDV" : ["CTTATTTCAAAgAgTTCCTgCTAg","CgCAACCggCTgTTgTgC"]}
+
+        for key, value in primer_dict.items():
+            fwd_prim = value[0] # forward primer
+            rev_prim = value[1] # reverse primer
+            out_file = os.path.join("/home/ubuntu/temp/{}".format(process_ID),
+                                    "{}.fasta".format(key))
+            command = ["/home/ubuntu/tools/usearch",
+                   "-search_pcr2",file_path,"-fwdprimer", fwd_prim, "-revprimer",
+                   rev_prim,"-strand", "both", "-fastaout", out_file]
+            subprocess.call(command)
+            if key == "adaA":
+                if os.stat(out_file).st_size == 0: # check if file is empty
+                    typing_dict["adaAStatus"] = 0 # 0 for AdaA gene negative
+                    typing_dict["genotype"] = "Q212 or Q154 Del"
+                else:
+                    typing_dict["adaAStatus"] = 1 # 1 for AdaA gene positive
+                    read_fasta = SeqIO.read(out_file, "fasta")
+                    if read_fasta.seq[418].upper() == "A":
+                        typing_dict["genotype"] = "wildtype"
+                    elif read_fasta.seq[418].upper() == "C":
+                        typing_dict["genotype"] = "A431T SNP"
+                    else:
+                        typing_dict["genotype"] = "uncategorized"
+            else:
+                if os.stat(out_file).st_size == 0:
+                    continue
+                else:
+                    typing_dict["plasmidType"] = key
+        return typing_dict

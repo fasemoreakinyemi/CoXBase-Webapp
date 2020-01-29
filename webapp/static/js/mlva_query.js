@@ -86,7 +86,13 @@ if (len === empty_field.length) {
 } else {
 	$('#empty_error').empty()
 	$.get(url, 'json').done(function(results) {
+		if(results.hasOwnProperty('STATUS')){
+			render_No_match()
+
+		}
+		else {
 		create_result(results)
+		}
 	}).fail(function (e){
 		if (e.error) {
 		alert("error due to" + e.error)
@@ -130,6 +136,10 @@ event.preventDefault();
 
 function create_result(data){
 $('#result').html("<div class='result_header'><h1>Found profile(s)</h1></div>" + json2table(data))
+};
+
+function render_No_match(){
+$('#result').html("<div class='result_header'><h1>Found profile(s)</h1><h3 style='color:red; padding:20px;'> No match in the database for the queried marker</h3></div>" )
 };
 
 function throw_empty_error(){

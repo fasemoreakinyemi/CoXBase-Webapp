@@ -48,6 +48,8 @@ def fpq_view(request):
                     continue
                 else:
                     conditionAnd.pop()
+    if conditionAnd == []:
+        return {"STATUS":"NO MATCH"} 
     try:
         query = request.db2_session.query(mlvaTable).filter(*conditionAnd).all()#(or_(*conditionOr)).all()#filter(*conditionAnd).all()
 
