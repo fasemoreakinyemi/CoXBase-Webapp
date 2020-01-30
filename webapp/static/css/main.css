@@ -650,6 +650,21 @@ ul#horizontal-list li {
   border-radius: 8px;
 }
 
+.my_button_2 {
+	
+  border: none;
+  padding: 10px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: inherit;
+  color: #34495e;
+  border: 2px solid #34495e;
+  border-radius: 0px;
+}
 #map {
 	margin-top: 30px;
 	width: 600px;
@@ -808,6 +823,7 @@ white-space: nowrap;
 /* For devices with width of 480px and less, like phones */
 @media only screen and (max-width: 480px) {
 
+
 #coxviewertable {
 	display: inline-block;
 	width: 300px;
@@ -907,6 +923,22 @@ ul#horizontal-list li {
   border-radius: 4px;
   width: 100px;
 }
+.my_button_2 {
+  border: none;
+  color: inherit;
+  padding: 5px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 2px 1px;
+  cursor: pointer;
+  background-color: inherit;
+  color: black;
+  border: 2px solid #34495e;
+  border-radius: 4px;
+  width: 100px;
+}
 .row1 {
 	display: inline-block;
 	width:300px;
@@ -956,7 +988,11 @@ ul#horizontal-list li {
 	margin-left: 100px;
 }
 
-
+.col-md-3 .container {
+	visibility: hidden;
+	clear: both;
+	display: none;
+	 }
 
 
 } /*End of first media query*/
@@ -979,7 +1015,15 @@ ul#horizontal-list li {
 	float:none;
 }
 
-} /*end of query*/
+.col-md-3 .container {
+	visibility: hidden;
+	clear: both;
+	display: none;
+	 }
+
+
+} 
+/*end of query*/
 @media only screen and (min-width: 1024px) {
 
 .view_table_container {
