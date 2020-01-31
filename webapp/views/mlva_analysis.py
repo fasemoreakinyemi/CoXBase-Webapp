@@ -37,7 +37,7 @@ def mlvaprocess_view(request):
     subprocess.call(command)
     mlva_dict = VP.extract_mlva_values(process_ID)
     submission_dict = {'ID' : process_ID, 
-                       'AnalysisType': 'MLVA Insilico typing',
+                       'AnalysisType': 'mlva Insilico typing',
                        'IPaddress' : request.remote_addr} 
     session = request.db2_session
     session.execute(insert(models.SubmissionTable).values([submission_dict]))

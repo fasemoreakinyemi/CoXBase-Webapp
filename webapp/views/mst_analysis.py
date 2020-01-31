@@ -39,7 +39,7 @@ def mstprocess_view(request):
     except:
         raise HTTPNotAcceptable("Please check your submission \n Strongly recommend to use a whole genome file")
     submission_dict = {'ID' : process_ID, 
-                       'AnalysisType': 'MST Insilico typing',
+                       'AnalysisType': 'mst Insilico typing',
                        'IPaddress' : request.remote_addr} 
     session = request.db2_session
     session.execute(insert(models.SubmissionTable).values([submission_dict]))

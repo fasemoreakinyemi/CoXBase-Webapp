@@ -56,4 +56,6 @@ def includeme(config):
     config.add_route('signup', '/signup')
     config.add_route('register', '/register')
     config.add_route('help', '/help')
+    config.add_route('retrieve_submission', '/retrieve')
+    config.add_route('retrieve_form', '/submit_retrieve')
 

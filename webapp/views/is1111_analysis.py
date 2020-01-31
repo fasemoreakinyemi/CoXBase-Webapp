@@ -37,7 +37,7 @@ def is1111process_view(request):
     subprocess.call(command)
     is1111_dict = VP.extract_is1111_values(process_ID)
     submission_dict = {'ID' : process_ID, 
-                       'AnalysisType': 'IIS1111 Insilico typing',
+                       'AnalysisType': 'is1111 Insilico typing',
                        'IPaddress' : request.remote_addr} 
     session = request.db2_session
     session.execute(insert(models.SubmissionTable).values([submission_dict]))
