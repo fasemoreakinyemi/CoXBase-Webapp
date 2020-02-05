@@ -183,12 +183,17 @@ class ViewProcessor():
                 else:
                     typing_dict["adaAStatus"] = 1 # 1 for AdaA gene positive
                     read_fasta = SeqIO.read(out_file, "fasta")
-                    if read_fasta.seq[418].upper() == "A":
-                        typing_dict["genotype"] = "wildtype"
-                    elif read_fasta.seq[418].upper() == "C":
-                        typing_dict["genotype"] = "A431T SNP"
+                    if len(read_fasta.seq) == 668:
+                        if read_fasta.seq[418].upper() == "A":
+                            typing_dict["genotype"] = "wildtype"
+                        elif read_fasta.seq[418].upper() == "C":
+                            typing_dict["genotype"] = "A431T SNP"
                     else:
-                        typing_dict["genotype"] = "uncategorized"
+                        if len(read_fasta.seq) > 668:
+                            typing_dict["genotype"] = "repeat"
+                        else:
+                            typing_dict["genotype"] = "incomplete"
+
             else:
                 if os.stat(out_file).st_size == 0:
                     continue

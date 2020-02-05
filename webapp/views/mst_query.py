@@ -30,7 +30,7 @@ def mstq_view(request):
  #   settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
  #   engine = engine_from_config(settings, 'db2.')
  #   Base.prepare(engine, reflect=True)
-    mstgroups = Base.classes.mstgroups
+    mstgroups = Base.classes.mstgroups2
     spacer_list = ['COX2', 'COX5', 'COX18', 'COX20', 
                  'COX22', 'COX37', 'COX51', 'COX56', 
                  'COX57', 'COX61']
