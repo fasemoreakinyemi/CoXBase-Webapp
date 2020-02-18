@@ -23,7 +23,7 @@
 
 	  {% include 'nav.jinja2' %}
     <!--main-->
-    <div class="card_body">
+    <div class="card_body" style="margin-bottom:220px;">
       <div class="well well-lg white">
 	      <div class="btn-group_mlva">
 		      <button class="res_tab" onclick="window.location.href='{{request.route_url('resMST', ID=results.ID)}}';">Result table</button>
@@ -45,60 +45,83 @@
                                   <th>cox61</th>
 			  </tr>
 			  <tr id='rz_indicator'> 
-                                  {% if results.cox2 %}
+                                  {% if not results.cox2 %}
+				  <td>Not detected</td>
+                                  {% elif results.cox2 == 90 %}
+				  <td><button class="alnV"> new cox2</button></td>
+				  {% else %}
 				  <td>{{results.cox2}}</td>
-				  {% else %}
-				  <td> Not detected</td>
 				  {%- endif %}
-                                  {% if results.cox5 %}
+                                  {% if not results.cox5 %}
+				  <td>Not detected</td>
+                                  {% elif results.cox5 == 90 %}
+				  <td><button class="alnV"> new cox5</button></td>
+				  {% else %}
 				  <td>{{results.cox5}}</td>
-				  {% else %}
-				  <td> Not detected</td>
 				  {%- endif %}
-                                  {% if results.cox18 %}
+                                  {% if not results.cox18 %}
+				  <td>Not detected</td>
+                                  {% elif results.cox18 == 90 %}
+				  <td><button class="alnV"> new cox18</button></td>
+				  {% else %}
 				  <td>{{results.cox18}}</td>
-				  {% else %}
-				  <td> Not detected</td>
 				  {%- endif %}
-                                  {% if results.cox20 %}
+                                  {% if not results.cox20 %}
+				  <td>Not detected</td>
+                                  {% elif results.cox20 == 90 %}
+				  <td><button class="alnV"> new cox20</button></td>
+				  {% else %}
 				  <td>{{results.cox20}}</td>
-				  {% else %}
-				  <td> Not detected</td>
 				  {%- endif %}
-                                  {% if results.cox22 %}
+                                  {% if not results.cox22 %}
+				  <td>Not detected</td>
+                                  {% elif results.cox22 == 90 %}
+				  <td><button class="alnV"> new cox22</button></td>
+				  {% else %}
 				  <td>{{results.cox22}}</td>
-				  {% else %}
-				  <td> Not detected</td>
 				  {%- endif %}
-                                  {% if results.cox37 %}
+                                  {% if not results.cox37 %}
+				  <td>Not detected</td>
+                                  {% elif results.cox37 == 90 %}
+				  <td><button class="alnV"> new cox37</button></td>
+				  {% else %}
 				  <td>{{results.cox37}}</td>
-				  {% else %}
-				  <td> Not detected</td>
 				  {%- endif %}
-                                  {% if results.cox51 %}
+                                  {% if not results.cox51 %}
+				  <td>Not detected</td>
+                                  {% elif results.cox51 == 90 %}
+				  <td><button class="alnV"> new cox51</button></td>
+				  {% else %}
 				  <td>{{results.cox51}}</td>
-				  {% else %}
-				  <td> Not detected</td>
 				  {%- endif %}
-                                  {% if results.cox56 %}
+                                  {% if not results.cox56 %}
+				  <td>Not detected</td>
+                                  {% elif results.cox56 == 90 %}
+				  <td><button class="alnV"> new cox56</button></td>
+				  {% else %}
 				  <td>{{results.cox56}}</td>
-				  {% else %}
-				  <td> Not detected</td>
 				  {%- endif %}
-                                  {% if results.cox57 %}
+                                  {% if not results.cox57 %}
+				  <td>Not detected</td>
+                                  {% elif results.cox57 == 90 %}
+				  <td><button class="alnV"> new cox57</button></td>
+				  {% else %}
 				  <td>{{results.cox57}}</td>
-				  {% else %}
-				  <td> Not detected</td>
 				  {%- endif %}
-                                  {% if results.cox61 %}
+                                  {% if not results.cox61 %}
+				  <td>Not detected</td>
+                                  {% elif results.cox61 == 90 %}
+				  <td><button class="alnV"> new cox61</button></td>
+				  {% else %}
 				  <td>{{results.cox61}}</td>
-				  {% else %}
-				  <td> Not detected</td>
 				  {%- endif %}
-                          </tr>
+			  </tr>
 
                   </table>
       </div>
+      <div id="blast-multiple-alignments"></div>
+      <div id="blast-alignments-table"></div>
+      <div id="blast-single-alignment"></div>
       </div>
       </div>
       </div>
@@ -115,6 +138,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+    <script src="{{request.static_url('webapp:static/js/blaster.min.js')}}" type="text/javascript"></script>
     <script src="{{request.static_url('webapp:static/js/mlva_query.js')}}" type="text/javascript"></script>
     <script src="{{request.static_url('webapp:static/js/view_map.js')}}" type="text/javascript"></script>
     <script src="{{request.static_url('webapp:static/js/extras.js')}}" type="text/javascript"></script>

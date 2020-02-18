@@ -95,12 +95,18 @@ if (len === empty_field.length) {
 event.preventDefault();
 });
 
+function isInt(value) {
+  return !isNaN(value) && 
+         parseInt(Number(value)) == value && 
+         !isNaN(parseInt(value, 10));
+}
 
 $( ".submitMST" ).click(function( event ) {
 var empty_field = [];
 var map_list = [];
 $(".entry").each(function(){
-	if ($(this).text() == " Not detected") {
+	var val = $(this).text()
+	if (!isInt(val)) {
 		var empty_cell = 0
 		map_list.push(empty_cell)
 	} else {
@@ -109,7 +115,6 @@ $(".entry").each(function(){
 	}
 
 });
-
 var len = map_list.length;
 var hst = location.host;
 var url = "https://" + hst + "/webapp/mst_query"
@@ -117,7 +122,13 @@ for (var i=0; i<len; i++) {
 		url+="/" + map_list[i]
 }
 	$.get(url, 'json').done(function(results) {
+		if(results.hasOwnProperty('STATUS')){
+			render_No_match()
+
+		}
+		else {
 		create_result(results)
+		}
 	}).fail(function (e){
 		if (e.error) {
 		alert("error due to" + e.error)

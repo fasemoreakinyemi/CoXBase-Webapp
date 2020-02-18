@@ -58,4 +58,7 @@ def includeme(config):
     config.add_route('help', '/help')
     config.add_route('retrieve_submission', '/retrieve')
     config.add_route('retrieve_form', '/submit_retrieve')
+    config.add_route('blaster', '/blastn/{ID}/{spacer}')
+    config.add_route('blast_api', '/blast_api/{ID}/{spacer}')
+
 

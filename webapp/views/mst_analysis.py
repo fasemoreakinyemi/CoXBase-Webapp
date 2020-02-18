@@ -37,7 +37,7 @@ def mstprocess_view(request):
     try:
         spacer_dict = VP.mstprocessor(file_path, process_ID)
     except:
-        raise HTTPNotAcceptable("Please check your submission \n Strongly recommend to use a whole genome file")
+        raise HTTPNotAcceptable("Please check your submission")
     submission_dict = {'ID' : process_ID, 
                        'AnalysisType': 'mst Insilico typing',
                        'IPaddress' : request.remote_addr} 

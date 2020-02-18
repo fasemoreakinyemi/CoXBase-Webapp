@@ -7,6 +7,7 @@ from pyramid.httpexceptions import HTTPFound
 from sqlalchemy.exc import DBAPIError
 from .. import models
 from .. import process_request
+from Bio.Blast.Applications import NcbiblastnCommandline
 
 
 Base = automap_base()
@@ -157,3 +158,12 @@ def get_country_details(request):
     #query = request.db2_session.query(isolates).filter(isolates.country == country_id).all()
     return RP._serialize_ctr_dts_ls(query)
 
+@view_config(route_name='blast_api', renderer='json')
+def mst_blast_api(request):
+    process_id = request.matchdict['ID']
+    spacer = request.matchdict['spacer']
+    query = "/home/ubuntu/temp/{}/{}.fasta".format(process_id, spacer)
+    db = "/home/ubuntu/db/{}.fa".format(spacer)
+    cline = NcbiblastnCommandline(query=query, db=db, strand="plus",
+                              evalue=0.001, out="-", outfmt=0)
+    return { "result" : cline()[0] }

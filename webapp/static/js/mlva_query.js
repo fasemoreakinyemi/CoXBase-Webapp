@@ -157,6 +157,31 @@ $(".result_info").on("click", ".btnView",function(){
 
 });
 
+$("#rz_indicator").on("click", ".alnV",function(){
+	var spacer = $(this).text().split(" ")[2];
+	var id = location.href.split("/")[location.href.split("/").length - 1];
+	var hst = location.host;
+	var url = "https://" + hst + "/webapp/blast_api/" + id + "/" + spacer
+	$.get(url, 'json').done(function(results) {
+		create_alignment(results)
+	}).fail(function (e){
+		if (e.error) {
+		alert("error due to" + e.error)
+		}
+		});
+
+});
+
+function create_alignment(data){
+	var alignments = data["result"]
+	var blasterjs = require("biojs-vis-blasterjs");
+        var instance  = new blasterjs({
+            string: alignments,
+            singleAlignment: "blast-single-alignment"
+        });    
+
+};
+
 $("#sampleQuery").click(function() {
 	$('input[name="ms01"]').val(4);
 	$('input[name="ms03"]').val(7);

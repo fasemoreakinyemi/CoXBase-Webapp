@@ -19,6 +19,12 @@ $.get(url, 'json').done(function(results) {
 		alert("error due to" + e.error)
 		}
 		});
+function extend_cord(pos){
+	var baseJitter = 1.5;
+  	var rnd = Math.random;
+	new_pos = pos - baseJitter / 2 + rnd() * baseJitter;
+	return new_pos;
+}
 
 function draw_map(results){
 var coord_array = JSON.parse(JSON.stringify(results));
@@ -39,9 +45,27 @@ var mymap = L.map('view_map').setView([51, -10], 4);
     		markerColor: 'orange',
 		iconColor: 'black'
   		});
+	latitude_list = []
+	longitude_list = []
 	coord_array.forEach(function(row){
+		if (latitude_list.includes(row['lat'])) {
+			latitude = extend_cord(row['lat'])
+			
+		}
+		else{
+		 	latitude_list.push(row['lat'])
+			latitude = row['lat']
+		}
+		if (longitude_list.includes(row['long'])) {
+			longitude = extend_cord(row['long'])
+			
+		}
+		else{
+		 	longitude_list.push(row['long'])
+			longitude = row['long']
+		}
 
-		marker = new L.marker(L.latLng(parseFloat(row['lat']),parseFloat(row['long'])), {icon: redMarker}).bindPopup(row['name']).addTo(mymap)
+		marker = new L.marker(L.latLng(parseFloat(latitude),parseFloat(longitude)), {icon: redMarker}).bindPopup(row['name']).addTo(mymap)
 	})
 }
 });

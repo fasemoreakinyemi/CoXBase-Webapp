@@ -145,15 +145,22 @@ class ViewProcessor():
                    "-search_pcr2",file_path,"-fwdprimer", fwd_prim, "-revprimer",
                    rev_prim,"-strand", "both", "-fastaout", out_file]
             subprocess.call(command)
-            db = SeqIO.parse("/home/ubuntu/db/{}.fa".format(spacer), "fasta")
-            spacer_fasta = SeqIO.read(out_file, "fasta")
-            for records in db:
-                len_records = len(records.seq)
-                if len_records == len(spacer_fasta.seq):
-                    alignments = pairwise2.align.globalxs(records.seq, spacer_fasta.seq.upper(), -2,-1, score_only=True)
-                    if alignments == len_records: # check for mismatch
-                        spacer_id = records.id.split(".")[1]
-                        spacer_dict[spacer] = spacer_id
+            db = SeqIO.parse("/home/ubuntu/db/{}.fa".format(spacer), "fasta") # open MST library
+            try:
+                spacer_fasta = SeqIO.read(out_file, "fasta")
+            except:
+                pass
+            if spacer_fasta:
+                spacer_id = ""
+                for records in db:
+                    len_records = len(records.seq)
+                    if len_records == len(spacer_fasta.seq):
+                        alignments = pairwise2.align.globalxs(records.seq, spacer_fasta.seq.upper(), -2,-1, score_only=True)
+                        if alignments == len_records: # check for mismatch
+                            spacer_id = records.id.split(".")[1]
+                            spacer_dict[spacer] = spacer_id
+                if spacer_id == "":
+                    spacer_dict[spacer] = 90
         return spacer_dict
     
     @staticmethod
@@ -186,7 +193,7 @@ class ViewProcessor():
                     if len(read_fasta.seq) == 668:
                         if read_fasta.seq[418].upper() == "A":
                             typing_dict["genotype"] = "wildtype"
-                        elif read_fasta.seq[418].upper() == "C":
+                        elif read_fasta.seq[418].upper() == "T":
                             typing_dict["genotype"] = "A431T SNP"
                     else:
                         if len(read_fasta.seq) > 668:
