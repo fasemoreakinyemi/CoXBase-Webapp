@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: iso-8859-15 -*-
+import sys
+sys.path.append("..")
+
 from .. import models
 from pyramid.response import Response
 import pandas as pd

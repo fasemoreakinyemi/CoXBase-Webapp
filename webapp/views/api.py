@@ -5,9 +5,12 @@ from sqlalchemy.ext.automap import automap_base
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
 from sqlalchemy.exc import DBAPIError
+from Bio.Blast.Applications import NcbiblastnCommandline
+import sys
+sys.path.append("..")
 from .. import models
 from .. import process_request
-from Bio.Blast.Applications import NcbiblastnCommandline
+
 
 
 Base = automap_base()
@@ -145,6 +148,7 @@ def get_geo_details(request):
     if request.authenticated_userid:
         query = request.db2_session.query(isolates.country).all()
     else:
+       # query = request.db2_session.query(isolates.country).all()
         query = request.db2_session.query(isolates.country).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).all()
 
     return RP.to_geoloc_dict(query)
@@ -155,7 +159,7 @@ def get_country_details(request):
     isolates = Base.classes.isolates
     isolatesRef = Base.classes.isolate_refs2
     query = request.db2_session.query(isolates).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(isolates.country == country_id).all()
-    #query = request.db2_session.query(isolates).filter(isolates.country == country_id).all()
+  #  query = request.db2_session.query(isolates).filter(isolates.country == country_id).all()
     return RP._serialize_ctr_dts_ls(query)
 
 @view_config(route_name='blast_api', renderer='json')
