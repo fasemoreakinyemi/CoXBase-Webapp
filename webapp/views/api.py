@@ -171,3 +171,5 @@ def mst_blast_api(request):
     cline = NcbiblastnCommandline(query=query, db=db, strand="plus",
                               evalue=0.001, out="-", outfmt=0)
     return { "result" : cline()[0] }
+
+

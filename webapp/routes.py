@@ -60,5 +60,7 @@ def includeme(config):
     config.add_route('retrieve_form', '/submit_retrieve')
     config.add_route('blaster', '/blastn/{ID}/{spacer}')
     config.add_route('blast_api', '/blast_api/{ID}/{spacer}')
+    config.add_route('isolate_query', '/query/isolates')
+    config.add_route('isolate_query_api', '/query/isolates/{cont}/{combo}')
 
 

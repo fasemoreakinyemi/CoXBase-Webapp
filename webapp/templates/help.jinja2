@@ -55,7 +55,7 @@
   <h3>Analysis</h3>
   <div>
     <p>
-    There are two possible typing analysis on CoxBase presently. The <b>MLVA</b> typing analysis and the <b>MST</b> typing analysis. Both require either a sequence upload (recommended)  or sequence input in the text area.<br>
+    There are 5 possible typing analysis on CoxBase presently. The <b>MLVA</b> typing analysis, <b>MST</b> typing analysis, IS1111 typing, AdaA gene and Plasmid. All typing methods require either a sequence upload (recommended)  or sequence input in the text area.<br>
     NOTE: <b>Sequence must be in Fasta format </b>
     After the sequence has been uploaded. Run the typing analysis by clicking on the submit button.
 
@@ -67,12 +67,25 @@
 
 	<p style="margin-top:30px;"> 3 links are provided above the result table, as shown below</p>
 	<p><img src="{{request.static_url('webapp:static/img/links.png')}}"><br>
-	The first link "Result table" is a permanent link that point to the result of this analysis and can be saved or bookmarked for further consultation<br>
-	The second link "Submission details" points to the page that contain details of the particular submission and it includes a 36 unique alphanumeric which is the Submission ID.<br>
-	The third link "Phylogenetic analysis" takes the user to a page with a link to query the MLVA database with the calculated repeat number
+	<ul>
+		<li>Result table - permanent link that point to the result of this analysis and can be saved or bookmarked for further consultation</li>
+		<li>Submission details - points to the page that contain details of the particular submission and it includes a 36 unique alphanumeric which is the Submission ID. This can be used to retrieve the analysis historically</li>
+		<li>Phylogenetic analysis - takes the user to a page with a link to query the <b>MLVA database</b> with the calculated repeat numbers</li></ul>
 	
 	<h3>MST</h3>
-	<p>The result table shows the allele type for each of the 10 inter spacer region. The MST group can be discoverd by clicking on phylogenetic analysis and submiting the result to the MST database.</p>
+	<p>The result table shows the allele type for each of the 10 inter spacer region. The MST group can be discoverd by clicking on phylogenetic analysis and submiting the result to the MST database as shown below</p>
+	<p><img src="{{request.static_url('webapp:static/img/mst_result.png')}}"><br>
+	The column headers are the spacer type and the values below are the detected alleles.<br>
+	NOTE: <b>New Cox56</b> signifies the detected allele is not in the MST alleles database. We recommend a close examination of this allele sequenece by clicking on the button so as to distinguish between a true SNP variant and a false variant due to missing or unannotated nucleotides. A BLAST result annotation constructed with Blaster JS will be pulished under the result table for futher clarification.</pr>
+
+	<h3>IS1111</h3>
+	<p>The IS1111 method is based on the localization of IS1111 regions. The result table contains alternating columns of IS element and the state ( status if it's present or absent )</p>
+	<p><img src="{{request.static_url('webapp:static/img/is1111_present.png')}}"> indicates present</p>
+	<p><img src="{{request.static_url('webapp:static/img/is1111_absent.png')}}"> indicates absent </p>
+
+	
+
+
 
 
     </p>
