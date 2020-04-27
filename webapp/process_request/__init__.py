@@ -161,6 +161,28 @@ class RequestProcessor():
             item_dict['ms34'] = cls.check_nonetype_int(items.ms34)
             list_container.append(item_dict)
         return list_container
+    
+    # mlva result to list serializer
+    @classmethod
+    def _serialize_mlva_tolist(cls, obj):
+        list_container = []
+        for items in obj:
+            list_container.append(cls.check_nonetype_int(items.ms01))
+            list_container.append(cls.check_nonetype_int(items.ms03))
+            list_container.append(cls.check_nonetype_str(items.ms20))
+            list_container.append(cls.check_nonetype_int(items.ms21))
+            list_container.append(cls.check_nonetype_int(items.ms22))
+            list_container.append(cls.check_nonetype_int(items.ms23))
+            list_container.append(cls.check_nonetype_int(items.ms24))
+            list_container.append(cls.check_nonetype_int(items.ms26))
+            list_container.append(cls.check_nonetype_int(items.ms27))
+            list_container.append(cls.check_nonetype_int(items.ms28))
+            list_container.append(cls.check_nonetype_str(items.ms30))
+            list_container.append(cls.check_nonetype_int(items.ms31))
+            list_container.append(cls.check_nonetype_int(items.ms33))
+            list_container.append(cls.check_nonetype_int(items.ms34))
+        return list_container
+
     # mst results to json serializer
     @staticmethod
     def _serialize_mst(obj):
@@ -190,6 +212,26 @@ class RequestProcessor():
             item_dict['name'] = items.name
             item_dict['lat'] = str(items.latitude)
             item_dict['long'] = str(items.longitude)
+            list_container.append(item_dict)
+        return list_container
+   
+   # country list for coxviewer
+    @staticmethod
+    def _serialize_ctr_dts_iso(obj):
+        list_container = []
+        for items in obj:
+            item_dict = {}
+            item_dict['name'] = items.name
+            item_dict['year'] = str(items.yearOfIsolation)
+            item_dict['host'] = items.host
+            item_dict['source'] = items.tissue
+            item_dict['location'] = items.geographicOrigin
+            item_dict['province'] = items.province
+            item_dict['plasmid'] = items.plasmidType
+            item_dict['adagene type'] = items.adaGene
+            item_dict['MLVA genotype'] = items.mlvaGenotype
+            item_dict['MST group'] = items.mstGroup
+         #   item_dict['ID'] = items.isolateid
             list_container.append(item_dict)
         return list_container
    

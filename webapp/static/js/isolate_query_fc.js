@@ -1,9 +1,8 @@
 
 $(document).ready(function(){
 
-var country_id = window.location.pathname.split("/")[3]
 var hst = location.host;
-var url = "https://" + hst + "/webapp/coxviewer_api/" + country_id 
+var url = "https://" + hst + "/webapp/query/isolate/fc/api"
 $.get(url, 'json').done(function(results) {
 		make_grid(results)
 	}).fail(function (e){

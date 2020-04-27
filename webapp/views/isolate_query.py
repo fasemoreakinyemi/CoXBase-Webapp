@@ -5,6 +5,7 @@ from pyramid.paster import get_appsettings
 from sqlalchemy import engine_from_config, create_engine
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy import or_
+from sqlalchemy import and_
 import json
 from .. import process_request
 
@@ -12,6 +13,7 @@ Base = automap_base()
 settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
 engine = engine_from_config(settings, 'db2.')
 Base.prepare(engine, reflect=True)
+RP = process_request.RequestProcessor()
 
 @view_config(route_name='isolate_query', renderer='../templates/isolate_query.jinja2')
 def isolate_query_view(request):
@@ -19,7 +21,6 @@ def isolate_query_view(request):
 
 @view_config(route_name='isolate_query_api',renderer='json')
 def isolate_query_api_view(request):
-    RP = process_request.RequestProcessor()
     container = request.matchdict["cont"]
     combo = request.matchdict["combo"]
     query_container = json.loads(container)
@@ -33,8 +34,9 @@ def isolate_query_api_view(request):
                    "host":"host",
                    "country":"country",
                    "plasmid":"plasmidType",
-                   "MST group": "mstGroup",
-                   "MLVA Genotype": "mlvaGenotype"}
+                   "mst": "mstGroup",
+                   "ada": "adaGene",
+                   "mlva": "mlvaGenotype"}
     
     for items in query_container:
         subject = subject_dict[items[0]]
@@ -58,7 +60,7 @@ def isolate_query_api_view(request):
                     conditionAnd.append(models.like("%{}%".format(value)))
                 else:
                     conditionOr.append(models.like("%{}%".format(value)))
-        elif operatr == "starts with":
+        elif operatr == "starts":
             query = request.db2_session.query(isolates_table).filter(
                 models.like("{}%".format(value))).first()
             if query:
@@ -66,7 +68,7 @@ def isolate_query_api_view(request):
                     conditionAnd.append(models.like("{}%".format(value)))
                 else:
                     conditionOr.append(models.like("{}%".format(value)))
-        elif operatr == "ends with":
+        elif operatr == "ends":
             query = request.db2_session.query(isolates_table).filter(
                 models.like("%{}".format(value))).first()
             if query:
@@ -83,9 +85,25 @@ def isolate_query_api_view(request):
                 else:
                     conditionOr.append(models!=value)
     if combo == "AND":
-        final_query = request.db2_session.query(isolates_table).filter(*conditionAnd).all()
+        if conditionAnd == []:
+            return {"STATUS": "None"}
+        else:
+            final_query = request.db2_session.query(isolates_table).filter(and_(*conditionAnd)).all()
     else:
-        final_query = request.db2_session.query(isolates_table).filter(or_(*conditionOr)).all()
-    if final_query:
-        return  RP._serialize_ctr_dts(final_query)
-    return {"STATUS": "None"}
+        if conditionOr == []:
+            return {"STATUS": "None"}
+        else:
+            final_query = request.db2_session.query(isolates_table).filter(or_(*conditionOr)).all()
+    return  RP._serialize_ctr_dts_iso(final_query)
+
+@view_config(route_name='isolate_query_fc', renderer='../templates/isolate_query_faceted.jinja2')
+def isolate_query_fc_view(request):
+    return {}
+
+@view_config(route_name='isolate_fc_api', renderer='json')
+def get_all_isolates(request):
+    isolates = Base.classes.isolates
+    isolatesRef = Base.classes.isolate_refs2
+    query = request.db2_session.query(isolates).all()
+  #  query = request.db2_session.query(isolates).filter(isolates.country == country_id).all()
+    return RP._serialize_ctr_dts_ls(query)

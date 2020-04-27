@@ -17,3 +17,7 @@ def is1111analysis_view(request):
 @view_config(route_name='adaanalysis', renderer='../templates/adaA_analysis.jinja2')
 def adaAanalysis_view(request):
     return {}
+
+@view_config(route_name='combined', renderer='../templates/combined_analysis.jinja2')
+def combine_view(request):
+    return {}
