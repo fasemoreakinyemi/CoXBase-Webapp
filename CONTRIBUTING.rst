@@ -15,7 +15,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/@fasemoreakinyemi/coxbase_webapp/issues.
+Report bugs at https://github.com/foerstner-lab/CoxBase-Webapp/issues.
 
 If you are reporting a bug, please include:
 
@@ -45,7 +45,7 @@ articles, and such.
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/@fasemoreakinyemi/coxbase_webapp/issues.
+The best way to send feedback is to file an issue at https://github.com/foerstner-lab/CoxBase-Webapp/issues.
 
 If you are proposing a feature:
 
@@ -62,7 +62,7 @@ Ready to contribute? Here's how to set up `coxbase_webapp` for local development
 1. Fork the `coxbase_webapp` repo on GitHub.
 2. Clone your fork locally::
 
-    $ git clone git@github.com:your_name_here/coxbase_webapp.git
+    $ git clone git@github.com:foerstner-lab/CoxBase-Webapp
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
 
