@@ -8,8 +8,8 @@ A central platform for Coxiella typing data management, that is capable of in si
 In progress
 
 ## Contact
-- [Konrad Förstner](foerstner@zbmed.de)
-- [A. M. Fasemore](akinyemi.fasemore@stud-mail.uni-wuerzburg.de)
+- [Konrad Förstner](mailto:foerstner@zbmed.de)
+- [A. M. Fasemore](mailto:akinyemi.fasemore@stud-mail.uni-wuerzburg.de)
 
 
 
