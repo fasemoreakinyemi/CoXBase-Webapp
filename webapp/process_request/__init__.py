@@ -182,6 +182,30 @@ class RequestProcessor():
             list_container.append(cls.check_nonetype_int(items.ms33))
             list_container.append(cls.check_nonetype_int(items.ms34))
         return list_container
+    
+    @classmethod
+    def _serialize_mlva_tolist_all(cls, obj):
+        final_list_container = []
+        annotation_container = []
+        for items in obj:
+            list_container = []
+            annotation_container.append(items.ngt)
+            list_container.append(cls.check_nonetype_int(items.ms01))
+            list_container.append(cls.check_nonetype_int(items.ms03))
+            list_container.append(cls.check_nonetype_str(items.ms20))
+            list_container.append(cls.check_nonetype_int(items.ms21))
+            list_container.append(cls.check_nonetype_int(items.ms22))
+            list_container.append(cls.check_nonetype_int(items.ms23))
+            list_container.append(cls.check_nonetype_int(items.ms24))
+            list_container.append(cls.check_nonetype_int(items.ms26))
+            list_container.append(cls.check_nonetype_int(items.ms27))
+            list_container.append(cls.check_nonetype_int(items.ms28))
+            list_container.append(cls.check_nonetype_str(items.ms30))
+            list_container.append(cls.check_nonetype_int(items.ms31))
+            list_container.append(cls.check_nonetype_int(items.ms33))
+            list_container.append(cls.check_nonetype_int(items.ms34))
+            final_list_container.append([float (x) for x in list_container])
+        return final_list_container, annotation_container
 
     # mst results to json serializer
     @staticmethod

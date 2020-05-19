@@ -80,7 +80,7 @@ $('#result_error').html("<div class='result_header'><h1>Found records(s)</h1><h3
 
 
 function create_result(data){
-$('#result').html("<div class='result_header'><button id='mlvaTree' class='my_button'>MLVA tree</button><button id='mstTree' class='my_button'>MST tree</button><h1>Found record(s)</h1></div>" + json2table(data))
+$('#result').html("<div class='result_header'>MLVA tree: <button id='mlvaTree' class='my_button'>grapeTree</button><button id='itolTree' class='my_button'>iTOL</button><h1>Found record(s)</h1></div>" + json2table(data))
 };
 
 function json2table(json){
@@ -200,6 +200,38 @@ items_list = [];
 		var treeUrl = "?tree=http://" + hst + "/tmp/" + result.itms + ".nwk"
 		var metaUrl = "&metadata=http://" + hst + "/tmp/" + result.itms + ".txt"
 		var url = baseurl + treeUrl + metaUrl
+		    
+
+	window.open(url, "_blank")
+//	tree(res).svg(d3.select("#tree_display")).layout();
+                //alert( result.itms )
+                }
+        });
+//	var hst = location.host;
+//	var url = "https://" + hst + "/webapp/tree/mlva/analysis/" + JSON.stringify(items_list)
+
+})
+$("body").on("click", "#itolTree",function(){
+items_list = [];
+	$('#resulttable tbody tr').each( function(){
+	ent_list = []
+	var genotype = $(this).find('td:nth-child(9)').text()
+	if (! genotype == ""){
+	ent_list.push(genotype)
+	var name = $(this).find('td:nth-child(1)').text()
+	ent_list.push(name)
+	var host_type = $(this).find('td:nth-child(3)').text()
+	ent_list.push(host_type)
+	items_list.push( ent_list );
+	ent_list = []
+	}
+});
+	$.ajax({
+            type:"POST",
+            url:"/webapp/tree/mlva",
+            data:JSON.stringify(items_list),
+            success:function(result){
+		var url = result.ilink
 		    
 
 	window.open(url, "_blank")
