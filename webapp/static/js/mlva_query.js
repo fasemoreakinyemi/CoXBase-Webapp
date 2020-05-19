@@ -198,4 +198,26 @@ $("#sampleQuery").click(function() {
 	$('input[name="ms33"]').val(7);
 	$('input[name="ms34"]').val(4);
 })
+
+
+$("body").on("click", ".treeMLVA",function(){
+
+	var path = location.pathname
+	var path_list = path.split("/")
+	var id = path_list[path_list.length - 1]
+	var url_path = "/webapp/tree/mlva/" + id
+
+	$.ajax({
+            type:"POST",
+            url: url_path,
+            success:function(result){
+		var url = result.ilink
+		window.open(url, "_blank")
+                }
+        });
+
+
+
+
+}); 
 }); 

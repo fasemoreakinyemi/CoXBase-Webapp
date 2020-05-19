@@ -94,5 +94,6 @@ def includeme(config):
     # tree viewer
     config.add_route('mlva_tree_2', '/tree/mlva')
     config.add_route('mst_tree_2', '/tree/mst/{ent}')
+    config.add_route('mlva_result_tree', '/tree/mlva/{ID}')
 
 

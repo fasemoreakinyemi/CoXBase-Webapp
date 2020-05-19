@@ -12,6 +12,7 @@ from scipy.cluster.hierarchy import linkage
 from scipy.cluster.hierarchy import to_tree
 import math
 import csv
+from itolapi import Itol
 
 
 class NewickProcessor():
@@ -107,4 +108,14 @@ class NewickProcessor():
                   "w", newline="", encoding='utf-8') as open_file:
             writer = csv.writer(open_file)
             writer.writerows(metadata_list)
+    @staticmethod
+    def create_itol_link(process_ID, newick):
+        with open("/home/ubuntu/coxbase/tools/grapeTree/tre/{}.tree".format(process_ID),
+                  "w", encoding='utf-8') as open_file:
+            open_file.write(newick)
+        itol_uploader = Itol()
+        itol_uploader.add_file("/home/ubuntu/coxbase/tools/grapeTree/tre/{}.tree".format(process_ID))
+        itol_uploader.params['treeName'] = process_ID
+        itol_uploader.upload()
+        return itol_uploader.get_webpage()
 

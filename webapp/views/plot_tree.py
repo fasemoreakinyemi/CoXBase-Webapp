@@ -10,6 +10,7 @@ import json
 from .. import process_request
 from .. import newick_generator
 import uuid
+from .. import models
 
 Base = automap_base()
 settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
@@ -67,7 +68,24 @@ def mlva_tree_view_2(request):
     newick_string = NG.generate_newick(mlva_list, index_list)
     NG.write_newick(process_ID, newick_string)
     NG.write_metadata(process_ID, metadata_list)
-    return  {'itms': "{}".format(process_ID) }
+    itol = NG.create_itol_link(process_ID, newick_string)
+    return  {'itms': "{}".format(process_ID),'ilink':itol }
 #   return {'itms': item_list}
 
+@view_config(route_name='mlva_result_tree',renderer='json')
+def mlva_result_tree(request):
+    process_ID = uuid.uuid4().hex
+    RID = request.matchdict["ID"]
+    repeat_query = request.db2_session.query(models.RepeatNumber).filter(
+        models.RepeatNumber.ID == RID).all()
+    repeat_list = RP._serialize_mlva_tolist(repeat_query)
+    mlvaTable = Base.classes.mlva_normalized
+    query = request.db2_session.query(mlvaTable).all()
+    value_list, annotation_list = RP._serialize_mlva_tolist_all(query)
+    value_list.append([float (x) if x is not None else float(x=-1) for x in repeat_list])
+    annotation_list.append("your profile")
+    newick_string = NG.generate_newick(value_list, annotation_list)
+    itol = NG.create_itol_link(process_ID, newick_string)
+    return  {'itms': "{}".format(process_ID),'ilink':itol }
+ #   return {'tst': test_list}
 
