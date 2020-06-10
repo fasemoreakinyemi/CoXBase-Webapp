@@ -3,7 +3,7 @@ from sqlalchemy.sql import insert
 from pyramid.httpexceptions import (
     HTTPFound,
     HTTPNotFound,
-    )
+    HTTPNotAcceptable)
 from pyramid.httpexceptions import HTTPBadRequest
 from pathlib2 import Path
 from .. import models

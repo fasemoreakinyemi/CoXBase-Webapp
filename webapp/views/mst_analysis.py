@@ -16,6 +16,7 @@ import json
 import pyfastcopy
 from Bio import pairwise2, SeqIO
 from .. import views_processor
+import sys
 
 @view_config(route_name='mstresult')
 def mstprocess_view(request):
