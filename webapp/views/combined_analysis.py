@@ -39,7 +39,10 @@ def combined_result_view(request):
     # mlva
     command = VP.create_epcr_command_combined(file_path, process_ID)
     subprocess.call(command)
-    mlva_dict = VP.extract_mlva_values_combined(process_ID)
+    try:
+        mlva_dict = VP.extract_mlva_values_combined(process_ID)
+    except:
+        raise HTTPNotAcceptable()
     session.execute(insert(models.ProductLength).values([mlva_dict.get("product")]))
     session.execute(insert(models.RepeatSize).values([mlva_dict.get("repeatSize")]))
     session.execute(insert(models.RepeatNumber).values([mlva_dict.get("repeat")]))
@@ -49,14 +52,17 @@ def combined_result_view(request):
     try:
         spacer_dict = VP.mstprocessor_combined(file_path, process_ID)
     except:
-        raise HTTPNotAcceptable("Please check your submission")
+        raise HTTPNotAcceptable()
     
     session.execute(insert(models.mstSpacerResult).values([spacer_dict]))
 
     # is1111
     command = VP.create_epcr_command_is1111_combined(file_path, process_ID)
     subprocess.call(command)
-    is1111_dict = VP.extract_is1111_values_combined(process_ID)
+    try:
+        is1111_dict = VP.extract_is1111_values_combined(process_ID)
+    except:
+        raise HTTPNotAcceptable()
     session.execute(insert(models.is1111Profile).values([is1111_dict]))
 
     #ada

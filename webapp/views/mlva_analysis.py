@@ -3,6 +3,7 @@ from sqlalchemy.sql import insert
 from pyramid.httpexceptions import (
     HTTPFound,
     HTTPNotFound,
+    HTTPNotAcceptable
     )
 from pyramid.httpexceptions import HTTPBadRequest
 from pathlib2 import Path
@@ -35,7 +36,11 @@ def mlvaprocess_view(request):
         file_path = VP.create_file_from_fastaentry(sequence, process_ID)
     command = VP.create_epcr_command(file_path, process_ID)
     subprocess.call(command)
-    mlva_dict = VP.extract_mlva_values(process_ID)
+    try:
+        mlva_dict = VP.extract_mlva_values(process_ID)
+    except:
+        raise HTTPNotAcceptable()
+
     submission_dict = {'ID' : process_ID, 
                        'AnalysisType': 'mlva Insilico typing',
                        'IPaddress' : request.remote_addr} 

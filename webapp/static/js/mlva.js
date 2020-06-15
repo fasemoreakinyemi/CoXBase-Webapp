@@ -10,6 +10,10 @@ window.validateform = function(){
 		throw_multiple_error()
 		return false;
 	}
+	else if (document.forms['mlvaInput']['fastaentry'].value !== "" && document.forms['mlvaInput']['fastaentry'].value.charAt(0) != ">") {
+		throw_not_fasta_error()
+		return false;
+	}
 
 	
 };
@@ -21,6 +25,10 @@ function throw_empty_error(){
 function throw_multiple_error(){
 	$('#result').empty()
 	$('#empty_error_mlva').html("<div class=''><div class='well blue_card'><span><i class='fas fa-exclamation-triangle fa-2x'></i></span> Please upload either a fasta file  or sequence input not both <span><i class='fas fa-exclamation-triangle fa-2x'></i></span></div>")
+}
+function throw_not_fasta_error(){
+	$('#result').empty()
+	$('#empty_error_mlva').html("<div class=''><div class='well blue_card'><span><i class='fas fa-exclamation-triangle fa-2x'></i></span> The sequences you submitted is not fasta formatted <span><i class='fas fa-exclamation-triangle fa-2x'></i></span></div>")
 }
 
 function to_file(input_id){

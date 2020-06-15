@@ -247,7 +247,7 @@ class ViewProcessor():
             try:
                 spacer_fasta = SeqIO.read(out_file, "fasta")
             except:
-                spacer_dict[spacer] = 99
+                pass
             if spacer_fasta:
                 spacer_id = ""
                 for records in db:
