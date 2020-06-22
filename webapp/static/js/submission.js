@@ -11,6 +11,34 @@ var panel = dict[key]
 $('#table_div').html(panel)
 })
 
+$('#subForm').validate({
+	rules : {
+	isolateSource : 'required',
+	isolateName : 'required',
+	isolateHost : 'required',
+	placeOfIsolation : 'required',
+	yearOfIsolation : 'required',
+	country : 'required',
+	latitude : 'required',
+	longitude : 'required',
+	email : {
+		required : true,
+		email : true
+		},
+	nameOfsubmitter : 'required',
+	cox2 : 'required',
+	cox5 : 'required',
+	cox18 : 'required',
+	cox20 : 'required',
+	cox22 : 'required',
+	cox37 : 'required',
+	cox51 : 'required',
+	cox56 : 'required',
+	cox57 : 'required',
+	cox61 : 'required'
+}
+});
+
 window.validateform = function(){
 	if ($("#aof").prop('checked') == false){
 	throw_acknowledgment_error()
@@ -22,6 +50,7 @@ window.validateform = function(){
 function throw_acknowledgment_error(){
 	$('#agreement').html(" !!! Please agree to fair use by ticking this checkbox")
 }
+
 
 })
 

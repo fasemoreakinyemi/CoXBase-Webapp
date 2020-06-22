@@ -7,7 +7,7 @@ from pyramid.response import Response
 from pyramid.httpexceptions import (
     HTTPFound,
     HTTPNotFound,
-    )
+    HTTPNotAcceptable)
 from sqlalchemy.exc import DBAPIError
 import uuid
 from .. import models
@@ -49,13 +49,22 @@ def usersubmission_form(request):
         session.execute(insert(models.mstSubmission).values([markers_dict]))
 
     session.commit()
-    body = "test again {}".format(submissionID)
-    #body="Your submision with ID {}, has been submitted on CoxBase for curation. You can preview it with this link http://coxiella.net/webapp/submissions/form/preview/{}".format(submissionID, submissionID)
+  #  body = "test again {}".format(submissionID)
+    body= """Dear {},\n
+    Your submision with ID {}, has been submitted to CoxBase for curation.\n
+    You can preview it with the below link.\n
+    https://coxbase.q-gaps.de/webapp/submissions/form/preview/{}\n
+    Regards,\n
+    CoxBase Curator""".format(request.POST.get("submitterName"),submissionID, submissionID)
     message = Message(subject="Submission on CoxBase",
                   sender="admin@coxiella.net",
-                  recipients=[request.POST.get('email')],
+                  recipients=[request.POST.get('email'),"fasemoremandela@gmail.com"],
                   body=body)
-    mailer.send(message)
+    try:
+        mailer.send(message)
+    except:
+        raise HTTPNotAcceptable()
+
     url = request.route_url('subFormPrev', ID=submissionID)
     return HTTPFound(location=url)
 

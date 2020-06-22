@@ -3,6 +3,7 @@ from sqlalchemy.sql import insert
 from pyramid.httpexceptions import (
     HTTPFound,
     HTTPNotFound,
+    HTTPNotAcceptable
     )
 from pyramid.httpexceptions import HTTPBadRequest
 from pathlib2 import Path
@@ -35,7 +36,10 @@ def is1111process_view(request):
         file_path = VP.create_file_from_fastaentry(sequence, process_ID)
     command = VP.create_epcr_command_is1111(file_path, process_ID)
     subprocess.call(command)
-    is1111_dict = VP.extract_is1111_values(process_ID)
+    try:
+        is1111_dict = VP.extract_is1111_values(process_ID)
+    except:
+        raise HTTPNotAcceptable()
     submission_dict = {'ID' : process_ID, 
                        'AnalysisType': 'is1111 Insilico typing',
                        'IPaddress' : request.remote_addr} 
