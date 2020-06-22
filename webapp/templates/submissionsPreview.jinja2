@@ -26,49 +26,49 @@
   <body>
 	  {% include 'nav.jinja2' %}
 	 <div class="card" style="margin: 0 auto;width: 1200px;">
-         <h3> Your submission with ID: {{submission.ID}} has been added to the database the
-             entered details are below </h3>
+		 <h3> Your submission with ID:<b> {{submission.ID}} </b>is waiting for curation.</h3>
+		 <h3>The entered details are below: </h3>
 	  <div class="form-row" style="margin-top:45px">
    			 <div class="form-group">
-                 <label for="nameOfIsolate">Submission type:</label>
-                 {{submission.submissionType}}
+                 Submission type:
+		 <b> {{submission.submissionType}}</b>
     			  </div>
 		</div>
         <hr>
 	  <div class="form-row" style="margin-top:15px">
    			 <div class="form-group">
-      				<label for="nameOfIsolate">Name of Isolate:</label> 
-                 {{submission.isolateName}}
+      				Name of Isolate:
+				<b>{{submission.isolateName}}</b>
     			  </div>
 		</div>
         <hr>
 		<div class="row">
   			<div class="col-xs-6">
-    			<label for="source">Source:</label>
-                 {{submission.isolateSource}}
+    			Source:
+			<b> {{submission.isolateSource}}</b>
   			</div>
  			<div class="col-xs-6">
-    			<label for="host">Host:</label>
-                 {{submission.isolateHost}}
+    			Host:
+			<b> {{submission.isolateHost}}</b>
   			</div>
 		</div>
         <hr>
     		<div class="row" style="margin-top:15px">
   			<div class="col-xs-6">
-      			<label for="placeOfIsolation">Place of Isolation:</label>
-                 {{submission.placeOfIsolation}}
+      			Place of Isolation:
+			<b>{{submission.placeOfIsolation}}</b>
   			</div>
   			<div class="col-xs-6">
-      			<label for="yearOfIsolation">Year of Isolation:</label>
-                 {{submission.yearOfIsolation}}
+      			Year of Isolation:
+			<b>{{submission.yearOfIsolation}}</b>
   			</div>
 		</div>
         <hr>
 
 		<div class="row" style="margin-top:15px">
   		<div class="col-xs-5">
-      			<label for="country">Country:</label>
-                 {{submission.country}}
+      			Country:
+			<b>{{submission.country}}</b>
   		</div>
 		</div>
         <hr>
@@ -113,23 +113,23 @@
                  </fieldset>-->
 		<div class="row" style="margin-top:15px">
   			<div class="col-xs-6">
-    			<label for="pubmedID">Pubmed ID of publication:</label>
-                 {{submission.pubmedID}}
+    			Pubmed ID of publication:
+			<b>{{submission.pubmedID}}</b>
   			</div>
  			<div class="col-xs-6">
-    			<label for="genomeAccession">Genome accession:</label>
-                 {{submission.genomeAccession}}
+    			Genome accession:
+			<b>{{submission.genomeAccession}}</b>
   			</div>
 		</div>
         <hr>
     		<div class="row" style="margin-top:15px">
   			<div class="col-xs-6">
-      			<label for="email">Contact email address:</label>
-                 {{submission.email}}
+				Contact email address:
+				<b>{{submission.email}}</b>
   			</div>
   			<div class="col-xs-6">
-      			<label for="nameOfsubmitter">Name of submitter:</label>
-                 {{submission.submitterName}}
+      			Name of submitter:
+			<b>{{submission.submitterName}}</b>
   			</div>
 		</div>
     <!--main-->
