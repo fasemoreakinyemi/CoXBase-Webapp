@@ -6,4 +6,4 @@ install:
   - python setup.py -q install
 
 script:
-  - pytest --cov ./webapp/test
+  - pytest --cov webapp/test
