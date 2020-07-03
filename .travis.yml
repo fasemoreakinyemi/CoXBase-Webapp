@@ -6,7 +6,7 @@ install:
   - export VENV=/home/travis/build/env
   - python -m venv ${VENV}
   - echo ${TRAVIS_BUILD_DIR}
-  - ls ${VENV}
+  - ls ${VENV}/bin
   - cd ${TRAVIS_BUILD_DIR}
   - ${VENV}/bin/pip install -e .
 
