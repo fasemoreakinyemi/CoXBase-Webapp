@@ -3,12 +3,6 @@ dist: xenial
 python:
   - 3.6
 install:
-  - export VENV=/home/travis/build/env
-  - python3.6 -m venv ${VENV}
-  - echo ${TRAVIS_BUILD_DIR}
-  - ls ${VENV}/bin
-  - cd ${TRAVIS_BUILD_DIR}
-  - ${VENV}/bin/pip install -e .
-
+  - pip install -r requirements.txt
 script:
-  - ${VENV}/bin/pytest webapp/test
+  - pytest webapp/test
