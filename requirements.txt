@@ -1,0 +1,16 @@
+bcrypt
+plaster_pastedeploy
+pyramid
+pyramid_jinja2
+pyramid_debugtoolbar
+waitress
+alembic
+pyramid_retry
+pyramid_tm
+SQLAlchemy
+transaction
+zope.sqlalchemy
+pymysql
+pandas
+numpy
+pyramid_mailer
