@@ -4,7 +4,7 @@ python:
   - 3.6
 install:
   - export VENV=/home/travis/build/env
-  - python -m venv ${VENV}
+  - python3.6 -m venv ${VENV}
   - echo ${TRAVIS_BUILD_DIR}
   - ls ${VENV}/bin
   - cd ${TRAVIS_BUILD_DIR}
