@@ -8,7 +8,7 @@ from pyramid import testing
 class QueryFunctionalTests(unittest.TestCase):
     def setUp(self):
         from pyramid.paster import get_app
-        app = get_app('../../development.ini')
+        app = get_app('development.ini')
         from webtest import TestApp
 
         self.testapp = TestApp(app)
