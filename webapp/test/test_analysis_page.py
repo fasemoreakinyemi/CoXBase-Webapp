@@ -2,7 +2,7 @@
 # -*- coding: iso-8859-15 -*-
 
 import sys
-sys.path.append("..")
+sys.path.append(".")
 import unittest
 
 from pyramid import testing
