@@ -3,11 +3,11 @@ dist: xenial
 python:
   - 3.6
 install:
-  - export VENV=~/env
-  - python3 -m venv $VENV
-  - echo pwd
+  - export VENV=/home/travis/build/env
+  - python3 -m venv ${VENV}
   - echo ${TRAVIS_BUILD_DIR}
-  - cd ${TRAVIS_BUILD_DIR}/CoxBase-Webapp && $VENV/bin/pip install -e .
+  - echo ${VENV}
+  - cd ${TRAVIS_BUILD_DIR} && ${VENV}/bin/pip install -e .
 
 script:
-  - $VENV/bin/pytest webapp/test
+  - ${VENV}/bin/pytest webapp/test
