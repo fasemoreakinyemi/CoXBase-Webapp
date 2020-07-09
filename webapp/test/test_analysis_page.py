@@ -2,7 +2,7 @@
 # -*- coding: iso-8859-15 -*-
 
 import sys
-sys.path.append("../")
+sys.path.append("/home/travis/build/foerstner-lab/CoxBase-Webapp/webapp")
 import unittest
 
 print(sys.path)
