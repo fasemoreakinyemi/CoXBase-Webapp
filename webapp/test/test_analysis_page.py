@@ -5,6 +5,8 @@ import sys
 sys.path.append(".")
 import unittest
 
+print(sys.path)
+
 from pyramid import testing
 
 
