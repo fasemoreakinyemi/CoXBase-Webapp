@@ -5,5 +5,5 @@ python:
 install:
   - pip install -r requirements.txt
   - python3.6 ${TRAVIS_BUILD_DIR}/webapp/test/test_analysis_page.py 
-#script:
-#  - pytest webapp/test
+script:
+  - pytest webapp/test
