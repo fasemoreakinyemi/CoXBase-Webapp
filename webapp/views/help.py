@@ -3,7 +3,7 @@ from sqlalchemy.sql import insert
 from pyramid.httpexceptions import (
     HTTPFound,
     HTTPNotFound,
-    )
+)
 from pyramid.httpexceptions import HTTPBadRequest
 from pathlib2 import Path
 from .. import models
@@ -16,8 +16,6 @@ import json
 from .. import views_processor
 
 
-
-@view_config(route_name='help', renderer="../templates/help.jinja2")
+@view_config(route_name="help", renderer="../templates/help.jinja2")
 def my_help(request):
     return {}
-

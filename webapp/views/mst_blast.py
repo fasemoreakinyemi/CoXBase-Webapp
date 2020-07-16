@@ -13,10 +13,9 @@ from sqlalchemy import or_
 from .. import models
 import logging
 import traceback
-import  sys
+import sys
 
 
-@view_config(route_name='blaster', renderer='../templates/mst_blast.jinja2')
+@view_config(route_name="blaster", renderer="../templates/mst_blast.jinja2")
 def mst_blast_view(request):
     return {}
-

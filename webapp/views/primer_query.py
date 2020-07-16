@@ -13,41 +13,56 @@ from sqlalchemy import or_
 from .. import models
 import logging
 import traceback
-import  sys
+import sys
 
 Base = automap_base()
-settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
-engine = engine_from_config(settings, 'db2.')
+settings = get_appsettings(
+    "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
+)
+engine = engine_from_config(settings, "db2.")
 Base.prepare(engine, reflect=True)
 
-@view_config(route_name='primerquery', renderer='../templates/primer_query.jinja2')
+
+@view_config(route_name="primerquery", renderer="../templates/primer_query.jinja2")
 def primer_view(request):
     return {}
 
-@view_config(route_name='primerquery_results',
-             renderer='../templates/primer_query_results.jinja2')
+
+@view_config(
+    route_name="primerquery_results",
+    renderer="../templates/primer_query_results.jinja2",
+)
 def primer_results_view(request):
     primers = Base.classes.primer
     is_query = text("primers.name like 'IS%'")
-    query_dict = { "mlva" : primers.name.like('ms__\_%'), "mst" :primers.name.like('mst%'),
-                  "is": text("primer.name like 'is%' and primer.pmid is not null"),
-                  "snp" : primers.name.like('ada%'),
-                  "plasmid" : primers.name.like('Q%')}
+    query_dict = {
+        "mlva": primers.name.like("ms__\_%"),
+        "mst": primers.name.like("mst%"),
+        "is": text("primer.name like 'is%' and primer.pmid is not null"),
+        "snp": primers.name.like("ada%"),
+        "plasmid": primers.name.like("Q%"),
+    }
     condition_list = []
     wanted_seq = request.matchdict["selection"]
     if len(wanted_seq) == 1:
         try:
-            query = request.db2_session.query(primers).filter(query_dict.get(wanted_seq[0])).filter(primers.pmid > 0)
+            query = (
+                request.db2_session.query(primers)
+                .filter(query_dict.get(wanted_seq[0]))
+                .filter(primers.pmid > 0)
+            )
         except DBAPIError:
-            return Response(db_err_msg, content_type='text/plain', status=500)
-        return {'count' : query.count(), 'results' : query.all()}
+            return Response(db_err_msg, content_type="text/plain", status=500)
+        return {"count": query.count(), "results": query.all()}
     else:
         for items in wanted_seq:
             condition_list.append(query_dict.get(items, None))
         try:
-            query = request.db2_session.query(primers).filter(or_(*condition_list)).filter(primers.pmid > 0)
+            query = (
+                request.db2_session.query(primers)
+                .filter(or_(*condition_list))
+                .filter(primers.pmid > 0)
+            )
         except DBAPIError:
-            return Response(db_err_msg, content_type='text/plain', status=500)
-        return {'count' : query.count(), 'results' : query.all()}
-
-
+            return Response(db_err_msg, content_type="text/plain", status=500)
+        return {"count": query.count(), "results": query.all()}

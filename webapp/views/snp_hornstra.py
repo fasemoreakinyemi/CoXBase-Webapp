@@ -13,11 +13,10 @@ import json
 import pyfastcopy
 from Bio import pairwise2, SeqIO
 from .. import views_processor
-import sys
 
 
-@view_config(route_name="mstresult")
-def mstprocess_view(request):
+@view_config(route_name="SNPHresult")
+def processHornstra_view(request):
     VP = views_processor.ViewProcessor()
     if "fastafile" not in request.POST or "fastaentry" not in request.POST:
         raise HTTPNotFound()
@@ -34,62 +33,34 @@ def mstprocess_view(request):
         sequence = memoryview(request.POST["fastaentry"].encode("utf-8"))
         file_path = VP.create_file_from_fastaentry(sequence, process_ID)
     try:
-        spacer_dict = VP.mstprocessor(file_path, process_ID)
+        typing_dict = VP.snpHornstraprocessor(file_path, process_ID)
     except:
         raise HTTPNotAcceptable()
     submission_dict = {
         "ID": process_ID,
-        "AnalysisType": "mst Insilico typing",
+        "AnalysisType": "Hornstra Insilico typing",
         "IPaddress": request.remote_addr,
     }
     session = request.db2_session
     session.execute(insert(models.SubmissionTable).values([submission_dict]))
-    session.execute(insert(models.mstSpacerResult).values([spacer_dict]))
+    session.execute(insert(models.snpHornstra).values([typing_dict]))
     session.commit()
-    url = request.route_url("resMST", ID=process_ID)
+    url = request.route_url("resHornstra", ID=process_ID)
     return HTTPFound(location=url)
 
 
 @view_config(
-    route_name="resMST", renderer="../templates/mst_analysis_result_table.jinja2"
+    route_name="resHornstra", renderer="../templates/hornstra_analysis_result_table.jinja2"
 )
-def resMST_view(request):
+def resHorsntra_view(request):
     process_ID = request.matchdict["ID"]
     query = (
-        request.db2_session.query(models.mstSpacerResult)
-        .filter(models.mstSpacerResult.ID == process_ID)
+        request.db2_session.query(models.snpHornstra)
+        .filter(models.snpHornstra.ID == process_ID)
         .first()
     )
     if query is None:
         raise HTTPNotFound()
-    return {"results": query}
+    return {"result": query}
 
 
-@view_config(
-    route_name="subMST", renderer="../templates/mst_analysis_submission_table.jinja2"
-)
-def subMST_view(request):
-    process_ID = request.matchdict["ID"]
-    query = (
-        request.db2_session.query(models.SubmissionTable)
-        .filter(models.SubmissionTable.ID == process_ID)
-        .first()
-    )
-    if query is None:
-        raise HTTPNotFound()
-    return {"submission": query}
-
-
-@view_config(
-    route_name="phlMST", renderer="../templates/mst_analysis_phylogenetics.jinja2"
-)
-def phlMST_view(request):
-    process_ID = request.matchdict["ID"]
-    query = (
-        request.db2_session.query(models.mstSpacerResult)
-        .filter(models.mstSpacerResult.ID == process_ID)
-        .first()
-    )
-    if query is None:
-        raise HTTPNotFound()
-    return {"results": query}

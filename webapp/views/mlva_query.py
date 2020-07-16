@@ -13,25 +13,40 @@ from sqlalchemy import or_
 from .. import models
 import logging
 import traceback
-import  sys
+import sys
 
-@view_config(route_name='mlvaquery', renderer='../templates/mlva_query.jinja2')
+
+@view_config(route_name="mlvaquery", renderer="../templates/mlva_query.jinja2")
 def mlva_view(request):
     return {}
 
 
-@view_config(route_name='fp_query_api', renderer='json')
+@view_config(route_name="fp_query_api", renderer="json")
 def fpq_view(request):
     RP = process_request.RequestProcessor()
-    repeat_list = ['ms01', 'ms03', 'ms20', 'ms21', 
-                 'ms22', 'ms23', 'ms24', 'ms26', 
-                 'ms27', 'ms28', 'ms30', 'ms31',
-                 'ms33', 'ms34']
+    repeat_list = [
+        "ms01",
+        "ms03",
+        "ms20",
+        "ms21",
+        "ms22",
+        "ms23",
+        "ms24",
+        "ms26",
+        "ms27",
+        "ms28",
+        "ms30",
+        "ms31",
+        "ms33",
+        "ms34",
+    ]
     conditionAnd = []
     conditionOr = []
     Base = automap_base()
-    settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
-    engine = engine_from_config(settings, 'db2.')
+    settings = get_appsettings(
+        "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
+    )
+    engine = engine_from_config(settings, "db2.")
     Base.prepare(engine, reflect=True)
     mlvaTable = Base.classes.mlva_normalized
     for repeats in repeat_list:
@@ -39,32 +54,38 @@ def fpq_view(request):
             continue
         else:
             repeat_model = getattr(mlvaTable, repeats)
-            repeat_query = request.db2_session.query(mlvaTable).filter(
-                repeat_model == float(request.matchdict[repeats])).first()
+            repeat_query = (
+                request.db2_session.query(mlvaTable)
+                .filter(repeat_model == float(request.matchdict[repeats]))
+                .first()
+            )
             if repeat_query:
-                conditionAnd.append(repeat_model==float(request.matchdict[repeats]))
-                query = request.db2_session.query(mlvaTable).filter(*conditionAnd).first()
+                conditionAnd.append(repeat_model == float(request.matchdict[repeats]))
+                query = (
+                    request.db2_session.query(mlvaTable).filter(*conditionAnd).first()
+                )
                 if query:
                     continue
                 else:
                     conditionAnd.pop()
     if conditionAnd == []:
-        return {"STATUS":"NO MATCH"} 
+        return {"STATUS": "NO MATCH"}
     try:
-        query = request.db2_session.query(mlvaTable).filter(*conditionAnd).all()#(or_(*conditionOr)).all()#filter(*conditionAnd).all()
+        query = (
+            request.db2_session.query(mlvaTable).filter(*conditionAnd).all()
+        )  # (or_(*conditionOr)).all()#filter(*conditionAnd).all()
 
     except:
         exc_type, exc_value, exc_traceback = sys.exc_info()
         lines = traceback.format_exception(exc_type, exc_value, exc_traceback)
-        inf = ''.join('!!' + line for line in lines)
-        return {"line" : inf}
-    
-   # while conditionAnd:
-   #     if conditionAnd and query:
-   #         break
-   #     else:
-   #         conditionAnd.pop()
-   #         query = request.db2_session.query(mlvaTable).all()
-   #        # query = request.db2_session.query(mlva).filter(*conditionAnd).all()
-    return RP._serialize_mlva(query)#{len(conditionOr):len(conditionAnd)}
+        inf = "".join("!!" + line for line in lines)
+        return {"line": inf}
 
+    # while conditionAnd:
+    #     if conditionAnd and query:
+    #         break
+    #     else:
+    #         conditionAnd.pop()
+    #         query = request.db2_session.query(mlvaTable).all()
+    #        # query = request.db2_session.query(mlva).filter(*conditionAnd).all()
+    return RP._serialize_mlva(query)  # {len(conditionOr):len(conditionAnd)}

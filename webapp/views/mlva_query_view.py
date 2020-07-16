@@ -13,24 +13,30 @@ from sqlalchemy import or_
 from .. import models
 import logging
 import traceback
-import  sys
+import sys
 
-@view_config(route_name='entry_view_mlva', renderer='../templates/mlva_query_view.jinja2')
+
+@view_config(
+    route_name="entry_view_mlva", renderer="../templates/mlva_query_view.jinja2"
+)
 def detailed_mlva_view(request):
-    ID = request.matchdict['ID']
+    ID = request.matchdict["ID"]
     Base = automap_base()
-    settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
-    engine = engine_from_config(settings, 'db2.')
+    settings = get_appsettings(
+        "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
+    )
+    engine = engine_from_config(settings, "db2.")
     Base.prepare(engine, reflect=True)
     isolates = Base.classes.isolates
     isolatesRef = Base.classes.isolate_refs2
     try:
         query = request.db2_session.query(isolates).filter(isolates.mlvaGenotype == ID)
-        #query = request.db2_session.query(isolates).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(
+        # query = request.db2_session.query(isolates).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(
         #    isolates.mlvaGenotype == ID)
     except DBAPIError:
-        return Response(db_err_msg, content_type='text/plain', status=500)
-    return {'count' : query.count(), 'results' : query.all()}
+        return Response(db_err_msg, content_type="text/plain", status=500)
+    return {"count": query.count(), "results": query.all()}
+
 
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
@@ -47,11 +53,11 @@ After you fix the problem, please restart the Pyramid application to
 try it again.
 """
 
-#@view_config(route_name='fp_query_api', renderer='json')
-#def fpq_view(request):
+# @view_config(route_name='fp_query_api', renderer='json')
+# def fpq_view(request):
 #    RP = process_request.RequestProcessor()
-#    repeat_list = ['ms01', 'ms03', 'ms20', 'ms21', 
-#                 'ms22', 'ms23', 'ms24', 'ms26', 
+#    repeat_list = ['ms01', 'ms03', 'ms20', 'ms21',
+#                 'ms22', 'ms23', 'ms24', 'ms26',
 #                 'ms27', 'ms28', 'ms30', 'ms31',
 #                 'ms33', 'ms34']
 #    conditionAnd = []
@@ -76,7 +82,7 @@ try it again.
 #        lines = traceback.format_exception(exc_type, exc_value, exc_traceback)
 #        inf = ''.join('!!' + line for line in lines)
 #        return {"line" : inf}
-#    
+#
 #    while conditionAnd:
 #        if conditionAnd and query:
 #            break

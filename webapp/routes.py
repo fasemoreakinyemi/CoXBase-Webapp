@@ -26,18 +26,21 @@ def includeme(config):
     config.add_route('is1111analysis', '/analysis/is1111')
     config.add_route('adaanalysis', '/analysis/adaA')
     config.add_route('combined', '/analysis/combined')
+    config.add_route('SNPHanalysis', '/analysis/SNP/hornstra')
     # insilico form submission
     config.add_route('mlvaresult', '/result/mlva')
     config.add_route('mstresult', '/result/mst')
     config.add_route('is1111result', '/result/is1111')
     config.add_route('adaresult', '/result/adaA')
     config.add_route('combinedresult', '/result/combined')
+    config.add_route('SNPHresult', '/result/SNP/hornstra')
     # insilico analysis result page
     config.add_route('resMLVA', '/result/mlva/{ID}')
     config.add_route('resMST', '/result/mst/{ID}')
     config.add_route('resis1111', '/result/is1111/{ID}')
     config.add_route('resadaA', '/result/adaA/{ID}')
     config.add_route('resCombined', '/result/combined/{ID}')
+    config.add_route('resHornstra', '/result/SNP/hornstra/{ID}')
     # submission
     config.add_route('subMLVA', '/submissions/mlva/{ID}')
     config.add_route('subMST', '/submissions/mst/{ID}')
@@ -95,5 +98,8 @@ def includeme(config):
     config.add_route('mlva_tree_2', '/tree/mlva')
     config.add_route('mst_tree_2', '/tree/mst/{ent}')
     config.add_route('mlva_result_tree', '/tree/mlva/{ID}')
+    # miscellaneous
+    config.add_route('news_api_homepage', '/newsAPI')
+    config.add_route('news_api', '/newsAPI/{lang}/{search}')
 
 

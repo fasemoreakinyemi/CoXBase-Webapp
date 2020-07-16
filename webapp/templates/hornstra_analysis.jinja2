@@ -35,9 +35,10 @@
 	  {% include 'nav.jinja2' %}
     <!--main-->
     <div class="container_mlva_banner">
-	    <h1> Comprehensive <i>C. burnetii in silico</i> genotyping </h1>
-	    <p>This module comprises all available genotyping methods on CoxBase.</br> It is highly recommended that a whole genome sequence in fasta format is used.</p>
-	    <form name="mlvaInput" action="/webapp/result/combined" id="mlva_form" method=POST onsubmit="return validateform()" enctype=multipart/form-data>
+	    <h1> SNP typing (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3206805/">Hornstra <i>et al</i>., 2011</a>)</h1>
+	    <p>The SNP genotyping method by <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3206805/">Hornstra <i>et al</i>., 2011</a> was designed using polymorphisms among multispacer sequence typing (MST). 14 SNPs were described according to the authors that could be used to type samples based on previously established phylogenetic groups. Here we use 12 of the SNPs, two were left out as the SNP products could not be confirmed.
+	    </br> <b>Citations</b>: Hornstra HM, Priestley RA, Georgia SM, et al. Rapid typing of Coxiella burnetii. PLoS One. 2011;6(11):e26201. doi:10.1371/journal.pone.0026201</p>
+	    <form name="mlvaInput" action="/webapp/result/SNP/hornstra" id="mlva_form" method=POST onsubmit="return validateform()" enctype=multipart/form-data>
 		    <p> <b>Enter Sequence in Fasta Format</b></p>
 		    <p> <textarea name="fastaentry"></textarea> <br>
 		    OR, upload a file <label for="fastafile"></label>
@@ -52,8 +53,8 @@
       </div>
     
 
-
     {% include 'footer.jinja2' %}
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

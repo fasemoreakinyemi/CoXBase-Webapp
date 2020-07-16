@@ -7,84 +7,118 @@ from pyramid.httpexceptions import HTTPFound
 from sqlalchemy.exc import DBAPIError
 from Bio.Blast.Applications import NcbiblastnCommandline
 import sys
+
 sys.path.append("..")
 from .. import models
 from .. import process_request
 
 
-
 Base = automap_base()
-settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
-engine = engine_from_config(settings, 'db2.')
+settings = get_appsettings(
+    "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
+)
+engine = engine_from_config(settings, "db2.")
 Base.prepare(engine, reflect=True)
 
 RP = process_request.RequestProcessor()
 
 # view controller for year plot on dashboard
-@view_config(route_name='api_dashboard_year', renderer='json')
+@view_config(route_name="api_dashboard_year", renderer="json")
 def api_dashboard_year(request):
     RP = process_request.RequestProcessor()
-    _column = request.matchdict['ID'] # _column is country
+    _column = request.matchdict["ID"]  # _column is country
     model = Base.classes.isolates
     isolatesRef = Base.classes.isolate_refs2
     if request.authenticated_userid:
-        query = request.db2_session.query(model.yearOfIsolation).filter(model.country == _column).all()
+        query = (
+            request.db2_session.query(model.yearOfIsolation)
+            .filter(model.country == _column)
+            .all()
+        )
     else:
-        query = request.db2_session.query(model.yearOfIsolation).filter(model.country == _column).all()
-      #  query = request.db2_session.query(model.yearOfIsolation).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(
-     #           model.country == _column).all()
+        query = (
+            request.db2_session.query(model.yearOfIsolation)
+            .filter(model.country == _column)
+            .all()
+        )
+    #  query = request.db2_session.query(model.yearOfIsolation).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(
+    #           model.country == _column).all()
     result_dict = RP.to_dict(query)
     return result_dict
+
 
 # view controller for host plot on dashboard
-@view_config(route_name='api_dashboard_host', renderer='json')
+@view_config(route_name="api_dashboard_host", renderer="json")
 def api_dashboard_host(request):
     RP = process_request.RequestProcessor()
-    _column = request.matchdict['ID'] # _column is country
+    _column = request.matchdict["ID"]  # _column is country
     model = Base.classes.isolates
     isolatesRef = Base.classes.isolate_refs2
     if request.authenticated_userid:
-        query = request.db2_session.query(model.host).filter( model.country == _column).all()
+        query = (
+            request.db2_session.query(model.host).filter(model.country == _column).all()
+        )
     else:
-        query = request.db2_session.query(model.host).filter( model.country == _column).all()
-  #      query = request.db2_session.query(model.host).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
+        query = (
+            request.db2_session.query(model.host).filter(model.country == _column).all()
+        )
+    #      query = request.db2_session.query(model.host).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
     result_dict = RP.to_dict(query)
     return result_dict
+
 
 # view controller for province plot on dashboard
-@view_config(route_name='api_dashboard_province', renderer='json')
+@view_config(route_name="api_dashboard_province", renderer="json")
 def api_dashboard_province(request):
     RP = process_request.RequestProcessor()
-    _column = request.matchdict['ID'] # _column is country
+    _column = request.matchdict["ID"]  # _column is country
     model = Base.classes.isolates
     isolatesRef = Base.classes.isolate_refs2
     if request.authenticated_userid:
-        query = request.db2_session.query(model.province).filter(model.country == _column).all()
+        query = (
+            request.db2_session.query(model.province)
+            .filter(model.country == _column)
+            .all()
+        )
     else:
-        query = request.db2_session.query(model.province).filter(model.country == _column).all()
-     #   query = request.db2_session.query(model.province).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
+        query = (
+            request.db2_session.query(model.province)
+            .filter(model.country == _column)
+            .all()
+        )
+    #   query = request.db2_session.query(model.province).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
     result_dict = RP.to_dict(query)
     return result_dict
+
 
 # view controller for genotype plot on dashboard
-@view_config(route_name='api_dashboard_genotype', renderer='json')
+@view_config(route_name="api_dashboard_genotype", renderer="json")
 def api_dashboard_genotype(request):
     RP = process_request.RequestProcessor()
-    _column = request.matchdict['ID'] # _column is country
+    _column = request.matchdict["ID"]  # _column is country
     model = Base.classes.isolates
     isolatesRef = Base.classes.isolate_refs2
     if request.authenticated_userid:
-        query = request.db2_session.query(model.mlvaGenotype).filter(model.country == _column).all()
+        query = (
+            request.db2_session.query(model.mlvaGenotype)
+            .filter(model.country == _column)
+            .all()
+        )
     else:
-        query = request.db2_session.query(model.mlvaGenotype).filter(model.country == _column).all()
-     #   query = request.db2_session.query(model.mlvaGenotype).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
+        query = (
+            request.db2_session.query(model.mlvaGenotype)
+            .filter(model.country == _column)
+            .all()
+        )
+    #   query = request.db2_session.query(model.mlvaGenotype).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
     result_dict = RP.to_dict(query)
     return result_dict
 
-@view_config(route_name='api_column', renderer='json')
+
+@view_config(route_name="api_column", renderer="json")
 def api_filter(request):
     RP = process_request.RequestProcessor()
-    _column = request.matchdict['column']
+    _column = request.matchdict["column"]
     model = RP.get_model(_column)
     if model:
         try:
@@ -94,58 +128,72 @@ def api_filter(request):
             return RP.response_error()
         return result_dict
     else:
-        return {'NOT': 'working'}
+        return {"NOT": "working"}
 
 
-@view_config(route_name='api_filter', renderer='json')
+@view_config(route_name="api_filter", renderer="json")
 def model_filter(request):
     RP = process_request.RequestProcessor()
-    _column = request.matchdict['column']
+    _column = request.matchdict["column"]
     model = RP.get_model(_column)
-    _filter = request.matchdict['filter']
+    _filter = request.matchdict["filter"]
     filter_model = RP.get_model_filter(_filter)
-    _filter_value = request.matchdict['filter_value']
+    _filter_value = request.matchdict["filter_value"]
     if model:
         try:
-            query = request.db2_session.query(model).filter(filter_model == _filter_value).all()
+            query = (
+                request.db2_session.query(model)
+                .filter(filter_model == _filter_value)
+                .all()
+            )
             result_dict = RP.to_dict(query)
         except DBAPIError:
             return RP.response_error()
         return result_dict
     else:
-        return {'NOT': 'working'}
+        return {"NOT": "working"}
 
-@view_config(route_name='api_map', renderer='json')
+
+@view_config(route_name="api_map", renderer="json")
 def map_filter(request):
     RP = process_request.RequestProcessor()
-    _column = request.matchdict['column']
-    _filter_value = request.matchdict['state']
+    _column = request.matchdict["column"]
+    _filter_value = request.matchdict["state"]
     query = request.db2_session.query(models.SampleMetadata)
     model = RP.get_model(_column)
     result = query.filter(model == _filter_value).all()
     return RP._serialize(result)
 
-@view_config(route_name='api_mlva_map', renderer='json')
+
+@view_config(route_name="api_mlva_map", renderer="json")
 def get_mlva_coordinates(request):
     geoTable = Base.classes.isolates_geolocation
-    _column = request.matchdict['ID']
-    query = request.db2_session.query(geoTable).filter(
-        geoTable.mlvaGenotype == _column).all()
+    _column = request.matchdict["ID"]
+    query = (
+        request.db2_session.query(geoTable)
+        .filter(geoTable.mlvaGenotype == _column)
+        .all()
+    )
     return RP._serialize_coord(query)
 
-@view_config(route_name='api_mst_map', renderer='json')
+
+@view_config(route_name="api_mst_map", renderer="json")
 def get_mst_coordinates(request):
     geoTable = Base.classes.isolates_geolocation
-    _column = request.matchdict['ID']
-    query = request.db2_session.query(geoTable).filter(
-        geoTable.mstGroup == _column).all()
+    _column = request.matchdict["ID"]
+    query = (
+        request.db2_session.query(geoTable).filter(geoTable.mstGroup == _column).all()
+    )
     return RP._serialize_coord(query)
 
-@view_config(route_name='api_coxviewer', renderer='json')
+
+@view_config(route_name="api_coxviewer", renderer="json")
 def get_geo_details(request):
     Base = automap_base()
-    settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
-    engine = engine_from_config(settings, 'db2.')
+    settings = get_appsettings(
+        "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
+    )
+    engine = engine_from_config(settings, "db2.")
     Base.prepare(engine, reflect=True)
     isolates = Base.classes.isolates
     isolatesRef = Base.classes.isolate_refs2
@@ -153,27 +201,30 @@ def get_geo_details(request):
         query = request.db2_session.query(isolates.country).all()
     else:
         query = request.db2_session.query(isolates.country).all()
-     #   query = request.db2_session.query(isolates.country).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).all()
+    #   query = request.db2_session.query(isolates.country).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).all()
 
     return RP.to_geoloc_dict(query)
 
-@view_config(route_name='api_coxviewer2', renderer='json')
+
+@view_config(route_name="api_coxviewer2", renderer="json")
 def get_country_details(request):
-    country_id = request.matchdict['ID']
+    country_id = request.matchdict["ID"]
     isolates = Base.classes.isolates
     isolatesRef = Base.classes.isolate_refs2
-   # query = request.db2_session.query(isolates).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(isolates.country == country_id).all()
-    query = request.db2_session.query(isolates).filter(isolates.country == country_id).all()
+    # query = request.db2_session.query(isolates).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(isolates.country == country_id).all()
+    query = (
+        request.db2_session.query(isolates).filter(isolates.country == country_id).all()
+    )
     return RP._serialize_ctr_dts_ls(query)
 
-@view_config(route_name='blast_api', renderer='json')
+
+@view_config(route_name="blast_api", renderer="json")
 def mst_blast_api(request):
-    process_id = request.matchdict['ID']
-    spacer = request.matchdict['spacer']
+    process_id = request.matchdict["ID"]
+    spacer = request.matchdict["spacer"]
     query = "/home/ubuntu/temp/{}/{}.fasta".format(process_id, spacer)
     db = "/home/ubuntu/db/{}.fa".format(spacer)
-    cline = NcbiblastnCommandline(query=query, db=db, strand="plus",
-                              evalue=0.001, out="-", outfmt=0)
-    return { "result" : cline()[0] }
-
-
+    cline = NcbiblastnCommandline(
+        query=query, db=db, strand="plus", evalue=0.001, out="-", outfmt=0
+    )
+    return {"result": cline()[0]}

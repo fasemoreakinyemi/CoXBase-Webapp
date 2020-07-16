@@ -14,6 +14,7 @@ from .mst_results import Base, mstSpacerResult
 from .signup import UserTable
 from .is1111 import is1111Profile
 from .adaA import adaAProfile
+from .snp_hornstra import snpHornstra 
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup
 configure_mappers()

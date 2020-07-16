@@ -7,7 +7,7 @@ from pyramid.response import Response
 from pyramid.httpexceptions import (
     HTTPFound,
     HTTPNotFound,
-    )
+)
 from sqlalchemy.exc import DBAPIError
 import uuid
 from .. import models
@@ -16,32 +16,37 @@ import bcrypt
 
 SP = security.SecurityProcessor()
 
-@view_config(route_name='signup', renderer='../templates/signup.jinja2')
+
+@view_config(route_name="signup", renderer="../templates/signup.jinja2")
 def signup_view(request):
     return {}
 
-@view_config(route_name='register', renderer='json')
+
+@view_config(route_name="register", renderer="json")
 def register_form(request):
     mailer = request.mailer
     submissionID = uuid.uuid4().hex
     user_dict = {"ID": submissionID}
     session = request.db2_session
     user_list = ["email", "username"]
-    passhash = SP.hash_password(request.POST['password'])
-    user_dict['password'] = passhash
+    passhash = SP.hash_password(request.POST["password"])
+    user_dict["password"] = passhash
     for item in user_list:
         user_dict[item] = request.POST.get(item)
     session.execute(insert(models.UserTable).values([user_dict]))
     session.commit()
-    body = "Your registration was succesful you can sign in here http://coxiella.net/webapp/login"
-    message = Message(subject="Registration on CoxBase",
-              sender="admin@coxiella.net",
-              recipients=[request.POST.get('email')],
-              body=body)
+    body = "Your registration was succesful you can sign in here https://coxbase.q-gaps.de/webapp/login"
+    message = Message(
+        subject="Registration on CoxBase",
+        sender="admin@coxiella.net",
+        recipients=[request.POST.get("email")],
+        body=body,
+    )
     mailer.send(message)
-    return {'done':'good'}
-  #  return {}
- #   return HTTPNotFound()
-   # url = request.route_url('succesful')
-#    return HTTPFound(location=url)
+    return {"done": "good"}
 
+
+#  return {}
+#   return HTTPNotFound()
+# url = request.route_url('succesful')
+#    return HTTPFound(location=url)

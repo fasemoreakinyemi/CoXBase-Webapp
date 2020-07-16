@@ -7,14 +7,10 @@ import deform.widget
 from sqlalchemy.exc import DBAPIError
 
 
-@view_config(route_name='home', renderer='../templates/landing_page.jinja2')
+@view_config(route_name="home", renderer="../templates/landing_page.jinja2")
 def my_view(request):
     if request.authenticated_userid:
         status = "Log out"
-        route = 'logout'
-        return {'status': status, 'route': route}
-    return {'status': "Log in", 'route': 'login'}
-
-
-
-
+        route = "logout"
+        return {"status": status, "route": route}
+    return {"status": "Log in", "route": "login"}

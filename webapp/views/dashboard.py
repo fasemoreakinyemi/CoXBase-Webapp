@@ -5,17 +5,17 @@ import colander
 from deform import Form
 import deform.widget
 from sqlalchemy.exc import DBAPIError
-#from .. import process_request
 
-#from .. import models
+# from .. import process_request
 
-@view_config(route_name='dashboard', renderer='../templates/dashboard.jinja2')
+# from .. import models
+
+
+@view_config(route_name="dashboard", renderer="../templates/dashboard.jinja2")
 def my_view(request):
     return {}
 
 
-@view_config(route_name='dashboard_coxviewer', renderer='../templates/dashboard.jinja2')
+@view_config(route_name="dashboard_coxviewer", renderer="../templates/dashboard.jinja2")
 def dashboard_view(request):
     return {}
-
-
