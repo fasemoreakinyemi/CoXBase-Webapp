@@ -17,6 +17,7 @@ ul {
   list-style-type: none;
 }
 
+
 /*## isolate query ##*/
 .add_button {padding:0.1em 0.5em;margin:5px;cursor:pointer}
 .add_button {
@@ -72,14 +73,23 @@ ul {
 .footer{
 
 position: fixed;
-background: #f8f8f8;
-height: 200px;
-text-align: center;
-justify-content: center;
-width: 100%;
-bottom: 0;
 left: 0;
+bottom: 0;
+width: 100%;
 padding-top: 10px;
+background-color: #34495e;
+}
+
+.footer_list {
+list-style-type:initial;
+padding: 1em;
+text-align: center;
+}
+
+
+.footer_list li {
+display: inline;
+
 }
 /*## footer ##*/
 

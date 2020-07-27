@@ -3,6 +3,7 @@
 
 import sys
 sys.path.append("/home/travis/build/foerstner-lab/CoxBase-Webapp/webapp")
+sys.path.append("..")
 import unittest
 
 print(sys.path)

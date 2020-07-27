@@ -21,7 +21,7 @@ def getnews_view(request):
     if language not in ["en", "de"]:
         raise HTTPNotFound()
 
-    headlines = newsapi.get_top_headlines(q=searchterm,
+    headlines = newsapi.get_everything(q=searchterm,
                                           language=language)
     return {"results": headlines}
 
