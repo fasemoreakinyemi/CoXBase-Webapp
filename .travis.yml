@@ -3,7 +3,7 @@ services:
   - mysql
 before_install:
   - mysql -u root < ${TRAVIS_BUILD_DIR}/sql/createuser.sql
-  - mysql -u root < ${TRAVIS_BUILD_DIR}/sql/creatdb.sql
+  - mysql -u root < ${TRAVIS_BUILD_DIR}/sql/createdb.sql
 
 dist: xenial
 python:
