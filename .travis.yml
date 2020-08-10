@@ -1,4 +1,10 @@
 language: python
+services:
+  - mysql
+before_install:
+  - mysql -u root -p < ${TRAVIS_BUILD_DIR}/sql/createuser.sql
+  - mysql -u root -p < ${TRAVIS_BUILD_DIR}/sql/creatdb.sql
+
 dist: xenial
 python:
   - 3.6
