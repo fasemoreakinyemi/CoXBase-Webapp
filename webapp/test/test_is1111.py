@@ -13,15 +13,15 @@ class adaATest(unittest.TestCase):
     def tearDown(self):
         testing.tearDown()
 
-    def test_adaA_forbidden(self):
+    def test_is1111_forbidden(self):
         from pyramid.httpexceptions import HTTPNotFound
-        from views.adaA_analysis import adaAprocess_view
+        from views.is1111_analysis import is1111process_view
         request = testing.DummyRequest()
         request.context = testing.DummyResource()
-        self.assertRaises(HTTPNotFound, adaAprocess_view, request)
+        self.assertRaises(HTTPNotFound, is1111process_view, request)
     
-    def test_resadaA_forbidden(self):
+    def test_resis1111_forbidden(self):
         from pyramid.httpexceptions import HTTPNotFound
-        from views.adaA_analysis import resadaA_view
+        from views.is1111_analysis import resis1111_view
         request = testing.DummyRequest(matchdict={'ID':"degrjnifjne"})
-        self.assertRaises(HTTPNotFound, resadaA_view, request)
+        self.assertRaises(HTTPNotFound, resis1111_view, request)

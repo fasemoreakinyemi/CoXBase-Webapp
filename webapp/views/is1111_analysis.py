@@ -3,14 +3,14 @@ from sqlalchemy.sql import insert
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPNotAcceptable
 from pyramid.httpexceptions import HTTPBadRequest
 from pathlib2 import Path
-from .. import models
+from webapp import models
 import pandas as pd
 import subprocess
 import os
 import uuid
 import shutil
 import json
-from .. import views_processor
+from webapp import views_processor
 
 
 @view_config(route_name="is1111result")
@@ -54,11 +54,14 @@ def is1111process_view(request):
 )
 def resis1111_view(request):
     process_ID = request.matchdict["ID"]
-    query1 = (
-        request.db2_session.query(models.is1111Profile)
-        .filter(models.is1111Profile.ID == process_ID)
-        .first()
-    )
+    try:
+        query1 = (
+            request.db2_session.query(models.is1111Profile)
+            .filter(models.is1111Profile.ID == process_ID)
+            .first()
+        )
+    except:
+        raise HTTPNotFound()
     if query1 is None:
         raise HTTPNotFound()
     return {"result": query1}
@@ -82,25 +85,3 @@ def resis1111_view_post(request):
     return wanted
 
 
-#
-# @view_config(route_name='subMLVA',
-#             renderer="../templates/mlva_analysis_submission_table.jinja2")
-# def subMLVA_view(request):
-#    process_ID = request.matchdict['ID']
-#    query = request.db2_session.query(models.SubmissionTable).filter(
-#        models.SubmissionTable.ID == process_ID).first()
-#    if query is None:
-#        raise HTTPNotFound()
-#    return  {'submission' :query }
-#
-#
-#
-# @view_config(route_name='phlMLVA',
-#             renderer="../templates/mlva_analysis_phylogenetics.jinja2")
-# def phlMLVA_view(request):
-#    process_ID = request.matchdict['ID']
-#    query = request.db2_session.query(models.RepeatNumber).filter(
-#        models.RepeatNumber.ID == process_ID).first()
-#    if query is None:
-#        raise HTTPNotFound()
-#    return  {'RepeatNumber' :query }

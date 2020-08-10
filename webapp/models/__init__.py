@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 
 # import or define all models here to ensure they are attached to the
 # Base.metadata prior to any initialization routines
-from .mymodel import Base, organism, Features  # flake8: noqa
+#from .mymodel import Base, organism, Features  # flake8: noqa
 from .mlva import Base, plasmid, mst, TypingMeta, mlvaProfile, SampleMetadata
 from .mlva_results import Base, ProductLength, FlankLength, RepeatSize, RepeatNumber
 from .submission import Base, SubmissionTable, mlvaSubmission, mstSubmission, isolateSubmission

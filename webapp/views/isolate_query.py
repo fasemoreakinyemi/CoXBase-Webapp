@@ -7,7 +7,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy import or_
 from sqlalchemy import and_
 import json
-from .. import process_request
+from webapp import process_request
 
 Base = automap_base()
 settings = get_appsettings(

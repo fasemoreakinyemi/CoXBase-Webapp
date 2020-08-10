@@ -53,13 +53,16 @@ def adaAprocess_view(request):
 @view_config(
     route_name="resadaA", renderer="../templates/adaA_analysis_result_table.jinja2"
 )
-def resMST_view(request):
+def resadaA_view(request):
     process_ID = request.matchdict["ID"]
-    query = (
-        request.db2_session.query(models.adaAProfile)
-        .filter(models.adaAProfile.ID == process_ID)
-        .first()
-    )
+    try:
+        query = (
+            request.db2_session.query(models.adaAProfile)
+            .filter(models.adaAProfile.ID == process_ID)
+            .first()
+        )
+    except:
+        raise HTTPNotFound()
     if query is None:
         raise HTTPNotFound()
     return {"result": query}
