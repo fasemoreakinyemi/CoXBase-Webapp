@@ -64,6 +64,24 @@ def resis1111_view(request):
     return {"result": query1}
 
 
+@view_config(
+    route_name="resis1111", request_method="POST", renderer="json"
+)
+def resis1111_view_post(request):
+    process_ID = request.matchdict["ID"]
+    query1 = (
+        request.db2_session.query(models.is1111Profile)
+        .filter(models.is1111Profile.ID == process_ID)
+        .first()
+    )
+
+    if query1 is None:
+        raise HTTPNotFound()
+    wanted = query1.__dict__
+    wanted.pop('_sa_instance_state', None)
+    return wanted
+
+
 #
 # @view_config(route_name='subMLVA',
 #             renderer="../templates/mlva_analysis_submission_table.jinja2")

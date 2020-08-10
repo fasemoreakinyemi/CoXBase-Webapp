@@ -9,7 +9,7 @@ from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
 from sqlalchemy.exc import DBAPIError
 from .. import process_request
-from sqlalchemy import or_
+from sqlalchemy import or_, between
 from .. import models
 import logging
 import traceback
@@ -60,14 +60,30 @@ def fpq_view(request):
                 .first()
             )
             if repeat_query:
-                conditionAnd.append(repeat_model == float(request.matchdict[repeats]))
-                query = (
-                    request.db2_session.query(mlvaTable).filter(*conditionAnd).first()
+                conditionAnd.append(repeat_model.between(float(int(request.matchdict[repeats])-1),
+                                                         float(request.matchdict[repeats])))
+                query = ( request.db2_session.query(mlvaTable).filter(*conditionAnd).first()
                 )
                 if query:
                     continue
                 else:
                     conditionAnd.pop()
+            else:
+                repeat_query = (
+                    request.db2_session.query(mlvaTable)
+                    .filter(repeat_model == float(int(request.matchdict[repeats])-1))
+                    .first()
+                )
+                if repeat_query:
+                    conditionAnd.append(repeat_model == float(int(request.matchdict[repeats])-1))
+                    query = (
+                        request.db2_session.query(mlvaTable).filter(*conditionAnd).first()
+                    )
+                    if query:
+                        continue
+                    else:
+                        conditionAnd.pop()
+
     if conditionAnd == []:
         return {"STATUS": "NO MATCH"}
     try:

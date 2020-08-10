@@ -3,7 +3,7 @@ from sqlalchemy.sql import insert
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPNotAcceptable
 from pyramid.httpexceptions import HTTPBadRequest
 from pathlib2 import Path
-from .. import models
+from webapp import models
 import pandas as pd
 import subprocess
 import os
@@ -12,7 +12,7 @@ import shutil
 import json
 import pyfastcopy
 from Bio import pairwise2, SeqIO
-from .. import views_processor
+from webapp import views_processor
 
 
 @view_config(route_name="adaresult")
@@ -65,25 +65,3 @@ def resMST_view(request):
     return {"result": query}
 
 
-#
-# @view_config(route_name='subMST',
-#             renderer="../templates/mst_analysis_submission_table.jinja2")
-# def subMST_view(request):
-#    process_ID = request.matchdict['ID']
-#    query = request.db2_session.query(models.SubmissionTable).filter(
-#        models.SubmissionTable.ID == process_ID).first()
-#    if query is None:
-#        raise HTTPNotFound()
-#    return  {'submission' :query }
-#
-#
-#
-# @view_config(route_name='phlMST',
-#             renderer="../templates/mst_analysis_phylogenetics.jinja2")
-# def phlMST_view(request):
-#    process_ID = request.matchdict['ID']
-#    query = request.db2_session.query(models.mstSpacerResult).filter(
-#        models.mstSpacerResult.ID == process_ID).first()
-#    if query is None:
-#        raise HTTPNotFound()
-#    return  {'results' :query }
