@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: iso-8859-15 -*-
+
 import sys
 sys.path.append("..")
 import unittest
@@ -5,16 +8,16 @@ import unittest
 from pyramid import testing
 
 
-class LandingpageViewTests(unittest.TestCase):
+class CoxviewerViewTests(unittest.TestCase):
     def setUp(self):
         self.config = testing.setUp()
 
     def tearDown(self):
         testing.tearDown()
 
-    def test_isolate_query_page(self):
-        from views.isolate_query import isolate_query_view
+    def test_sequenceviewer(self):
+        from views.sequenceviewer import sequence_view
 
         request = testing.DummyRequest()
-        response = isolate_query_view(request)
+        response = sequence_view(request)
         self.assertEqual(response, {})

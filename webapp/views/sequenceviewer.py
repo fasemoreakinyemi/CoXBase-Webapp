@@ -7,5 +7,5 @@ from sqlalchemy.exc import DBAPIError
 
 
 @view_config(route_name="sequenceviewer", renderer="../templates/sequenceviewer.jinja2")
-def primer_view(request):
+def sequence_view(request):
     return {}

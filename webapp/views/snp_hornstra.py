@@ -3,7 +3,7 @@ from sqlalchemy.sql import insert
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPNotAcceptable
 from pyramid.httpexceptions import HTTPBadRequest
 from pathlib2 import Path
-from .. import models
+from webapp import models
 import pandas as pd
 import subprocess
 import os
@@ -12,7 +12,7 @@ import shutil
 import json
 import pyfastcopy
 from Bio import pairwise2, SeqIO
-from .. import views_processor
+from webapp import views_processor
 
 
 @view_config(route_name="SNPHresult")
@@ -52,13 +52,16 @@ def processHornstra_view(request):
 @view_config(
     route_name="resHornstra", renderer="../templates/hornstra_analysis_result_table.jinja2"
 )
-def resHorsntra_view(request):
+def resHornstra_view(request):
     process_ID = request.matchdict["ID"]
-    query = (
-        request.db2_session.query(models.snpHornstra)
-        .filter(models.snpHornstra.ID == process_ID)
-        .first()
-    )
+    try:
+        query = (
+            request.db2_session.query(models.snpHornstra)
+            .filter(models.snpHornstra.ID == process_ID)
+            .first()
+        )
+    except:
+        raise HTTPNotFound()
     if query is None:
         raise HTTPNotFound()
     return {"result": query}

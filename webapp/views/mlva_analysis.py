@@ -4,14 +4,14 @@ from sqlalchemy.sql import insert
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPNotAcceptable
 from pyramid.httpexceptions import HTTPBadRequest
 from pathlib2 import Path
-from .. import models
+from webapp import models
 import pandas as pd
 import subprocess
 import os
 import uuid
 import shutil
 import json
-from .. import views_processor
+from webapp import views_processor
 
 
 @view_config(route_name="mlvaresult")
@@ -59,11 +59,14 @@ def mlvaprocess_view(request):
 )
 def resMLVA_view(request):
     process_ID = request.matchdict["ID"]
-    query1 = (
-        request.db2_session.query(models.ProductLength)
-        .filter(models.ProductLength.ID == process_ID)
-        .first()
-    )
+    try:
+        query1 = (
+            request.db2_session.query(models.ProductLength)
+            .filter(models.ProductLength.ID == process_ID)
+            .first()
+        )
+    except:
+        raise HTTPNotFound()
     if query1 is None:
         raise HTTPNotFound()
     query2 = (
@@ -94,11 +97,14 @@ def resMLVA_view(request):
 )
 def subMLVA_view(request):
     process_ID = request.matchdict["ID"]
-    query = (
-        request.db2_session.query(models.SubmissionTable)
-        .filter(models.SubmissionTable.ID == process_ID)
-        .first()
-    )
+    try:
+        query = (
+            request.db2_session.query(models.SubmissionTable)
+            .filter(models.SubmissionTable.ID == process_ID)
+            .first()
+        )
+    except:
+        raise HTTPNotFound()
     if query is None:
         raise HTTPNotFound()
     return {"submission": query}
