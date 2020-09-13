@@ -28,16 +28,16 @@ def combined_result_view(request):
         pass
     if filename is not "":
         inputfile = request.POST["fastafile"].file
-        file_path = VP.create_file_from_fastafile_combined(inputfile, process_ID)
+        file_path = VP.create_file_from_fastafile(inputfile, process_ID, "combined")
     else:
         sequence = memoryview(request.POST["fastaentry"].encode("utf-8"))
         file_path = VP.create_file_from_fastaentry(sequence, process_ID)
 
     # mlva
-    command = VP.create_epcr_command_combined(file_path, process_ID)
+    command = VP.create_epcr_command(file_path, process_ID,"combined", "mlva")
     subprocess.call(command)
     try:
-        mlva_dict = VP.extract_mlva_values_combined(process_ID)
+        mlva_dict = VP.extract_mlva_values(process_ID, "combined")
     except:
         raise HTTPNotAcceptable()
     session.execute(insert(models.ProductLength).values([mlva_dict.get("product")]))
@@ -47,23 +47,23 @@ def combined_result_view(request):
 
     # mst
     try:
-        spacer_dict = VP.mstprocessor_combined(file_path, process_ID)
+        spacer_dict = VP.mstprocessor(file_path, process_ID, "combined")
     except:
         raise HTTPNotAcceptable()
 
     session.execute(insert(models.mstSpacerResult).values([spacer_dict]))
 
     # is1111
-    command = VP.create_epcr_command_is1111_combined(file_path, process_ID)
+    command = VP.create_epcr_command(file_path, process_ID, "combined", "is1111")
     subprocess.call(command)
     try:
-        is1111_dict = VP.extract_is1111_values_combined(process_ID)
+        is1111_dict = VP.extract_is1111_values(process_ID, "combined")
     except:
         raise HTTPNotAcceptable()
     session.execute(insert(models.is1111Profile).values([is1111_dict]))
 
     # ada
-    typing_dict = VP.adaprocessor_combined(file_path, process_ID)
+    typing_dict = VP.adaprocessor(file_path, process_ID, "combined")
     session.execute(insert(models.adaAProfile).values([typing_dict]))
 
     # submission dict

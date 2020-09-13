@@ -26,14 +26,14 @@ def is1111process_view(request):
         pass
     if filename is not "":
         inputfile = request.POST["fastafile"].file
-        file_path = VP.create_file_from_fastafile(inputfile, process_ID)
+        file_path = VP.create_file_from_fastafile(inputfile, process_ID, "sole")
     else:
         sequence = memoryview(request.POST["fastaentry"].encode("utf-8"))
         file_path = VP.create_file_from_fastaentry(sequence, process_ID)
-    command = VP.create_epcr_command_is1111(file_path, process_ID)
+    command = VP.create_epcr_command(file_path, process_ID, "sole", "is1111")
     subprocess.call(command)
     try:
-        is1111_dict = VP.extract_is1111_values(process_ID)
+        is1111_dict = VP.extract_is1111_values(process_ID, "sole")
     except:
         raise HTTPNotAcceptable()
     submission_dict = {

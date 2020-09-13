@@ -28,7 +28,7 @@ def processHornstra_view(request):
         pass
     if filename is not "":
         inputfile = request.POST["fastafile"].file
-        file_path = VP.create_file_from_fastafile(inputfile, process_ID)
+        file_path = VP.create_file_from_fastafile(inputfile, process_ID, "sole")
     else:
         sequence = memoryview(request.POST["fastaentry"].encode("utf-8"))
         file_path = VP.create_file_from_fastaentry(sequence, process_ID)

@@ -28,15 +28,11 @@ def adaAprocess_view(request):
         pass
     if filename is not "":
         inputfile = request.POST["fastafile"].file
-        file_path = VP.create_file_from_fastafile(inputfile, process_ID)
+        file_path = VP.create_file_from_fastafile(inputfile, process_ID, "sole")
     else:
         sequence = memoryview(request.POST["fastaentry"].encode("utf-8"))
         file_path = VP.create_file_from_fastaentry(sequence, process_ID)
-    typing_dict = VP.adaprocessor(file_path, process_ID)
-    # try:
-    #     typing_dict = VP.adaprocessor(file_path, process_ID)
-    # except:
-    #     raise HTTPNotAcceptable("Please check your submission \n Strongly recommend to use a whole genome file")
+    typing_dict = VP.adaprocessor(file_path, process_ID, "sole")
     submission_dict = {
         "ID": process_ID,
         "AnalysisType": "adaA Insilico typing",
