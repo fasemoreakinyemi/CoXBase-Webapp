@@ -14,7 +14,7 @@ requires = [
     'pyramid',
     'pyramid_jinja2',
     'pyramid_debugtoolbar',
-    'waitress',
+    'waitress>=1.4.2',
     'alembic',
     'pyramid_retry',
     'pyramid_tm',
@@ -27,7 +27,8 @@ requires = [
     'cornice',
     'pandas',
     'numpy',
-    'pyramid_mailer'
+    'pyramid_mailer',
+    'urllib3>=1.24.2'
 ]
 
 tests_require = [
