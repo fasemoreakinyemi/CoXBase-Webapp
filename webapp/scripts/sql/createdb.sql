@@ -1,0 +1,4 @@
+CREATE DATABASE MLVA;
+GRANT ALL PRIVILEGES ON MLVA.* TO 'burnetii'@'localhost';
+CREATE DATABASE cox;
+GRANT ALL PRIVILEGES ON cox.* TO 'burnetii'@'localhost'; 

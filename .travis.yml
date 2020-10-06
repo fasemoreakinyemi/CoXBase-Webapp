@@ -2,8 +2,8 @@ language: python
 services:
   - mysql
 before_install:
-  - mysql -u root < ${TRAVIS_BUILD_DIR}/webapp/script/sql/createuser.sql
-  - mysql -u root < ${TRAVIS_BUILD_DIR}/webapp/script/sql/createdb.sql
+  - mysql -u root < ${TRAVIS_BUILD_DIR}/webapp/scripts/sql/createuser.sql
+  - mysql -u root < ${TRAVIS_BUILD_DIR}/webapp/scripts/sql/createdb.sql
 
 dist: xenial
 python:
