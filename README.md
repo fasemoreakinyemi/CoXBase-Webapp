@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/foerstner-lab/CoxBase-Webapp.svg?branch=main)](https://travis-ci.org/foerstner-lab/CoxBase-Webapp)
+
 # CoxBase
 
 ## Project Aim
