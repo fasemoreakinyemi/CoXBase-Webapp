@@ -60,7 +60,7 @@ def fpq_view(request):
                 .first()
             )
             if repeat_query:
-                conditionAnd.append(repeat_model.between(float(int(request.matchdict[repeats])-1),
+                conditionAnd.append(repeat_model.between(float(float(request.matchdict[repeats])-1),
                                                          float(request.matchdict[repeats])))
                 query = ( request.db2_session.query(mlvaTable).filter(*conditionAnd).first()
                 )
