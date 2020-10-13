@@ -4,8 +4,6 @@
 import sys
 
 sys.path.append("..")
-
-from .. import models
 from pyramid.response import Response
 import pandas as pd
 import numpy as np
