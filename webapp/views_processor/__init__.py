@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: iso-8859-15 -*-
-from .. import models
 from pyramid.response import Response
 import pandas as pd
 import numpy as np
@@ -12,17 +11,23 @@ from pathlib2 import Path
 import pyfastcopy
 from Bio import pairwise2, SeqIO
 import subprocess
+import configparser
 
+
+config = configparser.ConfigParser()
+config.read("/home/travis/build/foerstner-lab/CoxBase-Webapp/webapp/views_processor/paths_config.ini")
+sole_outpath = config['OUTPATH']['sole']
+combined_outpath = config['OUTPATH']['combined']
 
 class ViewProcessor:
     @staticmethod
     def create_file_from_fastafile(inputfile, process_ID, analysis_type):
         if analysis_type == "sole":
-            file_path = os.path.join("/home/ubuntu/temp/", "{}.fasta".format(process_ID))
+            file_path = os.path.join(sole_outpath, "{}.fasta".format(process_ID))
         else:
-            os.mkdir("/home/ubuntu/temp/combined/{}".format(process_ID))
+            os.mkdir("{}/{}".format(combined_outpath, process_ID))
             file_path = os.path.join(
-                "/home/ubuntu/temp/combined/{}".format(process_ID),
+                "{}/{}".format(combined_outpath, process_ID),
                 "{}.fasta".format(process_ID),
             )
         temp_file_path = file_path
@@ -34,7 +39,7 @@ class ViewProcessor:
     
     @staticmethod
     def create_file_from_fastaentry(sequence, process_ID):
-        file_path = os.path.join("/home/ubuntu/temp/", "{}.fasta".format(process_ID))
+        file_path = os.path.join(sole_outpath, "{}.fasta".format(process_ID))
         with open(file_path, "wb") as output_file:
             output_file.write(sequence)
         output_file.close()
@@ -42,27 +47,26 @@ class ViewProcessor:
 
     @staticmethod
     def create_epcr_command(file_path, process_ID, analysis_type, analysis_name):
-        sts_file = {"mlva": "/home/ubuntu/coxbase/coxbase/scripts/input/coxiella_ms.sts",
-                    "is1111": "/home/ubuntu/coxbase/coxbase/scripts/input/coxiella_IS.sts"
-                       }[analysis_name]
+        sts_file = {"mlva": config['STSPATH']['mlva'],
+                    "is1111": config['STSPATH']['is1111']}[analysis_name]
         if analysis_type == "sole":
-            out_file = "/home/ubuntu/temp/epcr_{}_output.tab".format(process_ID)
+            out_file = "{}/epcr_{}_output.tab".format(sole_outpath, process_ID)
         else:
             if analysis_name == "mlva":
-                out_file = "/home/ubuntu/temp/combined/{}/epcr_mlva_{}_output.tab".format(
-                                                                                          process_ID,
-                                                                                          process_ID
-                                                                                         )
+                out_file = "{}/{}/epcr_mlva_{}_output.tab".format(combined_outpath,
+                                                                  process_ID,
+                                                                  process_ID
+                                                                 )
             if analysis_name == "is1111":
-                out_file = "/home/ubuntu/temp/combined/{}/epcr_is1111_{}_output.tab".format(
-                                                                                            process_ID,
-                                                                                            process_ID
-                                                                                            )
+                out_file = "{}/{}/epcr_is1111_{}_output.tab".format(combined_outpath,
+                                                                    process_ID,
+                                                                    process_ID
+                                                                    )
 
 
         Path(out_file).touch()
         command = [
-            "/home/ubuntu/tools/Linux-x86_64/e-PCR",
+            config['ExternalToolsPATH']['epcr'],
             "-w7",
             "-f",
             "1",
@@ -111,11 +115,12 @@ class ViewProcessor:
         }
 
         if analysis_type == "sole":
-            result_file = "/home/ubuntu/temp/epcr_{}_output.tab".format(process_ID)
+            result_file = "{}/epcr_{}_output.tab".format(sole_outpath, process_ID)
         else:
-            result_file = "/home/ubuntu/temp/combined/{}/epcr_mlva_{}_output.tab".format(
-                process_ID, process_ID
-            )
+            result_file = "{}/{}/epcr_mlva_{}_output.tab".format(combined_outpath,
+                                                                 process_ID,
+                                                                 process_ID
+                                                                 )
 
         epcr_df = pd.read_table(result_file, sep="\t", header=None)
         header = [
@@ -223,11 +228,13 @@ class ViewProcessor:
             "IS1111_84",
         ]
         if analysis_type == "sole":
-            result_file = "/home/ubuntu/temp/epcr_{}_output.tab".format(process_ID)
+            result_file = "{}/epcr_{}_output.tab".format(sole_outpath,
+                                                         process_ID)
         else:
-            result_file = "/home/ubuntu/temp/combined/{}/epcr_is1111_{}_output.tab".format(
-                process_ID, process_ID
-            )
+            result_file = "{}/{}/epcr_is1111_{}_output.tab".format(combined_outpath,
+                                                                   process_ID,
+                                                                   process_ID
+                                                                   )
 
         epcr_df = pd.read_table(result_file, sep="\t", header=None)
         header = [
@@ -254,9 +261,11 @@ class ViewProcessor:
     @staticmethod
     def mstprocessor(file_path, process_ID, analysis_type):
         if analysis_type == "sole":
-            output_dir = "/home/ubuntu/temp/{}".format(process_ID)
+            output_dir = "{}/{}".format(sole_outpath,
+                                        process_ID)
         else:
-            output_dir = "/home/ubuntu/temp/combined/{}/mlva".format(process_ID)
+            output_dir = "{}/{}/mst".format(combined_outpath,
+                                            process_ID)
         os.mkdir(output_dir)
         spacer_dict = {"ID": process_ID}
         primer_dict = {
@@ -278,7 +287,7 @@ class ViewProcessor:
             rev_prim = value[1]
             out_file = os.path.join(output_dir, "{}.fasta".format(spacer))
             command = [
-                "/home/ubuntu/tools/usearch",
+                config['ExternalToolsPATH']['usearch'],
                 "-search_pcr2",
                 file_path,
                 "-fwdprimer",
@@ -292,8 +301,10 @@ class ViewProcessor:
             ]
             subprocess.call(command)
             db = SeqIO.parse(
-                "/home/ubuntu/db/{}.fa".format(spacer), "fasta"
-            )  # open MST library
+                "{}/{}.fa".format(config['MSTLIBPATH']['db'],
+                                  spacer),
+                "fasta"
+                           )  # open MST library
             try:
                 spacer_fasta = SeqIO.read(out_file, "fasta")
             except:
@@ -321,9 +332,11 @@ class ViewProcessor:
     @staticmethod
     def adaprocessor(file_path, process_ID, analysis_type):
         if analysis_type == "sole":
-            output_dir = "/home/ubuntu/temp/{}".format(process_ID)
+            output_dir = "{}/{}".format(sole_outpath,
+                                        process_ID)
         else:
-            output_dir = "/home/ubuntu/temp/combined/{}/ada".format(process_ID)
+            output_dir = "{}/{}/ada".format(combined_outpath,
+                                            process_ID)
         os.mkdir(output_dir)
         typing_dict = {"ID": process_ID}
         primer_dict = {
@@ -341,7 +354,7 @@ class ViewProcessor:
                 output_dir, "{}.fasta".format(key)
             )
             command = [
-                "/home/ubuntu/tools/usearch",
+                config['ExternalToolsPATH']['usearch'],
                 "-search_pcr2",
                 file_path,
                 "-fwdprimer",
@@ -382,7 +395,8 @@ class ViewProcessor:
     
     @staticmethod
     def snpHornstraprocessor(file_path, process_ID):
-        os.mkdir("/home/ubuntu/temp/{}".format(process_ID))
+        os.mkdir("{}/{}".format(sole_outpath,
+                                process_ID))
         typing_dict = {"ID": process_ID}
         primer_dict = {
             "Cox5bp81": ["CGAGGTGTTTGGTGTGTTGAA", "GGAGAGGGACAATACGTGCTTATG", 48],
@@ -402,11 +416,11 @@ class ViewProcessor:
         for key, value in primer_dict.items():
             fwd_prim = value[0]  # forward primer
             rev_prim = value[1]  # reverse primer
-            out_file = os.path.join(
-                "/home/ubuntu/temp/{}".format(process_ID), "{}.fasta".format(key)
+            out_file = os.path.join("{}/{}".format(sole_outpath, process_ID),
+                                    "{}.fasta".format(key)
             )
             command = [
-                "/home/ubuntu/tools/usearch",
+                config['ExternalToolsPATH']['usearch'],
                 "-search_pcr2",
                 file_path,
                 "-fwdprimer",
