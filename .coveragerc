@@ -2,6 +2,7 @@
 source = webapp
 omit = webapp/test*
        webapp/scripts*
+       webapp/process_request*
        webapp/security*
        webapp/__init__.py
        webapp/pshell.py
