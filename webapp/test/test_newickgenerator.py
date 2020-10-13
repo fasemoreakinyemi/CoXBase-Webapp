@@ -17,7 +17,6 @@ class CoxviewerViewTests(unittest.TestCase):
         from newick_generator import NewickProcessor
         self.config = testing.setUp()
         self.mock_data = Mock_data()
-        self.input_file = config['TESTDATA']['fasta']
         self.np = NewickProcessor()
 
     def tearDown(self):
