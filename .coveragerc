@@ -1,3 +1,9 @@
 [run]
 source = webapp
 omit = webapp/test*
+       webapp/scripts*
+       webapp/security*
+       webapp/__init__.py
+       webapp/pshell.py
+       webapp/requests.py
+       webapp/routes.py
