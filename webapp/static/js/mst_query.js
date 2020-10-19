@@ -161,17 +161,19 @@ $(".result_info").on("click", ".btnView",function(){
 
 });
 
-$("#sampleQuery").click(function() {
-	$('input[name="ms01"]').val(4);
-	$('input[name="ms03"]').val(6);
-	$('input[name="ms20"]').val(3);
-	$('input[name="ms21"]').val(5);
-	$('input[name="ms22"]').val(6);
-	$('input[name="ms23"]').val(2);
-	$('input[name="ms24"]').val(8);
-	$('input[name="ms26"]').val(2);
-	$('input[name="ms27"]').val(5);
-	$('input[name="ms28"]').val(6);
+$("#sampleQuery").click(function(event) {
+	$('input[name="cox2"]').val(3);
+	$('input[name="cox5"]').val(2);
+	$('input[name="cox18"]').val(6);
+	$('input[name="cox20"]').val(1);
+	$('input[name="cox22"]').val(5);
+	$('input[name="cox37"]').val(4);
+	$('input[name="cox51"]').val(4);
+	$('input[name="cox56"]').val(10);
+	$('input[name="cox57"]').val(6);
+	$('input[name="cox61"]').val(5);
+
+	event.preventDefault()
 })
 });	
 

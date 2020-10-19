@@ -182,7 +182,7 @@ function create_alignment(data){
 
 };
 
-$("#sampleQuery").click(function() {
+$("#sampleQuery").click(function(event) {
 	$('input[name="ms01"]').val(4);
 	$('input[name="ms03"]').val(7);
 	$('input[name="ms20"]').val(11.5);
@@ -197,6 +197,8 @@ $("#sampleQuery").click(function() {
 	$('input[name="ms31"]').val(4);
 	$('input[name="ms33"]').val(7);
 	$('input[name="ms34"]').val(4);
+	
+	event.preventDefault()
 })
 
 

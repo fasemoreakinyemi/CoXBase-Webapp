@@ -4,6 +4,7 @@
 import sys
 
 sys.path.append("..")
+
 from pyramid.response import Response
 import pandas as pd
 import numpy as np
@@ -12,6 +13,7 @@ from scipy.cluster.hierarchy import to_tree
 import math
 import csv
 from itolapi import Itol
+import configparser
 
 
 class NewickProcessor:

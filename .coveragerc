@@ -4,6 +4,7 @@ omit = webapp/test*
        webapp/scripts*
        webapp/process_request*
        webapp/security*
+       webapp/automapper*
        webapp/__init__.py
        webapp/pshell.py
        webapp/requests.py

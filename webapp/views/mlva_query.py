@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: iso-8859-15 -*-
 
-from pyramid.paster import get_appsettings
-from sqlalchemy import engine_from_config, create_engine
-from sqlalchemy.ext.automap import automap_base
 from pyramid.view import view_config
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
@@ -14,7 +11,11 @@ from .. import models
 import logging
 import traceback
 import sys
+from webapp import automapper
 
+
+am = automapper.Automapper("/home/ubuntu/coxbase/coxbase/webapp/development.ini")
+Base_automap = am.generate_base("db2.")
 
 @view_config(route_name="mlvaquery", renderer="../templates/mlva_query.jinja2")
 def mlva_view(request):
@@ -42,13 +43,7 @@ def fpq_view(request):
     ]
     conditionAnd = []
     conditionOr = []
-    Base = automap_base()
-    settings = get_appsettings(
-        "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
-    )
-    engine = engine_from_config(settings, "db2.")
-    Base.prepare(engine, reflect=True)
-    mlvaTable = Base.classes.mlva_normalized
+    mlvaTable = getattr(Base_automap, "mlva_normalized") #Base.classes.mlva_normalized
     for repeats in repeat_list:
         if float(request.matchdict[repeats]) == 0:
             continue
