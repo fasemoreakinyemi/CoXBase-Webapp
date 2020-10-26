@@ -4,6 +4,8 @@ services:
 before_install:
   - mysql -u root < ${TRAVIS_BUILD_DIR}/webapp/scripts/sql/createuser.sql
   - mysql -u root < ${TRAVIS_BUILD_DIR}/webapp/scripts/sql/createdb.sql
+  - mysql -u root < ${TRAVIS_BUILD_DIR}/webapp/scripts/sql/mlva_schema.sql
+  - mysql -u root < ${TRAVIS_BUILD_DIR}/webapp/scripts/sql/insert_data.sql
 
 dist: xenial
 python:
