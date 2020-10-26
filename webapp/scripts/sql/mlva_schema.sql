@@ -376,7 +376,7 @@ CREATE TABLE `isolate_refs2` (
   `mlvaCRC32` int unsigned DEFAULT NULL,
   `incomplete` tinyint unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`isolate_id`,`pmid`) USING BTREE,
-  KEY `IDX_refs` (`pmid`,`isolate_id`) USING BTREE,
+  KEY `IDX_refs` (`pmid`,`isolate_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
 
 --
