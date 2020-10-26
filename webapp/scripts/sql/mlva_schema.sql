@@ -1,29 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `MLVA` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `MLVA` ;
 USE `MLVA`;
--- MySQL dump 10.13  Distrib 8.0.21, for Linux (x86_64)
---
--- Host: 127.0.0.1    Database: MLVA
--- ------------------------------------------------------
--- Server version	8.0.21
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
 -- Table structure for table `FlankLengthISPCR`
---
 
 DROP TABLE IF EXISTS `FlankLengthISPCR`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `FlankLengthISPCR` (
   `ID` varchar(36) NOT NULL,
   `ms01` int DEFAULT NULL,
@@ -43,15 +22,10 @@ CREATE TABLE `FlankLengthISPCR` (
   PRIMARY KEY (`ID`),
   CONSTRAINT `FlankLengthISPCR_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `ProductLengthISPCR` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `MLVAProfile`
---
 
 DROP TABLE IF EXISTS `MLVAProfile`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `MLVAProfile` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `PanelType` varchar(30) NOT NULL,
@@ -71,43 +45,29 @@ CREATE TABLE `MLVAProfile` (
   `ms34` float DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `MST`
---
 
 DROP TABLE IF EXISTS `MST`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `MST` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `MSTType` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `Plasmid`
---
 
 DROP TABLE IF EXISTS `Plasmid`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Plasmid` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `PlasmidType` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `ProductLengthISPCR`
---
+
 
 DROP TABLE IF EXISTS `ProductLengthISPCR`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ProductLengthISPCR` (
   `ID` varchar(36) NOT NULL,
   `ms01` int DEFAULT NULL,
@@ -126,15 +86,10 @@ CREATE TABLE `ProductLengthISPCR` (
   `ms34` int DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `RepeatNumberISPCR`
---
 
 DROP TABLE IF EXISTS `RepeatNumberISPCR`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `RepeatNumberISPCR` (
   `ID` varchar(36) NOT NULL,
   `ms01` int DEFAULT NULL,
@@ -154,15 +109,10 @@ CREATE TABLE `RepeatNumberISPCR` (
   PRIMARY KEY (`ID`),
   CONSTRAINT `RepeatNumberISPCR_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `ProductLengthISPCR` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `RepeatSizeISPCR`
---
 
 DROP TABLE IF EXISTS `RepeatSizeISPCR`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `RepeatSizeISPCR` (
   `ID` varchar(36) NOT NULL,
   `ms01` int DEFAULT NULL,
@@ -182,15 +132,10 @@ CREATE TABLE `RepeatSizeISPCR` (
   PRIMARY KEY (`ID`),
   CONSTRAINT `RepeatSizeISPCR_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `ProductLengthISPCR` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `SampleMetadata`
---
 
 DROP TABLE IF EXISTS `SampleMetadata`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `SampleMetadata` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `SampleStrain` varchar(50) DEFAULT NULL,
@@ -216,15 +161,10 @@ CREATE TABLE `SampleMetadata` (
   CONSTRAINT `SampleMetadata_ibfk_3` FOREIGN KEY (`TypingID`) REFERENCES `TypingMetadata` (`ID`),
   CONSTRAINT `SampleMetadata_ibfk_4` FOREIGN KEY (`MLVAID`) REFERENCES `MLVAProfile` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `SubmissionTable`
---
 
 DROP TABLE IF EXISTS `SubmissionTable`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `SubmissionTable` (
   `ID` varchar(36) NOT NULL,
   `SubmissionDate` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -233,30 +173,20 @@ CREATE TABLE `SubmissionTable` (
   `IPaddress` varbinary(16) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `TypingMetadata`
---
 
 DROP TABLE IF EXISTS `TypingMetadata`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `TypingMetadata` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `ClusterType` varchar(5) DEFAULT NULL,
   `Genotype` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `UserTable`
---
 
 DROP TABLE IF EXISTS `UserTable`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `UserTable` (
   `ID` varchar(36) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -265,15 +195,10 @@ CREATE TABLE `UserTable` (
   `group` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `adaAProfile`
---
 
 DROP TABLE IF EXISTS `adaAProfile`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `adaAProfile` (
   `ID` varchar(36) NOT NULL,
   `adaAStatus` tinyint(1) DEFAULT NULL,
@@ -281,28 +206,18 @@ CREATE TABLE `adaAProfile` (
   `plasmidType` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `alembic_version`
---
 
 DROP TABLE IF EXISTS `alembic_version`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `alembic_version` (
   `version_num` varchar(32) NOT NULL,
   PRIMARY KEY (`version_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `bionumerics_is1111`
---
 
 DROP TABLE IF EXISTS `bionumerics_is1111`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bionumerics_is1111` (
   `ky` mediumint unsigned NOT NULL,
   `marker` varchar(10) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
@@ -312,15 +227,10 @@ CREATE TABLE `bionumerics_is1111` (
   `primer_id` tinyint unsigned DEFAULT NULL,
   PRIMARY KEY (`ky`,`marker`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
 -- Table structure for table `is1111Profile`
---
 
 DROP TABLE IF EXISTS `is1111Profile`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `is1111Profile` (
   `ID` varchar(36) NOT NULL,
   `IS1111_1` tinyint(1) DEFAULT NULL,
@@ -386,15 +296,12 @@ CREATE TABLE `is1111Profile` (
   `IS1111_84` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `isolateSubmission`
 --
 
 DROP TABLE IF EXISTS `isolateSubmission`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `isolateSubmission` (
   `ID` varchar(36) NOT NULL,
   `submissionType` varchar(10) NOT NULL,
@@ -413,30 +320,24 @@ CREATE TABLE `isolateSubmission` (
   `submitterName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `isolate_aliases`
 --
 
 DROP TABLE IF EXISTS `isolate_aliases`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `isolate_aliases` (
   `isolateid` smallint unsigned NOT NULL,
   `name` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`isolateid`,`name`) USING BTREE,
   CONSTRAINT `FK_isolate_aliases_isolates` FOREIGN KEY (`isolateid`) REFERENCES `isolates` (`isolateid`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `isolate_refs2`
 --
 
 DROP TABLE IF EXISTS `isolate_refs2`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `isolate_refs2` (
   `isolate_id` smallint unsigned NOT NULL,
   `pmid` int NOT NULL COMMENT 'PubMed ID',
@@ -448,15 +349,12 @@ CREATE TABLE `isolate_refs2` (
   CONSTRAINT `FK_isolate_refs2_isolates` FOREIGN KEY (`isolate_id`) REFERENCES `isolates` (`isolateid`) ON UPDATE CASCADE,
   CONSTRAINT `FK_isolate_refs2_pubmed` FOREIGN KEY (`pmid`) REFERENCES `pubmed` (`pmid`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `isolates`
 --
 
 DROP TABLE IF EXISTS `isolates`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `isolates` (
   `isolateid` smallint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
@@ -509,15 +407,12 @@ CREATE TABLE `isolates` (
   CONSTRAINT `FK_isolates_institutions` FOREIGN KEY (`institution_id`) REFERENCES `institutions` (`id`),
   CONSTRAINT `FK_isolates_mstgroups` FOREIGN KEY (`mstGroup`) REFERENCES `mstgroups` (`groupid`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=571 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `mlvaSubmission`
 --
 
 DROP TABLE IF EXISTS `mlvaSubmission`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mlvaSubmission` (
   `ID` varchar(36) NOT NULL,
   `ms01` float DEFAULT NULL,
@@ -539,15 +434,12 @@ CREATE TABLE `mlvaSubmission` (
   KEY `isolateID` (`isolateID`),
   CONSTRAINT `mlvaSubmission_ibfk_1` FOREIGN KEY (`isolateID`) REFERENCES `isolateSubmission` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `mlva_normalized`
 --
 
 DROP TABLE IF EXISTS `mlva_normalized`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mlva_normalized` (
   `ID` smallint NOT NULL AUTO_INCREMENT,
   `ms01` float DEFAULT NULL,
@@ -567,15 +459,12 @@ CREATE TABLE `mlva_normalized` (
   `ngt` varchar(3) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `mstSpacerResultTable`
 --
 
 DROP TABLE IF EXISTS `mstSpacerResultTable`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mstSpacerResultTable` (
   `ID` varchar(36) NOT NULL,
   `cox18` int DEFAULT NULL,
@@ -590,15 +479,12 @@ CREATE TABLE `mstSpacerResultTable` (
   `cox61` int DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `mstSubmission`
 --
 
 DROP TABLE IF EXISTS `mstSubmission`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mstSubmission` (
   `ID` varchar(36) NOT NULL,
   `cox18` int DEFAULT NULL,
@@ -616,30 +502,24 @@ CREATE TABLE `mstSubmission` (
   KEY `isolateID` (`isolateID`),
   CONSTRAINT `mstSubmission_ibfk_1` FOREIGN KEY (`isolateID`) REFERENCES `isolateSubmission` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `mstalignments`
 --
 
 DROP TABLE IF EXISTS `mstalignments`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mstalignments` (
   `mstid` char(5) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `clustal` text CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `png` blob,
   PRIMARY KEY (`mstid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `mstgroups`
 --
 
 DROP TABLE IF EXISTS `mstgroups`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mstgroups` (
   `groupid` tinyint unsigned NOT NULL AUTO_INCREMENT,
   `COX2` tinyint unsigned NOT NULL,
@@ -654,15 +534,12 @@ CREATE TABLE `mstgroups` (
   `COX61` tinyint unsigned NOT NULL,
   PRIMARY KEY (`groupid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `mstgroups2`
 --
 
 DROP TABLE IF EXISTS `mstgroups2`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mstgroups2` (
   `groupid` tinyint unsigned NOT NULL,
   `COX2` tinyint unsigned DEFAULT NULL,
@@ -677,15 +554,12 @@ CREATE TABLE `mstgroups2` (
   `COX61` tinyint unsigned DEFAULT NULL,
   PRIMARY KEY (`groupid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `primer`
 --
 
 DROP TABLE IF EXISTS `primer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `primer` (
   `id` smallint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
@@ -711,15 +585,12 @@ CREATE TABLE `primer` (
   CONSTRAINT `FK_primer_marker` FOREIGN KEY (`marker_id`) REFERENCES `marker` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `FK_primer_pubmed` FOREIGN KEY (`pmid`) REFERENCES `pubmed` (`pmid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `primer_refs`
 --
 
 DROP TABLE IF EXISTS `primer_refs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `primer_refs` (
   `primer_id` smallint unsigned NOT NULL,
   `pmid` int NOT NULL COMMENT 'PubMed ID',
@@ -731,15 +602,12 @@ CREATE TABLE `primer_refs` (
   CONSTRAINT `FK_primer_refs_primer` FOREIGN KEY (`primer_id`) REFERENCES `primer` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `FK_primer_refs_pubmed` FOREIGN KEY (`pmid`) REFERENCES `pubmed` (`pmid`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `pubmed`
 --
 
 DROP TABLE IF EXISTS `pubmed`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pubmed` (
   `pmid` int NOT NULL,
   `title` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
@@ -748,15 +616,12 @@ CREATE TABLE `pubmed` (
   `bibtexkey` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`pmid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `snpHornstra`
 --
 
 DROP TABLE IF EXISTS `snpHornstra`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `snpHornstra` (
   `ID` varchar(36) NOT NULL,
   `Cox5bp81` varchar(1) DEFAULT NULL,
@@ -773,15 +638,12 @@ CREATE TABLE `snpHornstra` (
   `Cox20bp155` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `snppattern`
 --
 
 DROP TABLE IF EXISTS `snppattern`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `snppattern` (
   `spid` int unsigned NOT NULL AUTO_INCREMENT,
   `pattern` char(7) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
@@ -804,15 +666,12 @@ CREATE TABLE `snppattern` (
   KEY `IDX_alleles` (`cntAlleles`),
   SPATIAL KEY `SPX_rgRSA493` (`rgRSA493`)
 ) ENGINE=MyISAM AUTO_INCREMENT=16352 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `snpprofiles`
 --
 
 DROP TABLE IF EXISTS `snpprofiles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `snpprofiles` (
   `spid` smallint unsigned NOT NULL AUTO_INCREMENT,
   `spuid` smallint unsigned DEFAULT NULL,
@@ -825,15 +684,12 @@ CREATE TABLE `snpprofiles` (
   KEY `IDX_gene` (`gene`),
   KEY `IDX_uid` (`spuid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `snps`
 --
 
 DROP TABLE IF EXISTS `snps`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `snps` (
   `R_DB` int NOT NULL,
   `R_POSITION` int NOT NULL,
@@ -861,15 +717,5 @@ CREATE TABLE `snps` (
   `BASE_19139` char(1) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `CONTIG_19139` varchar(35) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2020-10-26 13:15:35
