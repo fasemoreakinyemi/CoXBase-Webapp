@@ -1,5 +1,86 @@
 CREATE DATABASE  IF NOT EXISTS `MLVA` ;
 USE `MLVA`;
+
+
+-- Table structure for table `ProductLengthISPCR`
+
+
+DROP TABLE IF EXISTS `ProductLengthISPCR`;
+CREATE TABLE `ProductLengthISPCR` (
+  `ID` varchar(36) NOT NULL,
+  `ms01` int DEFAULT NULL,
+  `ms03` int DEFAULT NULL,
+  `ms20` int DEFAULT NULL,
+  `ms21` int DEFAULT NULL,
+  `ms22` int DEFAULT NULL,
+  `ms23` int DEFAULT NULL,
+  `ms24` int DEFAULT NULL,
+  `ms26` int DEFAULT NULL,
+  `ms27` int DEFAULT NULL,
+  `ms28` int DEFAULT NULL,
+  `ms30` int DEFAULT NULL,
+  `ms31` int DEFAULT NULL,
+  `ms33` int DEFAULT NULL,
+  `ms34` int DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `isolates`
+--
+
+DROP TABLE IF EXISTS `isolates`;
+CREATE TABLE `isolates` (
+  `isolateid` smallint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `key` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `isolateNo` smallint unsigned DEFAULT NULL,
+  `imbNo` varchar(14) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `giNo` smallint unsigned DEFAULT NULL,
+  `dateOfIsolation` varchar(10) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `yearOfIsolation` smallint unsigned DEFAULT NULL,
+  `host` enum('cattle','deer','goat','human','mouse','rodent','sheep','tick','environment','other') DEFAULT NULL,
+  `subspecies` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `sample` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `tissue` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `diseasePattern` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `phase` enum('I','II','I/II') CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `zipCode` mediumint unsigned DEFAULT NULL,
+  `geographicOrigin` varchar(45) DEFAULT NULL,
+  `province` char(3) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `country` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `institution_id` tinyint unsigned DEFAULT NULL,
+  `plasmidType` varchar(20) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `adaGene` enum('neg.','pos.','pos.*','pos.S','Q154-del','Q212-del','pos.?') CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `mlvaGenotype` char(3) DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  `restrictionGroup` varchar(10) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `mstGroup` tinyint unsigned DEFAULT NULL,
+  `isGenotype` int unsigned DEFAULT NULL,
+  `isGroup` char(1) DEFAULT NULL,
+  `mlvaCrc32` int unsigned DEFAULT NULL,
+  `genotype` int unsigned DEFAULT NULL,
+  `ISO3166_1` smallint unsigned DEFAULT NULL,
+  `isRef` tinyint unsigned NOT NULL DEFAULT '0',
+  `chronic` tinyint unsigned NOT NULL DEFAULT '0',
+  `exclude` tinyint unsigned NOT NULL DEFAULT '0',
+  `invalid` tinyint unsigned NOT NULL DEFAULT '0',
+  `neighbour` tinyint unsigned NOT NULL DEFAULT '0',
+  `snp16` smallint unsigned DEFAULT NULL,
+  `snp23` smallint unsigned DEFAULT NULL,
+  `dbname` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  PRIMARY KEY (`isolateid`),
+  UNIQUE KEY `IDX_name` (`name`) USING BTREE,
+  UNIQUE KEY `IDX_key` (`key`),
+  KEY `IDX_mst` (`mstGroup`),
+  KEY `IDX_genotype` (`genotype`),
+  KEY `IDX_iso` (`ISO3166_1`),
+  KEY `FK_isolates_snp23` (`snp23`),
+  KEY `FK_isolates_snp16` (`snp16`),
+  KEY `FK_isolates_institutions` (`institution_id`),
+) ENGINE=InnoDB AUTO_INCREMENT=571 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+
 -- Table structure for table `FlankLengthISPCR`
 
 DROP TABLE IF EXISTS `FlankLengthISPCR`;
@@ -64,28 +145,6 @@ CREATE TABLE `Plasmid` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Table structure for table `ProductLengthISPCR`
-
-
-DROP TABLE IF EXISTS `ProductLengthISPCR`;
-CREATE TABLE `ProductLengthISPCR` (
-  `ID` varchar(36) NOT NULL,
-  `ms01` int DEFAULT NULL,
-  `ms03` int DEFAULT NULL,
-  `ms20` int DEFAULT NULL,
-  `ms21` int DEFAULT NULL,
-  `ms22` int DEFAULT NULL,
-  `ms23` int DEFAULT NULL,
-  `ms24` int DEFAULT NULL,
-  `ms26` int DEFAULT NULL,
-  `ms27` int DEFAULT NULL,
-  `ms28` int DEFAULT NULL,
-  `ms30` int DEFAULT NULL,
-  `ms31` int DEFAULT NULL,
-  `ms33` int DEFAULT NULL,
-  `ms34` int DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Table structure for table `RepeatNumberISPCR`
 
@@ -133,34 +192,6 @@ CREATE TABLE `RepeatSizeISPCR` (
   CONSTRAINT `RepeatSizeISPCR_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `ProductLengthISPCR` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Table structure for table `SampleMetadata`
-
-DROP TABLE IF EXISTS `SampleMetadata`;
-CREATE TABLE `SampleMetadata` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `SampleStrain` varchar(50) DEFAULT NULL,
-  `SampleYear` year DEFAULT NULL,
-  `SampleHost` varchar(30) DEFAULT NULL,
-  `SampleSource` varchar(100) DEFAULT NULL,
-  `SampleCountry` varchar(30) DEFAULT NULL,
-  `CountryProvince` varchar(100) DEFAULT NULL,
-  `Latitude` decimal(10,8) DEFAULT NULL,
-  `Longitude` decimal(11,8) DEFAULT NULL,
-  `PubmedID` int DEFAULT NULL,
-  `PlasmidID` int NOT NULL,
-  `MSTID` int NOT NULL,
-  `TypingID` int NOT NULL,
-  `MLVAID` int NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `PlasmidID` (`PlasmidID`),
-  KEY `MSTID` (`MSTID`),
-  KEY `TypingID` (`TypingID`),
-  KEY `MLVAID` (`MLVAID`),
-  CONSTRAINT `SampleMetadata_ibfk_1` FOREIGN KEY (`PlasmidID`) REFERENCES `Plasmid` (`ID`),
-  CONSTRAINT `SampleMetadata_ibfk_2` FOREIGN KEY (`MSTID`) REFERENCES `MST` (`ID`),
-  CONSTRAINT `SampleMetadata_ibfk_3` FOREIGN KEY (`TypingID`) REFERENCES `TypingMetadata` (`ID`),
-  CONSTRAINT `SampleMetadata_ibfk_4` FOREIGN KEY (`MLVAID`) REFERENCES `MLVAProfile` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=latin1;
 
 -- Table structure for table `SubmissionTable`
 
@@ -346,67 +377,7 @@ CREATE TABLE `isolate_refs2` (
   `incomplete` tinyint unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`isolate_id`,`pmid`) USING BTREE,
   KEY `IDX_refs` (`pmid`,`isolate_id`) USING BTREE,
-  CONSTRAINT `FK_isolate_refs2_isolates` FOREIGN KEY (`isolate_id`) REFERENCES `isolates` (`isolateid`) ON UPDATE CASCADE,
-  CONSTRAINT `FK_isolate_refs2_pubmed` FOREIGN KEY (`pmid`) REFERENCES `pubmed` (`pmid`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
-
---
--- Table structure for table `isolates`
---
-
-DROP TABLE IF EXISTS `isolates`;
-CREATE TABLE `isolates` (
-  `isolateid` smallint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `key` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `isolateNo` smallint unsigned DEFAULT NULL,
-  `imbNo` varchar(14) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `giNo` smallint unsigned DEFAULT NULL,
-  `dateOfIsolation` varchar(10) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `yearOfIsolation` smallint unsigned DEFAULT NULL,
-  `host` enum('cattle','deer','goat','human','mouse','rodent','sheep','tick','environment','other') DEFAULT NULL,
-  `subspecies` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `sample` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `tissue` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `diseasePattern` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `phase` enum('I','II','I/II') CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `zipCode` mediumint unsigned DEFAULT NULL,
-  `geographicOrigin` varchar(45) DEFAULT NULL,
-  `province` char(3) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `country` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `institution_id` tinyint unsigned DEFAULT NULL,
-  `plasmidType` varchar(20) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `adaGene` enum('neg.','pos.','pos.*','pos.S','Q154-del','Q212-del','pos.?') CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `mlvaGenotype` char(3) DEFAULT NULL,
-  `comment` varchar(255) DEFAULT NULL,
-  `restrictionGroup` varchar(10) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `mstGroup` tinyint unsigned DEFAULT NULL,
-  `isGenotype` int unsigned DEFAULT NULL,
-  `isGroup` char(1) DEFAULT NULL,
-  `mlvaCrc32` int unsigned DEFAULT NULL,
-  `genotype` int unsigned DEFAULT NULL,
-  `ISO3166_1` smallint unsigned DEFAULT NULL,
-  `isRef` tinyint unsigned NOT NULL DEFAULT '0',
-  `chronic` tinyint unsigned NOT NULL DEFAULT '0',
-  `exclude` tinyint unsigned NOT NULL DEFAULT '0',
-  `invalid` tinyint unsigned NOT NULL DEFAULT '0',
-  `neighbour` tinyint unsigned NOT NULL DEFAULT '0',
-  `snp16` smallint unsigned DEFAULT NULL,
-  `snp23` smallint unsigned DEFAULT NULL,
-  `dbname` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  PRIMARY KEY (`isolateid`),
-  UNIQUE KEY `IDX_name` (`name`) USING BTREE,
-  UNIQUE KEY `IDX_key` (`key`),
-  KEY `IDX_mst` (`mstGroup`),
-  KEY `IDX_genotype` (`genotype`),
-  KEY `IDX_iso` (`ISO3166_1`),
-  KEY `FK_isolates_snp23` (`snp23`),
-  KEY `FK_isolates_snp16` (`snp16`),
-  KEY `FK_isolates_institutions` (`institution_id`),
-  CONSTRAINT `FK_isolates_countries` FOREIGN KEY (`ISO3166_1`) REFERENCES `countries` (`iso`),
-  CONSTRAINT `FK_isolates_institutions` FOREIGN KEY (`institution_id`) REFERENCES `institutions` (`id`),
-  CONSTRAINT `FK_isolates_mstgroups` FOREIGN KEY (`mstGroup`) REFERENCES `mstgroups` (`groupid`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=571 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
 -- Table structure for table `mlvaSubmission`
@@ -717,5 +688,34 @@ CREATE TABLE `snps` (
   `BASE_19139` char(1) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
   `CONTIG_19139` varchar(35) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- Table structure for table `SampleMetadata`
+
+DROP TABLE IF EXISTS `SampleMetadata`;
+CREATE TABLE `SampleMetadata` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `SampleStrain` varchar(50) DEFAULT NULL,
+  `SampleYear` year DEFAULT NULL,
+  `SampleHost` varchar(30) DEFAULT NULL,
+  `SampleSource` varchar(100) DEFAULT NULL,
+  `SampleCountry` varchar(30) DEFAULT NULL,
+  `CountryProvince` varchar(100) DEFAULT NULL,
+  `Latitude` decimal(10,8) DEFAULT NULL,
+  `Longitude` decimal(11,8) DEFAULT NULL,
+  `PubmedID` int DEFAULT NULL,
+  `PlasmidID` int NOT NULL,
+  `MSTID` int NOT NULL,
+  `TypingID` int NOT NULL,
+  `MLVAID` int NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `PlasmidID` (`PlasmidID`),
+  KEY `MSTID` (`MSTID`),
+  KEY `TypingID` (`TypingID`),
+  KEY `MLVAID` (`MLVAID`),
+  CONSTRAINT `SampleMetadata_ibfk_1` FOREIGN KEY (`PlasmidID`) REFERENCES `Plasmid` (`ID`),
+  CONSTRAINT `SampleMetadata_ibfk_2` FOREIGN KEY (`MSTID`) REFERENCES `MST` (`ID`),
+  CONSTRAINT `SampleMetadata_ibfk_3` FOREIGN KEY (`TypingID`) REFERENCES `TypingMetadata` (`ID`),
+  CONSTRAINT `SampleMetadata_ibfk_4` FOREIGN KEY (`MLVAID`) REFERENCES `MLVAProfile` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=latin1;
 
 -- Dump completed on 2020-10-26 13:15:35
