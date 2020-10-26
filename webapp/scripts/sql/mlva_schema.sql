@@ -77,7 +77,7 @@ CREATE TABLE `isolates` (
   KEY `IDX_iso` (`ISO3166_1`),
   KEY `FK_isolates_snp23` (`snp23`),
   KEY `FK_isolates_snp16` (`snp16`),
-  KEY `FK_isolates_institutions` (`institution_id`),
+  KEY `FK_isolates_institutions` (`institution_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=571 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 
@@ -525,6 +525,23 @@ CREATE TABLE `mstgroups2` (
   `COX61` tinyint unsigned DEFAULT NULL,
   PRIMARY KEY (`groupid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+--
+-- Table structure for table `pubmed`
+--
+
+DROP TABLE IF EXISTS `pubmed`;
+CREATE TABLE `pubmed` (
+  `pmid` int NOT NULL,
+  `title` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `year` smallint unsigned NOT NULL,
+  `journal` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `bibtexkey` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (`pmid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+--
+-- Table structure for table `snpHornstra`
+--
 
 --
 -- Table structure for table `primer`
@@ -553,7 +570,6 @@ CREATE TABLE `primer` (
   UNIQUE KEY `IDX_name` (`name`) USING BTREE,
   KEY `FK_primer_pubmed` (`pmid`),
   KEY `FK_primer_marker` (`marker_id`),
-  CONSTRAINT `FK_primer_marker` FOREIGN KEY (`marker_id`) REFERENCES `marker` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `FK_primer_pubmed` FOREIGN KEY (`pmid`) REFERENCES `pubmed` (`pmid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
 
@@ -574,23 +590,6 @@ CREATE TABLE `primer_refs` (
   CONSTRAINT `FK_primer_refs_pubmed` FOREIGN KEY (`pmid`) REFERENCES `pubmed` (`pmid`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
 
---
--- Table structure for table `pubmed`
---
-
-DROP TABLE IF EXISTS `pubmed`;
-CREATE TABLE `pubmed` (
-  `pmid` int NOT NULL,
-  `title` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `year` smallint unsigned NOT NULL,
-  `journal` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `bibtexkey` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  PRIMARY KEY (`pmid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-
---
--- Table structure for table `snpHornstra`
---
 
 DROP TABLE IF EXISTS `snpHornstra`;
 CREATE TABLE `snpHornstra` (
