@@ -10,7 +10,7 @@ from webapp import models
 from webapp import process_request
 from webapp import automapper
 
-am = automapper.Automapper("/home/ubuntu/coxbase/coxbase/webapp/development.ini")
+am = automapper.Automapper("/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini")
 base_automap = am.generate_base("db2.")
 rp = process_request.RequestProcessor()
 
