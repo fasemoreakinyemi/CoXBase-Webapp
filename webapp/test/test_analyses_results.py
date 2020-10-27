@@ -9,7 +9,7 @@ class GenotypingResultsTests(unittest.TestCase):
     def setUp(self):
         from pyramid.paster import get_app
 
-        app = get_app("{}/webapp/development.ini".format(os.environ["TRAVIS_BUILD_DIR"]))
+        app = get_app("{}/development.ini".format(os.environ["TRAVIS_BUILD_DIR"]))
         from webtest import TestApp
 
         self.testapp = TestApp(app)

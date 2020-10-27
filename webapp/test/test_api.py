@@ -10,7 +10,7 @@ class APIFunctionalTests(unittest.TestCase):
         from pyramid.paster import get_app
 
         from webtest import TestApp
-        app = get_app("{}/webapp/development.ini".format(os.environ["TRAVIS_BUILD_DIR"]))
+        app = get_app("{}/development.ini".format(os.environ["TRAVIS_BUILD_DIR"]))
 
         self.testapp = TestApp(app)
 
