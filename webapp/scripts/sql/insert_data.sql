@@ -1,3 +1,6 @@
+
+USE MLVA;
+
 LOAD DATA INFILE '${TRAVIS_BUILD_DIR}/webapp/scripts/sql/sql_tables/adaA_analyses.csv'
 INTO TABLE adaAProfile
 FIELDS TERMINATED BY ','
