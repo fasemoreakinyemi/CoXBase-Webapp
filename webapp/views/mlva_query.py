@@ -14,7 +14,7 @@ import sys
 from webapp import automapper
 
 
-am = automapper.Automapper("/home/ubuntu/coxbase/coxbase/webapp/development.ini")
+am = automapper.Automapper("/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini")
 Base_automap = am.generate_base("db2.")
 
 @view_config(route_name="mlvaquery", renderer="../templates/mlva_query.jinja2")
