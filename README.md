@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/foerstner-lab/CoxBase-Webapp.svg?branch=main)](https://travis-ci.org/foerstner-lab/CoxBase-Webapp) [![Coverage Status]()
+[![Build Status](https://travis-ci.org/foerstner-lab/CoxBase-Webapp.svg?branch=main)](https://travis-ci.org/foerstner-lab/CoxBase-Webapp) [![Coverage Status](https://coveralls.io/repos/github/foerstner-lab/CoxBase-Webapp/badge.svg?branch=main&service=github)](https://coveralls.io/github/foerstner-lab/CoxBase-Webapp?branch=main&service=github)
 
 # CoxBase
 
