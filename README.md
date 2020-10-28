@@ -8,7 +8,7 @@ A central platform for Coxiella typing data management, that is capable of in si
 
 ## Contact
 - [Konrad Förstner](mailto:foerstner@zbmed.de)
-- [A. M. Fasemore](mailto:akinyemi.fasemore@stud-mail.uni-wuerzburg.de)
+- [A. M. Fasemore](mailto:akinyemi.fasemore@stud-mail.uni-wuerzburg.e)
 
 ## URL
 - [CoxBase](https://coxbase.q-gaps.de/webapp/)
