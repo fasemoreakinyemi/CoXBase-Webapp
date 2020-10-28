@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/foerstner-lab/CoxBase-Webapp.svg?branch=main)](https://travis-ci.org/foerstner-lab/CoxBase-Webapp) [![Coverage Status](https://coveralls.io/repos/github/foerstner-lab/CoxBase-Webapp/badge.svg?branch=main&service=github)](https://coveralls.io/github/foerstner-lab/CoxBase-Webapp?branch=main&service=github)
+[![Build Status](https://travis-ci.org/foerstner-lab/CoxBase-Webapp.svg?branch=main)](https://travis-ci.org/foerstner-lab/CoxBase-Webapp) [![Coverage Status]()
 
 # CoxBase
 
@@ -8,7 +8,7 @@ A central platform for Coxiella typing data management, that is capable of in si
 
 ## Contact
 - [Konrad Förstner](mailto:foerstner@zbmed.de)
-- [A. M. Fasemore](mailto:akinyemi.fasemore@stud-mail.uni-wuerzburg.e)
+- [A. M. Fasemore](mailto:akinyemi.fasemore@stud-mail.uni-wuerzburg.de)
 
 ## URL
 - [CoxBase](https://coxbase.q-gaps.de/webapp/)
