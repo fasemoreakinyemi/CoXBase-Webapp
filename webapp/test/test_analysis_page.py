@@ -44,4 +44,18 @@ class AnalysespageViewTests(unittest.TestCase):
         request = testing.DummyRequest()
         response = adaAanalysis_view(request)
         self.assertEqual(response, {})
+    
+    def test_combined_view(self):
+        from views.analyses_page import combine_view
+
+        request = testing.DummyRequest()
+        response = combine_view(request)
+        self.assertEqual(response, {})
+    
+    def test_hornstra(self):
+        from views.analyses_page import hornstraanalysis_view
+
+        request = testing.DummyRequest()
+        response = hornstraanalysis_views(request)
+        self.assertEqual(response, {})
 

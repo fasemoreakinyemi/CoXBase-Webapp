@@ -105,45 +105,6 @@ def api_dashboard_genotype(request):
     result_dict = rp.to_dict(query)
     return result_dict
 
-# plots
-@view_config(route_name="api_column", renderer="json")
-def api_filter(request):
-    RP = process_request.RequestProcessor()
-    _column = request.matchdict["column"]
-    model = RP.get_model(_column)
-    if model:
-        try:
-            query = request.db2_session.query(model).all()
-            result_dict = RP.to_dict(query)
-        except DBAPIError:
-            return RP.response_error()
-        return result_dict
-    else:
-        return {"NOT": "working"}
-
-
-@view_config(route_name="api_filter", renderer="json")
-def model_filter(request):
-    RP = process_request.RequestProcessor()
-    _column = request.matchdict["column"]
-    model = RP.get_model(_column)
-    _filter = request.matchdict["filter"]
-    filter_model = RP.get_model_filter(_filter)
-    _filter_value = request.matchdict["filter_value"]
-    if model:
-        try:
-            query = (
-                request.db2_session.query(model)
-                .filter(filter_model == _filter_value)
-                .all()
-            )
-            result_dict = RP.to_dict(query)
-        except DBAPIError:
-            return RP.response_error()
-        return result_dict
-    else:
-        return {"NOT": "working"}
-
 
 @view_config(route_name="api_map", renderer="json")
 def map_filter(request):
