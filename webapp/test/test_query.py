@@ -23,4 +23,18 @@ class QueryFunctionalTests(unittest.TestCase):
         res = self.testapp.get("/mst_query/4/6/3/5/6/2/8/2/5/6", status=200)
         self.assertEqual(res.content_type, "application/json")
         self.assertEqual(res.json[0]["MST ID"], 5)
+    
+    def test_aggregate_query_response(self):
+        res = self.testapp.get("/query/isolates/[[%22country%22,%22=%22,%22DE%22]]/AND", status=200)
+        self.assertEqual(res.content_type, "application/json")
+
+    def test_aggregrate_view(self):
+        from views.isolate_query import isolate_query_fc_view
+        request = testing.DummyRequest()
+        response = isolate_query_fc_view(request)
+        self.assertEqual(response, {})
+    
+    def test_all_aggregrate_view(self):
+        res = self.testapp.get("/query/isolate/fc/api", status=200)
+        self.assertEqual(res.content_type, "application/json")
 
