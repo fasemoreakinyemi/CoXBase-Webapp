@@ -106,15 +106,6 @@ def api_dashboard_genotype(request):
     return result_dict
 
 
-@view_config(route_name="api_map", renderer="json")
-def map_filter(request):
-    RP = process_request.RequestProcessor()
-    _column = request.matchdict["column"]
-    _filter_value = request.matchdict["state"]
-    query = request.db2_session.query(models.SampleMetadata)
-    model = RP.get_model(_column)
-    result = query.filter(model == _filter_value).all()
-    return RP._serialize(result)
 
 # eview map for mlva isolates
 @view_config(route_name="api_mlva_map", renderer="json")

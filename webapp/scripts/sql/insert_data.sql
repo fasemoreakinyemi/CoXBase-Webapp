@@ -49,3 +49,10 @@ FIELDS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"' 
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/travis/build/foerstner-lab/CoxBase-Webapp/webapp/scripts/sql/sql_tables/geotables.csv'
+INTO TABLE isolates_geolocation
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;

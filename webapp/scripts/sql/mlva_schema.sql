@@ -718,3 +718,16 @@ CREATE TABLE `SampleMetadata` (
 ) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=latin1;
 
 -- Dump completed on 2020-10-26 13:15:35
+
+CREATE TABLE `isolates_geolocation` (
+  `ID` smallint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `mlvaGenotype` varchar(3) DEFAULT NULL,
+  `mstGroup` smallint DEFAULT NULL,
+  `isGenotype` smallint DEFAULT NULL,
+  `latitude` decimal(10,8) DEFAULT NULL,
+  `longitude` decimal(11,8) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `isolates_geolocation_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `isolates` (`isolateid`)
+) ENGINE=InnoDB AUTO_INCREMENT=571 DEFAULT CHARSET=latin1;
+
