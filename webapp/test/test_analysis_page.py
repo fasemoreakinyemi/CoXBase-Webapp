@@ -56,6 +56,6 @@ class AnalysespageViewTests(unittest.TestCase):
         from views.analyses_page import hornstraanalysis_view
 
         request = testing.DummyRequest()
-        response = hornstraanalysis_views(request)
+        response = hornstraanalysis_view(request)
         self.assertEqual(response, {})
 
