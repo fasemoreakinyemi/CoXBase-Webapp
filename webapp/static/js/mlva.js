@@ -4,10 +4,12 @@ $(document).ready(function()
 window.validateform = function(){
 	if (document.forms['mlvaInput']['fastaentry'].value == "" && document.forms['mlvaInput']['fastafile'].value == "") {
 		throw_empty_error()
+    		$("#loader").remove();
 		return false;
 	}
 	else if (document.forms['mlvaInput']['fastaentry'].value !== "" && document.forms['mlvaInput']['fastafile'].value !== "") {
 		throw_multiple_error()
+    		$("#loader").remove();
 		return false;
 	}
 	else if (document.forms['mlvaInput']['fastaentry'].value !== "" && document.forms['mlvaInput']['fastaentry'].value.charAt(0) != ">") {
@@ -21,6 +23,7 @@ window.validateform = function(){
 function throw_empty_error(){
 	$('#result').empty()
 	$('#empty_error_mlva').html("<div class=''><div class='well blue_card'><span><i class='fas fa-exclamation-triangle fa-2x'></i></span> Please upload a file in fasta format or paste your sequence in the sequence field <span><i class='fas fa-exclamation-triangle fa-2x'></i></span></div>")
+    $("#loader").css("display", "none");
 }
 function throw_multiple_error(){
 	$('#result').empty()
@@ -101,6 +104,10 @@ function exportprimertableToCSV(filename) {
     // Download CSV file
     downloadCSV(csv.join("\n"), filename);
 }
+
+ $("#mlva_form").on("submit", function(){
+    $("#loader").fadeIn();
+  });//subm
 
 });
 

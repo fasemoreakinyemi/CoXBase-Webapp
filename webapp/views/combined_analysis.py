@@ -65,6 +65,10 @@ def combined_result_view(request):
     # ada
     typing_dict = VP.adaprocessor(file_path, process_ID, "combined")
     session.execute(insert(models.adaAProfile).values([typing_dict]))
+    
+    # SNP Hornstra
+    typing_dict = VP.snpHornstraprocessor(file_path, process_ID)
+    session.execute(insert(models.snpHornstra).values([typing_dict]))
 
     # submission dict
     submission_dict = {
@@ -88,27 +92,3 @@ def resCombined_view(request):
     return {"ID": process_ID}
 
 
-# @view_config(route_name='subMLVA',
-#             renderer="../templates/mlva_analysis_submission_table.jinja2")
-# def subMLVA_view(request):
-#    process_ID = request.matchdict['ID']
-#    query = request.db2_session.query(models.SubmissionTable).filter(
-#        models.SubmissionTable.ID == process_ID).first()
-#    if query is None:
-#        raise HTTPNotFound()
-#    return  {'submission' :query }
-#
-#
-#
-# @view_config(route_name='phlMLVA',
-#             renderer="../templates/mlva_analysis_phylogenetics.jinja2")
-# def phlMLVA_view(request):
-#    process_ID = request.matchdict['ID']
-#    query = request.db2_session.query(models.RepeatNumber).filter(
-#        models.RepeatNumber.ID == process_ID).first()
-#    if query is None:
-#        raise HTTPNotFound()
-#    return  {'RepeatNumber' :query }
-#
-#
-#
