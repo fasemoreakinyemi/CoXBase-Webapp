@@ -80,7 +80,7 @@ $('#result_error').html("<div class='result_header'><h1>Found records(s)</h1><h3
 
 
 function create_result(data){
-$('#result').html("<div class='result_header'>MLVA tree: <button id='mlvaTree' class='my_button'>grapeTree</button><button id='itolTree' class='my_button'>iTOL</button><h1>Found record(s)</h1></div>" + json2table(data))
+$('#result').html("<div class='result_header'>MLVA tree: <button id='mlvaTree' class='my_button'>grapeTree</button><button id='itolTree' class='my_button'>phyD3</button><h1>Found record(s)</h1></div>" + json2table(data))
 };
 
 function json2table(json){
@@ -231,7 +231,9 @@ items_list = [];
             url:"/webapp/tree/mlva",
             data:JSON.stringify(items_list),
             success:function(result){
-		var url = result.ilink
+		var hst = location.host;
+		var baseurl = "https://" + hst + "/webapp/tree/phyd3/"
+		var url = baseurl + result.itms
 		    
 
 	window.open(url, "_blank")
