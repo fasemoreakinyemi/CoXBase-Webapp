@@ -98,16 +98,32 @@ function json2table(json){
 json.map(function(row) {
 	bodyRows += '<tr>';
 	cols.map(function(colName) {
-		col_val = row[colName]
+		if (colName != "Pubmed"){
+			col_val = row[colName]
 
-		if (col_val == "None"){
-			col_val = ""
+			if (col_val == "None"){
+				col_val = ""
+			}
+			else if (col_val == null ){
+				col_val = ""
+			}
+			else {
+				col_val = col_val
+			}
+			                 
 		}
-		else if (col_val == null ){
-			col_val = ""
-		}
-		else {
-			col_val = col_val
+		else{
+			col_val = row[colName]
+
+			if (col_val == "None"){
+				col_val = ""
+			}
+			else if (col_val == null ){
+				col_val = ""
+			}
+			else {
+				col_val = "<a href=" +"https://pubmed.ncbi.nlm.nih.gov/"+ col_val + "/ style='display:block;'>publication</a>"
+			}
 		}
 		
 		bodyRows += '<td>' + col_val + '</td>';
