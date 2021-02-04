@@ -17,13 +17,15 @@
     <!-- Custom styles for this scaffold -->
     <link href="{{request.static_url('webapp:static/css/main.css')}}" rel="stylesheet">
     <!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
+    <script src="https://unpkg.com/jspdf-autotable@3.5.13/dist/jspdf.plugin.autotable.js"></script>
   </head>
 
   <body>
 
 	  {% include 'nav.jinja2' %}
     <!--main-->
-    <div class="card_body">
+    <div class="card_body" style="margin-bottom:120px;">
       <div class="well well-lg white">
 	      <div class="btn-group_mlva">
 		      <button class="res_tab" onclick="window.location.href='{{request.route_url('resMLVA', ID=ProductLength.ID)}}';">Result table</button>
@@ -31,7 +33,7 @@
   		<button class="phy_ana" onclick="window.location.href='{{request.route_url('phlMLVA', ID=ProductLength.ID)}}';">Phylogenetic analysis</button>
 	      </div>
 		  <div class="info_mlva_table">
-			  <table>
+			  <table class="jspdf">
                           <tr>
 				  <th></th>
                                   <th>ms01</th>
@@ -343,10 +345,14 @@
                           </tr>
                   </table>
       </div>
+<div id="mlvaresultdownloadbutton">
+<button class="downloadbutton">Save PDF</button>
       </div>
       </div>
       </div>
-
+      </div>
+      </div>
+</div>
 
 
 

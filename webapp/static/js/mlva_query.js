@@ -185,18 +185,18 @@ function create_alignment(data){
 $("#sampleQuery").click(function(event) {
 	$('input[name="ms01"]').val(4);
 	$('input[name="ms03"]').val(7);
-	$('input[name="ms20"]').val(11.5);
+	$('input[name="ms20"]').val(9);
 	$('input[name="ms21"]').val(6);
 	$('input[name="ms22"]').val(6);
-	$('input[name="ms23"]').val(3);
-	$('input[name="ms24"]').val(2);
-	$('input[name="ms26"]').val(1);
-	$('input[name="ms27"]').val(5);
+	$('input[name="ms23"]').val(8);
+	$('input[name="ms24"]').val(29);
+	$('input[name="ms26"]').val(4);
+	$('input[name="ms27"]').val(4);
 	$('input[name="ms28"]').val(6);
-	$('input[name="ms30"]').val(2);
-	$('input[name="ms31"]').val(4);
-	$('input[name="ms33"]').val(7);
-	$('input[name="ms34"]').val(4);
+	$('input[name="ms30"]').val(5.5);
+	$('input[name="ms31"]').val(19);
+	$('input[name="ms33"]').val(9);
+	$('input[name="ms34"]').val(5);
 	
 	event.preventDefault()
 })
@@ -213,8 +213,12 @@ $("body").on("click", ".treeMLVA",function(){
             type:"POST",
             url: url_path,
             success:function(result){
-		var url = result.ilink
-		window.open(url, "_blank")
+		var hst = location.host;
+		var baseurl = "https://" + hst + "/webapp/tree/phyd3/"
+		var url = baseurl + result.itms
+		    
+
+	window.open(url, "_blank")
                 }
         });
 
@@ -222,4 +226,60 @@ $("body").on("click", ".treeMLVA",function(){
 
 
 }); 
+
+
+$("body").on("click", ".downloadbutton",function(){
+var address = location.pathname
+var path_list = address.split("/")
+var id = path_list[path_list.length - 1]
+var Genotype = path_list[path_list.length - 2].toUpperCase()
+var today = new Date();
+var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = months[today.getMonth()]
+var yyyy = today.getFullYear();
+
+today = mm + "." + " " + dd + "," + " " + yyyy
+var date_accessed = "Date accessed: " + today
+var doc = new jsPDF();
+doc.setFontSize(12);
+doc.text(date_accessed, 140, 50);
+// image
+var myImage = new Image();
+myImage.src = "https://coxbase.q-gaps.de/webapp/static/img/logo_transparent.png";
+myImage.onload = function(){
+doc.addImage(myImage , 'png', 10, 10, 60, 60);
+
+// meta
+doc.setFillColor(238,238,238);
+doc.rect(10, 80, 190, 10, "F");
+doc.setFont("Normal", "bold");
+doc.setTextColor("#555555");
+doc.setFontSize(14);
+doc.text("Genotyping method", 13, 87);
+doc.text("#ID", 180, 87);
+doc.text(id, 120, 97);
+doc.text(Genotype, 13, 97);
+
+// Result
+doc.setFillColor(238,238,238);
+doc.rect(10, 120, 190, 10, "F");
+doc.setFont("Normal", "bold");
+doc.setTextColor("#555555");
+doc.setFontSize(14);
+doc.text("Result", 13, 127);
+doc.autoTable({ html: '.jspdf', startY:140 })
+
+
+doc.save(id + '.pdf');
+};
+
+//doc.rect(10, 20, 100, 20, "F");
+//doc.setFontSize(16);
+//doc.setFont("courier", "bold");
+//doc.setTextColor("#555555");
+//doc.text("Genotyping Method", 20, 50);
+
+});
+
 }); 

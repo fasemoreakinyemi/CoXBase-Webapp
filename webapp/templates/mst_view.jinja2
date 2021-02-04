@@ -41,6 +41,7 @@
                                   <th>Place of Isolation</th>
                                   <th>Country isocode</th>
                                   <th>Source</th>
+                                  <th>Pubmed</th>
                                   <!-- {% if results.ProteinProduct %}-->
                           <th>Product</th>
                                 <!--    {%- endif %}-->
@@ -48,11 +49,12 @@
                           </tr>
                           {% for item in results %}
                           <tr>
-                                  <td>{{item.name}}</td>
-                                  <td>{{item.yearOfIsolation}}</td>
-				  <td>{{item.geographicOrigin}}</td>
-				  <td>{{item.country}}</td>
-				  <td>{{item.host}}</td>
+                                  <td>{{item.isolates.name}}</td>
+                                  <td>{{item.isolates.yearOfIsolation}}</td>
+				  <td>{{item.isolates.geographicOrigin}}</td>
+				  <td>{{item.isolates.country}}</td>
+				  <td>{{item.isolates.host}}</td>
+				  <td><a href="https://pubmed.ncbi.nlm.nih.gov/{{item.isolate_pub_ref.pmid}}/">publication</a></td>
                           </tr>
                           {% endfor %}
                   </table>

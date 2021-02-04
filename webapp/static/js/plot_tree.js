@@ -1,7 +1,7 @@
 $(document).ready(function(){
 var opts = {
          dynamicHide: true,
-         height: 800,
+         height: 1000,
          invertColors: false,
          lineupNodes: true,
          showDomains: true,
@@ -71,7 +71,7 @@ function colorNewProfile(){
 	plot = vis.selectAll("g.node.inner")
         node = $("g.leaf.node text");
         node.each(function(){
-	    		if ($(this).text().toString() == "your profile ") {
+	    		if ($(this).text().toString() == "New profile ") {
 				$(this).attr("stroke", "#FF0000")
 				$(this).attr("fill", "#FF0000")
 			}
