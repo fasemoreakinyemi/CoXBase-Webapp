@@ -9,10 +9,38 @@ var dict = {
 	15: [ "ms01", "ms03", "ms07", "ms12", "ms20", "ms21", "ms22", "ms24", "ms26", "ms27", "ms28", "ms30", "ms31", "ms33", "ms34"],
 	16: [ "ms01", "ms03", "ms07", "ms12", "ms21", "ms22", "ms23", "ms24", "ms26", "ms27", "ms28", "ms30", "ms31", "ms33", "ms34", "ms36"]};
 
+
+$('.query_table tbody tr td input').bind('paste', null, function (e) {
+        $txt = $(this);
+        setTimeout(function () {
+	console.log($txt.val())
+        var values = $txt.val().split(/\s+/);
+	console.log(values)
+        var currentColIndex = $txt.parent().index();
+        console.log(currentColIndex)
+        var totalCols = $('.query_table thead th').length;
+        var count =0;
+        for (var i = currentColIndex; i < totalCols; i++) {
+             var value = values[count];
+             console.log(value)
+             var inp = $('.query_table tbody tr td').eq(i).find('input');
+             inp.val(value);
+             count++;
+                           
+                        }
+
+
+                }, 0);
+            });
+
 function json2table(json){
 	var cols = dict[142] //Object.keys(json[0]);
 	var headerRow = '<tr>';
 	var bodyRows = '';
+	var query_dict = {};
+	$(".tr_entry").each(function(){
+		query_dict[$(this).attr("name")] = $(this).val();
+	});
 	function capitalizeFirstLetter(string) {
 		return string;
 		}
@@ -24,8 +52,15 @@ function json2table(json){
 json.map(function(row) {
 	bodyRows += '<tr>';
 	cols.map(function(colName) {
-		bodyRows += '<td>' + row[colName] + '</td>';
+		if (parseFloat(query_dict[colName]) == parseFloat(row[colName])){
+		bodyRows += '<td style="color:green;">' + row[colName] + '</td>';
+		}
+		else {
+			bodyRows += '<td style="color:red;">' + row[colName] + '</td>'
+		}
+
 				});
+
 	bodyRows += '<td>' + row['Genotype'] + '</td>';
 	bodyRows += '<td><button class="btnView">View profile entries</button></td>';
 	bodyRows += '</tr>';
@@ -64,6 +99,7 @@ $('#table_div').html(create_table(panel))
 });
 
 $( "#mlva_form" ).submit(function( event ) {
+var distance = ($("#distance option:selected").val());
 var empty_field = [];
 var map = {};
 $(".tr_entry").each(function(){
@@ -85,6 +121,7 @@ if (len === empty_field.length) {
 	throw_empty_error()
 } else {
 	$('#empty_error').empty()
+	var url = url + "/" + distance
 	$.get(url, 'json').done(function(results) {
 		if(results.hasOwnProperty('STATUS')){
 			render_No_match()
@@ -135,7 +172,7 @@ event.preventDefault();
 
 
 function create_result(data){
-$('#result').html("<div class='result_header'><h1>Found profile(s)</h1></div>" + json2table(data))
+$('#result').html("<div class='result_header'><h1>Found profile(s)</h1></div>" + json2table(data) + "<div style='margin-top:20px;'> Phylogenetic tree: <button id='tree' class='my_button'>Phyd3</button></div>")
 };
 
 function render_No_match(){
@@ -226,6 +263,46 @@ $("body").on("click", ".treeMLVA",function(){
 
 
 }); 
+
+$("body").on("click", "#tree",function(){
+	items_list = [];
+	mlva_list = []
+	ent_list = []
+	$(".tr_entry").each(function(){
+		if ($(this).val() == ""){
+			mlva_list.push("0");}
+		else{
+			mlva_list.push($(this).val());}
+
+	});
+
+	$('#resulttable tbody tr').each( function(){
+	var genotype = $(this).find('td:nth-child(15)').text()
+	if (! genotype == ""){
+	ent_list.push(genotype)
+	}
+});
+	items_list.push(mlva_list)
+	items_list.push(ent_list)
+	$.ajax({
+            type:"POST",
+            url:"/webapp/tree/mlva_query",
+            data:JSON.stringify(items_list),
+            success:function(result){
+		var hst = location.host;
+		var baseurl = "https://" + hst + "/webapp/tree/phyd3/"
+		var url = baseurl + result.itms
+		    
+
+	window.open(url, "_blank")
+//	tree(res).svg(d3.select("#tree_display")).layout();
+                //alert( result.itms )
+                }
+        });
+//	var hst = location.host;
+//	var url = "https://" + hst + "/webapp/tree/mlva/analysis/" + JSON.stringify(items_list)
+
+})
 
 
 $("body").on("click", ".downloadbutton",function(){

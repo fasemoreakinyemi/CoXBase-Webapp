@@ -45,11 +45,14 @@ def includeme(config):
     config.add_route('subMLVA', '/submissions/mlva/{ID}')
     config.add_route('subMST', '/submissions/mst/{ID}')
     config.add_route('subForm', '/submissions/form')
+    config.add_route('subBulkForm', '/submissions/bulkform')
     config.add_route('subFormPrev', '/submissions/form/preview/{ID}')
+    config.add_route('usersubmission', '/submissions')
+    config.add_route('s_submission', '/submissions/single')
+    config.add_route('b_submission', '/submissions/bulk')
     # phylogenetics
     config.add_route('phlMLVA', '/phyloanalysis/mlva/{ID}')
     config.add_route('phlMST', '/phyloanalysis/mst/{ID}')
-    config.add_route('usersubmission', '/submissions')
     # coxviewer
     config.add_route('coxviewer', '/coxviewer')
     config.add_route('api_coxviewer', '/coxviewer_api')
@@ -59,7 +62,7 @@ def includeme(config):
     config.add_route('entry_view_mlva', '/eview/mlva/{ID}')
     config.add_route('entry_view_mst', '/eview/mst/{ID}')
     # insilico submimission api
-    config.add_route('fp_query_api', '/fp_query/{ms01}/{ms03}/{ms20}/{ms21}/{ms22}/{ms23}/{ms24}/{ms26}/{ms27}/{ms28}/{ms30}/{ms31}/{ms33}/{ms34}')
+    config.add_route('fp_query_api', '/fp_query/{ms01}/{ms03}/{ms20}/{ms21}/{ms22}/{ms23}/{ms24}/{ms26}/{ms27}/{ms28}/{ms30}/{ms31}/{ms33}/{ms34}/{distance}')
     config.add_route('mst_query_api', '/mst_query/{COX2}/{COX5}/{COX18}/{COX20}/{COX22}/{COX37}/{COX51}/{COX56}/{COX57}/{COX61}')
     # maps api
     config.add_route('api_map', '/api_map/{column}/{state}')
@@ -92,10 +95,13 @@ def includeme(config):
     config.add_route('isolate_query_fc', '/query/isolates/faceted')
     config.add_route('isolate_fc_api', '/query/isolate/fc/api')
     # tree page analysis
+    config.add_route('phyd3_tree', '/tree/phyd3/{ID}')
+    config.add_route('phyd3_tree_api', '/tree/phyd3/API/{ID}')
     config.add_route('mlva_tree', '/tree/mlva/analysis/{ent}')
     config.add_route('mst_tree', '/tree/mst/analysis/{ent}')
     # tree viewer
     config.add_route('mlva_tree_2', '/tree/mlva')
+    config.add_route('mlva_tree_3', '/tree/mlva_query')
     config.add_route('mst_tree_2', '/tree/mst/{ent}')
     config.add_route('mlva_result_tree', '/tree/mlva/{ID}')
     # miscellaneous

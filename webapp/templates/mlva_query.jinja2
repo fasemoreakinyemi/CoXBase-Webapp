@@ -46,6 +46,7 @@
 				      <legend>Enter query below</legend>
 				      <div id="table_div">
 				      <table class="query_table">
+					      <thead>
 					      <tr> 
 						      <th class="query_table_header">ms01</th>
 						      <th class="query_table_header">ms03</th>
@@ -62,22 +63,25 @@
 						      <th class="query_table_header">ms33</th>
 						      <th class="query_table_header">ms34</th>
 					      </tr>
+					      </thead>
+					      <tbody>
 					      <tr>
-						      <td><input class="tr_entry" name="ms01" type="number" min="0" step="any"></td>
-						      <td><input class="tr_entry" name="ms03" type="number" min="0" step="any"></td>
-						      <td><input class="tr_entry" name="ms20" type="number" min="0" step="any"></td>
-						      <td><input class="tr_entry" name="ms21" type="number" min="0" step="any"></td>
-						      <td><input class="tr_entry" name="ms22" type="number" min="0" step="any"></td>
-						      <td><input class="tr_entry" name="ms23" type="number" min="0" step="any"></td>
-						      <td><input class="tr_entry" name="ms24" type="number" min="0" step="any"></td>
-						      <td><input class="tr_entry" name="ms26" type="number" min="0" step="any"></td>
-						      <td><input class="tr_entry" name="ms27" type="number" min="0" step="any"></td>
-						      <td><input class="tr_entry" name="ms28" type="number" min="0" step="any"></td>
-						      <td><input class="tr_entry" name="ms30" type="number" min="0" step="any"></td>
-						      <td><input class="tr_entry" name="ms31" type="number" min="0" step="any"></td>
-						      <td><input class="tr_entry" name="ms33" type="number" min="0" step="any"></td>
-						      <td><input class="tr_entry" name="ms34" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms01" type="text" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms03" type="text" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms20" type="text" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms21" type="text" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms22" type="text" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms23" type="text" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms24" type="text" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms26" type="text" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms27" type="text" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms28" type="text" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms30" type="text" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms31" type="text" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms33" type="text" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms34" type="text" min="0" step="any"></td>
 					      </tr>
+					      </tbody>
 					      <tr>
          						<td colspan="15"><hr/></td>
     						</tr>
@@ -104,6 +108,19 @@
 					   
 				      </table>
 				      </div>
+			      </fieldset>
+			      <fieldset>
+				      <div class="custom-select" style="width:200px;">
+					      <p>Max Distance:</p>
+			        <select name="distance" id="distance">
+    					<option value="0">0</option>
+    					<option value="1">1</option>
+    					<option value="2">2</option>
+    					<option value="3">3</option>
+    					<option value="4">4</option>
+    					<option value="5">5</option>
+					<option value="xx"> 5+ </option>
+  				</select>
 			      </fieldset>
 			      <input type="submit">
 			<button type="reset" id="clearField">Clear field</button>

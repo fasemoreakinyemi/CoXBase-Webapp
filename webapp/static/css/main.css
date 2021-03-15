@@ -17,6 +17,50 @@ ul {
   list-style-type: none;
 }
 
+/*## submission landing ##*/
+.tiles {
+	display:flex;
+	flex-wrap: nowrap;
+	border-top: 0 !important
+
+}
+
+.tiles article {
+	align-items: center;
+	display: flex;
+	transition: transform 0.25s ease,opacity 0.25s ease,filter 1s ease,-webkit-filter 1s ease;
+	padding: 4em 4em 2em 4em;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	cursor: default;
+	height: 40vh;
+	max-height: 40em;
+	min-height: 23em;
+	overflow: hidden;
+	position: relative;
+	width: 40%;
+
+}
+
+.tiles article header {
+    position: relative;
+    z-index: 3;
+    color: #fff;
+}
+
+.tiles article header h3 a {
+    color: #fff;
+}
+.tiles article header p a {
+    color: #fff;
+}
+/*## submission landing ##*/
+
+
+
+
+
 /*## result download button ##*/
 .downloadbutton {
   background-color : #31B0D5;
