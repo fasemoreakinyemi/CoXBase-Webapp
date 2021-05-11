@@ -15,7 +15,7 @@ class QueryFunctionalTests(unittest.TestCase):
         self.testapp = TestApp(app)
 
     def test_MLVA_response(self):
-        res = self.testapp.get("/fp_query/4/7/11.5/6/6/3/9/9/3/3/5/2/4/4", status=200)
+        res = self.testapp.get("/fp_query/4/7/11.5/6/6/3/9/9/3/3/5/2/4/4/0", status=200)
         self.assertEqual(res.content_type, "application/json")
         self.assertEqual(res.json[0]["Genotype"], "A1")
 

@@ -17,6 +17,32 @@ from webapp import automapper
 am = automapper.Automapper("/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini")
 Base_automap = am.generate_base("db2.")
 
+def distance_query(Base, repeat_list, request, distance):
+    case_list = []
+    mlvaTable = getattr(Base, "mlva_normalized") #Base.classes.mlva_normalized
+    for repeats in repeat_list:
+        if float(request.matchdict[repeats]) == 0:
+            continue
+        else:
+            repeat_model = getattr(mlvaTable, repeats)
+            repeat_case = case([
+                (repeat_model == float(request.matchdict[repeats]), 1)], else_=0
+            )
+            case_list.append(repeat_case)
+
+    try:
+        query = (
+            request.db2_session.query(mlvaTable).filter(sum(case_list) >= distance)
+            .order_by(desc(sum(case_list))).all()
+        )
+
+    except:
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        lines = traceback.format_exception(exc_type, exc_value, exc_traceback)
+        inf = "".join("!!" + line for line in lines)
+        return {"line": inf}
+    return query
+
 @view_config(route_name="mlvaquery", renderer="../templates/mlva_query.jinja2")
 def mlva_view(request):
     return {}
@@ -41,62 +67,8 @@ def fpq_view(request):
         "ms33",
         "ms34",
     ]
-    conditionAnd = []
-    conditionOr = []
-    mlvaTable = getattr(Base_automap, "mlva_normalized") #Base.classes.mlva_normalized
-    for repeats in repeat_list:
-        if float(request.matchdict[repeats]) == 0:
-            continue
-        else:
-            repeat_model = getattr(mlvaTable, repeats)
-            repeat_query = (
-                request.db2_session.query(mlvaTable)
-                .filter(repeat_model == float(request.matchdict[repeats]))
-                .first()
-            )
-            if repeat_query:
-                conditionAnd.append(repeat_model.between(float(float(request.matchdict[repeats])-1),
-                                                         float(request.matchdict[repeats])))
-                query = ( request.db2_session.query(mlvaTable).filter(*conditionAnd).first()
-                )
-                if query:
-                    continue
-                else:
-                    conditionAnd.pop()
-            else:
-                repeat_query = (
-                    request.db2_session.query(mlvaTable)
-                    .filter(repeat_model == float(int(request.matchdict[repeats])-1))
-                    .first()
-                )
-                if repeat_query:
-                    conditionAnd.append(repeat_model == float(int(request.matchdict[repeats])-1))
-                    query = (
-                        request.db2_session.query(mlvaTable).filter(*conditionAnd).first()
-                    )
-                    if query:
-                        continue
-                    else:
-                        conditionAnd.pop()
+    distance = {"0":14, "1":13, "2":12, "3":11, "4":10, "5":9, "xx":5}[request.matchdict["distance"]]
+    query = distance_query(Base_automap,repeat_list, request, distance)  
 
-    if conditionAnd == []:
-        return {"STATUS": "NO MATCH"}
-    try:
-        query = (
-            request.db2_session.query(mlvaTable).filter(*conditionAnd).all()
-        )  # (or_(*conditionOr)).all()#filter(*conditionAnd).all()
+    return RP._serialize_mlva(query)
 
-    except:
-        exc_type, exc_value, exc_traceback = sys.exc_info()
-        lines = traceback.format_exception(exc_type, exc_value, exc_traceback)
-        inf = "".join("!!" + line for line in lines)
-        return {"line": inf}
-
-    # while conditionAnd:
-    #     if conditionAnd and query:
-    #         break
-    #     else:
-    #         conditionAnd.pop()
-    #         query = request.db2_session.query(mlvaTable).all()
-    #        # query = request.db2_session.query(mlva).filter(*conditionAnd).all()
-    return RP._serialize_mlva(query)  # {len(conditionOr):len(conditionAnd)}
