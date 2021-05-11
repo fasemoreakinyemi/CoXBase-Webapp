@@ -45,7 +45,7 @@ def mlva_tree_view(request):
     newick_string = NG.generate_newick(mlva_list, index_list)
     return {"newick": newick_string}
 
-
+# view for grapetree and phyd3 on discover isolate
 @view_config(route_name="mlva_tree_2", renderer="json")
 def mlva_tree_view_2(request):
     process_ID = uuid.uuid4().hex
@@ -72,33 +72,82 @@ def mlva_tree_view_2(request):
         else:
             continue
     newick_string = NG.generate_newick(mlva_list, index_list)
+    session = request.db2_session
+    session.execute(insert(models.NewickTable).values([{"ID": process_ID,
+                                                        "nwk": newick_string}]))
+    session.commit()
     NG.write_newick(process_ID, newick_string)
     NG.write_metadata(process_ID, metadata_list)
-    itol = NG.create_itol_link(process_ID, newick_string)
-    return {"itms": "{}".format(process_ID), "ilink": itol}
+    return {"itms": "{}".format(process_ID)}
 
 
-#   return {'itms': item_list}
+# view for phyd3 on mlva_query
+@view_config(route_name="mlva_tree_3", renderer="json")
+def mlva_tree_view_3(request):
+    process_ID = uuid.uuid4().hex
+    item_list = []
+    for items in request.params:
+        item_list.append(items)
+    query_container = json.loads(item_list[0])
+    mlvaTable = Base.classes.mlva_normalized
+    mlva_list = []
+    index_list = []
+    for items in query_container[1]:
+        entry_list = []
+        query = (
+            request.db2_session.query(mlvaTable).filter(mlvaTable.ngt == items).all()
+        )
+        if query:
+            mlva_values = RP._serialize_mlva_tolist(query)
+            mlva_values = [float(x) for x in mlva_values]
+            mlva_list.append(mlva_values)
+            index_list.append(items)
+        else:
+            continue
+    query_list = [float(x) for x in query_container[0]]
+    mlva_list.append(query_list)
+    index_list.append("New profile")
+    newick_string = NG.generate_newick(mlva_list, index_list)
+    session = request.db2_session
+    session.execute(insert(models.NewickTable).values([{"ID": process_ID,
+                                                        "nwk": newick_string}]))
+    session.commit()
+    NG.write_newick(process_ID, newick_string)
+    return {"itms": "{}".format(process_ID)}
 
-
+# view for MLVA phylogeny tree
 @view_config(route_name="mlva_result_tree", renderer="json")
 def mlva_result_tree(request):
-    process_ID = uuid.uuid4().hex
     RID = request.matchdict["ID"]
-    repeat_query = (
-        request.db2_session.query(models.RepeatNumber)
-        .filter(models.RepeatNumber.ID == RID)
-        .all()
-    )
-    repeat_list = RP._serialize_mlva_tolist(repeat_query)
-    mlvaTable = Base.classes.mlva_normalized
-    query = request.db2_session.query(mlvaTable).all()
-    value_list, annotation_list = RP._serialize_mlva_tolist_all(query)
-    value_list.append([float(x) if x is not None else float(x=-1) for x in repeat_list])
-    annotation_list.append("your profile")
-    newick_string = NG.generate_newick(value_list, annotation_list)
-    itol = NG.create_itol_link(process_ID, newick_string)
-    return {"itms": "{}".format(process_ID), "ilink": itol}
+    try:
+        nwk = (
+            request.db2_session.query(models.NewickTable.nwk)
+            .filter(models.NewickTable.ID == RID)
+            .first()
+        )
+    except:
+        print("k")
+    if nwk:
+        return {"itms": "{}".format(RID)}
+    else:
+        process_ID = uuid.uuid4().hex
+        repeat_query = (
+            request.db2_session.query(models.RepeatNumber)
+            .filter(models.RepeatNumber.ID == RID)
+            .all()
+            )
+        repeat_list = RP._serialize_mlva_tolist(repeat_query)
+        mlvaTable = Base.classes.mlva_normalized
+        query = request.db2_session.query(mlvaTable).all()
+        value_list, annotation_list = RP._serialize_mlva_tolist_all(query)
+        value_list.append([float(x) if x is not None else float(x=-1) for x in repeat_list])
+        annotation_list.append("New profile")
+        newick_string = NG.generate_newick(value_list, annotation_list)
+        session = request.db2_session
+        session.execute(insert(models.NewickTable).values([{"ID": process_ID,
+                                                            "nwk": newick_string}]))
+        session.commit()
+        itol = "text" #NG.create_itol_link(process_ID, newick_string)
+        return {"itms": "{}".format(process_ID)}
 
 
-#   return {'tst': test_list}

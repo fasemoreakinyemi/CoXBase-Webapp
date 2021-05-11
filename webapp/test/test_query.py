@@ -20,7 +20,7 @@ class QueryFunctionalTests(unittest.TestCase):
         self.assertEqual(res.json[0]["Genotype"], "A1")
 
     def test_MST_response(self):
-        res = self.testapp.get("/mst_query/4/6/3/5/6/2/8/2/5/6", status=200)
+        res = self.testapp.get("/mst_query/4/6/3/5/6/2/8/2/5/6/0", status=200)
         self.assertEqual(res.content_type, "application/json")
         self.assertEqual(res.json[0]["MST ID"], 5)
     

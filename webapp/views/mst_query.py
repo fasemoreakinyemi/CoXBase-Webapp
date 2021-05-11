@@ -9,6 +9,8 @@ from pyramid.httpexceptions import HTTPFound
 from sqlalchemy.exc import DBAPIError
 from .. import process_request
 from sqlalchemy import or_
+from sqlalchemy import func, case
+from sqlalchemy import desc
 from .. import models
 import logging
 import traceback
@@ -22,6 +24,31 @@ engine = engine_from_config(settings, "db2.")
 Base.prepare(engine, reflect=True)
 
 
+def distance_query(spacer_list, request, distance):
+    case_list = []
+    mstgroups = Base.classes.mstgroups2
+    for spacers in spacer_list:
+        if int(request.matchdict[spacers]) == 0:
+            continue
+        else:
+            spacer_model = getattr(mstgroups, spacers)
+            spacer_case = case([
+                (spacer_model == int(request.matchdict[spacers]), 1)], else_=0
+            )
+            case_list.append(spacer_case)
+    try:
+        query = (
+            request.db2_session.query(mstgroups).filter(sum(case_list) >= distance)
+            .order_by(desc(sum(case_list))).all()
+        )
+    except:
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        lines = traceback.format_exception(exc_type, exc_value, exc_traceback)
+        inf = "".join("!!" + line for line in lines)
+        return {"line": inf}
+    return query
+
+
 @view_config(route_name="mstquery", renderer="../templates/mst_query.jinja2")
 def mst_view(request):
     return {}
@@ -30,10 +57,6 @@ def mst_view(request):
 @view_config(route_name="mst_query_api", renderer="json")
 def mstq_view(request):
     RP = process_request.RequestProcessor()
-    #   Base = automap_base()
-    #   settings = get_appsettings("/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main")
-    #   engine = engine_from_config(settings, 'db2.')
-    #   Base.prepare(engine, reflect=True)
     mstgroups = Base.classes.mstgroups2
     spacer_list = [
         "COX2",
@@ -47,39 +70,8 @@ def mstq_view(request):
         "COX57",
         "COX61",
     ]
-    conditionAnd = []
-    conditionOr = []
-
-    for spacers in spacer_list:
-        if int(request.matchdict[spacers]) == 0:
-            continue
-        else:
-            spacer_model = getattr(mstgroups, spacers)
-            spacer_query = (
-                request.db2_session.query(mstgroups)
-                .filter(spacer_model == int(request.matchdict[spacers]))
-                .first()
-            )
-            if spacer_query:
-                conditionAnd.append(spacer_model == int(request.matchdict[spacers]))
-            else:
-                conditionOr.append(spacer_model == int(request.matchdict[spacers]))
-    try:
-        query = request.db2_session.query(mstgroups).filter(*conditionAnd).all()
-    except:
-        exc_type, exc_value, exc_traceback = sys.exc_info()
-        lines = traceback.format_exception(exc_type, exc_value, exc_traceback)
-        inf = "".join("!!" + line for line in lines)
-        return {"line": inf}
-    # Ensure you don't get an empty set because of stringent combo
-    while conditionAnd:
-        if conditionAnd and query:
-            break
-        else:
-            conditionAnd.pop()
-    if conditionAnd == []:
-        return {"STATUS": "NO MATCH"}
-        #  query = request.db2_session.query(mstgroups).filter(*conditionAnd).all()
+    distance = {"0":10, "1":9, "2":8, "3":7, "4":6, "5":5, "xx":4}[request.matchdict["distance"]]
+    query = distance_query(spacer_list, request, distance)
     return RP._serialize_mst(query)  # {len(conditionOr):len(conditionAnd)}
 
 
