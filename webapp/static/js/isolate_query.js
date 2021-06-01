@@ -137,12 +137,16 @@ json.map(function(row) {
 };
 
 
-var iso_field = "<li style='margin-right:30px;margin-top:5px;'><span style='white-space:nowrap'><select name='iso_field1' class='fieldlist' id='iso_subject'><option value='year'>year</option><option value='host'>host</option><option value='country'>country</option><option value='plasmid'>plasmid</option><option value='ada'>adaGene</option><option value='mst'>MST group</option><option value='mlva'>MLVA Genotype</option></select> <select name='iso_operator1' id='iso_operator' ><option value='='>=</option><option value='contains'>contains</option><option value='starts with'>starts with</option><option value='ends with'>ends with</option><option value='NOT'>NOT</option><option value='NOT contain'>NOT contain</option></select> <input type='text' name='year'  class='value_entry' id='iso_value' placeholder='Enter value...' /> </span></li>"
+var iso_field = "<li style='margin-top:5px; margin-right:10px;'><span style='white-space:nowrap'><select name='iso_field1' class='fieldlist' id='iso_subject'><option value='year'>year</option><option value='host'>host</option><option value='country'>country</option><option value='plasmid'>plasmid</option><option value='ada'>adaGene</option><option value='mst'>MST group</option><option value='mlva'>MLVA Genotype</option></select> <select name='iso_operator1' id='iso_operator' ><option value='='>=</option><option value='contains'>contains</option><option value='starts with'>starts with</option><option value='ends with'>ends with</option><option value='NOT'>NOT</option><option value='NOT contain'>NOT contain</option></select> <input type='text' name='year'  class='value_entry' id='iso_value' placeholder='Enter value...' /><a style='margin-left:5px;' class='remove_field'><i class='fas fa-trash-alt fa-lg'></i></a></span></li>"
 $( ".add_button" ).click(function( event ) {
 	if($("#combo").is(':hidden')){$("#combo").show();}
 	$("ul#query_list").append(iso_field)
 
 })
+
+$('body').on('click', 'a.remove_field', function() {
+    $(this).parent().parent().remove()
+});
 
 $( "#isolate_form" ).submit(function( event ) {
 var combo_para = ""
@@ -213,8 +217,8 @@ items_list = [];
             success:function(result){
 		var hst = location.host;
 		var baseurl = "https://" + hst + "/GrapeTree/"
-		var treeUrl = "?tree=http://" + hst + "/tmp/" + result.itms + ".nwk"
-		var metaUrl = "&metadata=http://" + hst + "/tmp/" + result.itms + ".txt"
+		var treeUrl = "?tree=https://" + hst + "/tmp/" + result.itms + ".nwk"
+		var metaUrl = "&metadata=https://" + hst + "/tmp/" + result.itms + ".txt"
 		var url = baseurl + treeUrl + metaUrl
 		    
 
