@@ -33,14 +33,10 @@ $('.query_table tbody tr td input').bind('paste', null, function (e) {
                 }, 0);
             });
 
-function json2table(json){
+function json2table(json, marker_dict){
 	var cols = dict[142] //Object.keys(json[0]);
 	var headerRow = '<tr>';
 	var bodyRows = '';
-	var query_dict = {};
-	$(".tr_entry").each(function(){
-		query_dict[$(this).attr("name")] = $(this).val();
-	});
 	function capitalizeFirstLetter(string) {
 		return string;
 		}
@@ -52,7 +48,7 @@ function json2table(json){
 json.map(function(row) {
 	bodyRows += '<tr>';
 	cols.map(function(colName) {
-		if (parseFloat(query_dict[colName]) == parseFloat(row[colName])){
+		if (parseFloat(marker_dict[colName]) == parseFloat(row[colName])){
 		bodyRows += '<td style="color:green;">' + row[colName] + '</td>';
 		}
 		else {
@@ -99,6 +95,10 @@ $('#table_div').html(create_table(panel))
 });
 
 $( "#mlva_form" ).submit(function( event ) {
+var query_dict = {};
+$(".tr_entry").each(function(){
+		query_dict[$(this).attr("name")] = $(this).val();
+	});
 var distance = ($("#distance option:selected").val());
 var empty_field = [];
 var map = {};
@@ -128,7 +128,7 @@ if (len === empty_field.length) {
 
 		}
 		else {
-		create_result(results)
+		create_result(results, query_dict)
 		}
 	}).fail(function (e){
 		if (e.error) {
@@ -152,15 +152,19 @@ $(".entry").each(function(){
 	}
 
 });
-
+marker_list = dict[142]
+marker_dict = {}
+marker_list.forEach((key, i) => marker_dict[key] = map_list[i]);
+var distance = ($("#distance option:selected").val());
 var len = map_list.length;
 var hst = location.host;
 var url = "https://" + hst + "/webapp/fp_query"
 for (var i=0; i<len; i++) {
 		url+="/" + map_list[i]
 }
+var url = url + "/" + distance
 	$.get(url, 'json').done(function(results) {
-		create_result(results)
+		create_result(results, marker_dict)
 	}).fail(function (e){
 		if (e.error) {
 		alert("error due to" + e.error)
@@ -171,8 +175,12 @@ event.preventDefault();
 });
 
 
-function create_result(data){
-$('#result').html("<div class='result_header'><h1>Found profile(s)</h1></div>" + json2table(data) + "<div style='margin-top:20px;'> Phylogenetic tree: <button id='tree' class='my_button'>Phyd3</button></div>")
+function create_result(data, marker_dict){
+if  (Object.keys(data).length === 0){
+$('#result').html("<div class='result_header'><h1>Found profile(s)</h1><div style='color:red;' class='well white'>No matches for this query in the database, try using 5+ as the Max Distance</div></div>")
+}
+else{
+$('#result').html("<div class='result_header'><h1>Found profile(s)</h1></div>" + json2table(data, marker_dict) + "<div style='margin-top:20px;'> Phylogenetic tree: <button id='tree' class='my_button'>Phyd3</button></div>")}
 };
 
 function render_No_match(){
