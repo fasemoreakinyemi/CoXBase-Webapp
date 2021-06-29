@@ -67,16 +67,18 @@ class ViewProcessor:
         Path(out_file).touch()
         command = [
             config['ExternalToolsPATH']['epcr'],
-            "-w7",
+            "-w5",
             "-f",
-            "1",
-            "-m100",
+            "2",
+            "-n1",
+            "-g1",
+            "-u+",
+            "-d 50-1600",
             "-o",
-            out_file,
+             out_file,
             "-t3",
             sts_file,
-            file_path,
-        ]
+            file_path]
         return command
 
     @staticmethod
@@ -85,17 +87,17 @@ class ViewProcessor:
             "ms01": 176,
             "ms03": 142,
             "ms20": 96,
-            "ms21": 137,
+            "ms21": 136,
             "ms22": 174,
-            "ms23": 91,
-            "ms24": 126,
-            "ms26": 97,
-            "ms28": 107,
+            "ms23": 90,
+            "ms24": 135,
+            "ms26": 104,
+            "ms28": 112,
             "ms27": 249,
-            "ms30": 199,
-            "ms31": 99,
+            "ms30": 205,
+            "ms31": 106,
             "ms33": 193,
-            "ms34": 168,
+            "ms34": 175,
         }
         repeat_size_dict = {
             "ms01": 16,
