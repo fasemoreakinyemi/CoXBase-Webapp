@@ -4,7 +4,7 @@ $(document).ready(function()
 var dict = {
 	142: [ "MST ID", "cox2", "cox5", "cox18", "cox20", "cox22", "cox37", "cox51", "cox56", "cox57", "cox61"]};
 
-function json2table(json){
+function json2table(json, marker_dict){
 	var cols = dict[142] //Object.keys(json[0]);
 	var headerRow = '';
 	var bodyRows = '';
@@ -18,7 +18,16 @@ function json2table(json){
 json.map(function(row) {
 	bodyRows += '<tr>';
 	cols.map(function(colName) {
-		bodyRows += '<td>' + row[colName] + '</td>';
+		if (colName == "MST ID") {
+		bodyRows += '<td style="color:black;">' + row[colName] + '</td>';
+		}
+		else{
+		if (parseFloat(marker_dict[colName]) == parseFloat(row[colName])){
+		bodyRows += '<td style="color:#40B0A6;">' + row[colName] + '</td>';
+		}
+		else {
+			bodyRows += '<td style="color:#E1BE6A;">' + row[colName] + '</td>'
+		}}
 				});
 	bodyRows += '<td><button class="btnView">View profile entries</button></td>';
 	bodyRows += '</tr>';
@@ -57,6 +66,11 @@ $('#table_div').html(create_table(panel))
 });
 
 $( "#mst_form" ).submit(function( event ) {
+var query_dict = {};
+	$(".tr_entry").each(function(){
+		query_dict[$(this).attr("name")] = $(this).val();
+	});
+var distance = ($("#distance option:selected").val());
 var empty_field = [];
 var map = {};
 $(".tr_entry").each(function(){
@@ -78,13 +92,14 @@ if (len === empty_field.length) {
 	throw_empty_error()
 } else {
 	$('#empty_error').empty()
+	var url = url + "/" + distance
 	$.get(url, 'json').done(function(results) {
 		if(results.hasOwnProperty('STATUS')){
 			render_No_match()
 
 		}
 		else {
-		create_result(results)
+		create_result(results, query_dict)
 		}
 	}).fail(function (e){
 		if (e.error) {
@@ -115,19 +130,25 @@ $(".entry").each(function(){
 	}
 
 });
+marker_list = ["cox2", "cox5", "cox18", "cox20", "cox22", "cox37", "cox51", "cox56", "cox57", "cox61"]
+marker_dict = {}
+marker_list.forEach((key, i) => marker_dict[key] = map_list[i]);
+console.log(marker_dict)
+var distance = ($("#distance option:selected").val());
 var len = map_list.length;
 var hst = location.host;
 var url = "https://" + hst + "/webapp/mst_query"
 for (var i=0; i<len; i++) {
 		url+="/" + map_list[i]
 }
+var url = url + "/" + distance
 	$.get(url, 'json').done(function(results) {
 		if(results.hasOwnProperty('STATUS')){
 			render_No_match()
 
 		}
 		else {
-		create_result(results)
+		create_result(results, marker_dict)
 		}
 	}).fail(function (e){
 		if (e.error) {
@@ -138,8 +159,8 @@ for (var i=0; i<len; i++) {
 event.preventDefault();
 });
 
-function create_result(data){
-$('#result').html("<div class='result_header'><h1>Found profile(s)</h1></div>" + json2table(data))
+function create_result(data, marker_dict){
+$('#result').html("<div class='result_header'><h1>Found profile(s)</h1></div>" + json2table(data, marker_dict))
 };
 
 function render_No_match(){

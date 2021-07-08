@@ -49,10 +49,10 @@ json.map(function(row) {
 	bodyRows += '<tr>';
 	cols.map(function(colName) {
 		if (parseFloat(marker_dict[colName]) == parseFloat(row[colName])){
-		bodyRows += '<td style="color:green;">' + row[colName] + '</td>';
+		bodyRows += '<td style="color:#40B0A6;">' + row[colName] + '</td>';
 		}
 		else {
-			bodyRows += '<td style="color:red;">' + row[colName] + '</td>'
+			bodyRows += '<td style="color:#E1BE6A;">' + row[colName] + '</td>'
 		}
 
 				});
