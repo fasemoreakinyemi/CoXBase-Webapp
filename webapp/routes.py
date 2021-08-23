@@ -60,13 +60,18 @@ def includeme(config):
     config.add_route('coxviewer_table', '/coxviewer_table/{ID}')
     # eview
     config.add_route('entry_view_mlva', '/eview/mlva/{ID}')
+    config.add_route('entry_view_mlva_6', '/eview/mlva/tilburg/{ID}')
     config.add_route('entry_view_mst', '/eview/mst/{ID}')
-    # insilico submimission api
+    # typing query api
+    #fp frangoulidis panel
+    #tp tilburg panel
     config.add_route('fp_query_api', '/fp_query/{ms01}/{ms03}/{ms20}/{ms21}/{ms22}/{ms23}/{ms24}/{ms26}/{ms27}/{ms28}/{ms30}/{ms31}/{ms33}/{ms34}/{distance}')
+    config.add_route('tp_query_api', '/tp_query/{ms23}/{ms24}/{ms27}/{ms28}/{ms33}/{ms34}/{distance}')
     config.add_route('mst_query_api', '/mst_query/{COX2}/{COX5}/{COX18}/{COX20}/{COX22}/{COX37}/{COX51}/{COX56}/{COX57}/{COX61}/{distance}')
     # maps api
     config.add_route('api_map', '/api_map/{column}/{state}')
     config.add_route('api_mlva_map', '/api_mlva_map/{ID}')
+    config.add_route('api_mlva_tilburg_map', '/api_mlva_tilburg_map/{ID}')
     config.add_route('api_mst_map', '/api_mst_map/{ID}')
     # mlva panel api
     config.add_route('api_query3', '/api_query/{ms24}/{ms28}/{ms33}')

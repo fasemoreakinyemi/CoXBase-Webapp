@@ -34,7 +34,7 @@ $('.query_table tbody tr td input').bind('paste', null, function (e) {
             });
 
 function json2table(json, marker_dict){
-	var cols = dict[142] //Object.keys(json[0]);
+	var cols = Object.keys(marker_dict);
 	var headerRow = '<tr>';
 	var bodyRows = '';
 	function capitalizeFirstLetter(string) {
@@ -66,7 +66,13 @@ json.map(function(row) {
 };
 
 function create_table(header_array){
+var sample_list = []
 var num_cols = header_array.length;
+if (num_cols==14){
+	sample_list = [4,7,9,6,6,8,29,4,4,6,5.5,19,9,5]}
+else{
+	sample_list = [8,29,4,6,9,5]}
+
 var num_rows = 1;
 var table_body = "<table class='query_table'>";
 for (var i=0;i<num_rows;i++){
@@ -75,11 +81,17 @@ for (var i=0;i<num_rows;i++){
 		table_body+="<th class='query_table_header'>" + value + "</th>";
 	});
 	table_body+="</tr>"
-	table_body+="<tr>"
+	table_body+="<tbody><tr>"
 	$.each(header_array, function(index,value){
-		table_body+="<td><input class='tr_entry' name=" + value + " type='number'></td>"
+		table_body+="<td><input class='tr_entry' name=" + value + " type='text'></td>"
 	});
-	table_body+="</tr>";
+	table_body+="</tr></tbody>";
+	table_body+="<tbody><tr><td colspan='15'><hr/></td></tr>";
+	$.each(sample_list, function(index,value){
+		table_body+="<td>" + value + "</td>";
+	});
+	table_body+="<td><button type='button' id='sampleQuery'>Sample Query</button></td>"
+	table_body+="<tr><td colspan='15'><hr/></td></tr></tbody>";
 	table_body+="</table>";
 };
 return table_body
@@ -95,6 +107,51 @@ $('#table_div').html(create_table(panel))
 });
 
 $( "#mlva_form" ).submit(function( event ) {
+var key = ($("#select_panel option:selected").val());
+if(key == 6){
+var query_dict = {};
+$(".tr_entry").each(function(){
+		query_dict[$(this).attr("name")] = $(this).val();
+	});
+var distance = ($("#distance option:selected").val());
+var empty_field = [];
+var map = {};
+$(".tr_entry").each(function(){
+	map[$(this).attr("name")] = $(this).val();
+});
+var len = Object.values(map).length;
+var hst = location.host;
+var url = "https://" + hst + "/webapp/tp_query"
+for (var i=0; i<len; i++) {
+	if(Object.values(map)[i] == "")
+	{
+		url+="/" + 0
+		empty_field.push(i);
+	} else {
+		url+="/" + Object.values(map)[i]
+	}
+};
+if (len === empty_field.length) {
+	throw_empty_error()
+} else {
+	$('#empty_error').empty()
+	var url = url + "/" + distance
+	$.get(url, 'json').done(function(results) {
+		if(results.hasOwnProperty('STATUS')){
+			render_No_match()
+
+		}
+		else {
+		create_result(results, query_dict)
+		}
+	}).fail(function (e){
+		if (e.error) {
+		alert("error due to" + e.error)
+		}
+		});
+}
+}
+else{
 var query_dict = {};
 $(".tr_entry").each(function(){
 		query_dict[$(this).attr("name")] = $(this).val();
@@ -135,6 +192,7 @@ if (len === empty_field.length) {
 		alert("error due to" + e.error)
 		}
 		});
+}
 }
 event.preventDefault();
 });
@@ -195,10 +253,17 @@ function throw_empty_error(){
 
 $(".result_info").on("click", ".btnView",function(){
 	var currentRow=$(this).closest("tr");
+	if(currentRow.find("td").length == 16){
 	var MLVAID=currentRow.find("td:eq(14)").text();
 	var hst = location.host;
 	var url = "https://" + hst + "/webapp/eview/mlva/" + MLVAID
+	window.open(url, '_blank');}
+	else{
+	var MLVAID=currentRow.find("td:eq(6)").text();
+	var hst = location.host;
+	var url = "https://" + hst + "/webapp/eview/mlva/tilburg/" + MLVAID
 	window.open(url, '_blank');
+	}
 
 });
 
@@ -226,8 +291,8 @@ function create_alignment(data){
         });    
 
 };
-
-$("#sampleQuery").click(function(event) {
+$(document).on('click',"#sampleQuery",function(event){
+	event.preventDefault()
 	$('input[name="ms01"]').val(4);
 	$('input[name="ms03"]').val(7);
 	$('input[name="ms20"]').val(9);
@@ -243,7 +308,6 @@ $("#sampleQuery").click(function(event) {
 	$('input[name="ms33"]').val(9);
 	$('input[name="ms34"]').val(5);
 	
-	event.preventDefault()
 })
 
 
@@ -312,7 +376,6 @@ $("body").on("click", "#tree",function(){
 
 })
 
-
 $("body").on("click", ".downloadbutton",function(){
 var address = location.pathname
 var path_list = address.split("/")
@@ -330,10 +393,43 @@ var doc = new jsPDF();
 doc.setFontSize(12);
 doc.text(date_accessed, 140, 50);
 // image
-var myImage = new Image();
-myImage.src = "https://coxbase.q-gaps.de/webapp/static/img/logo_transparent.png";
-myImage.onload = function(){
-doc.addImage(myImage , 'png', 10, 10, 60, 60);
+
+window.logo = null;
+base_url = null;
+function getDataUri(url, callback)
+ {
+        var image = new Image();
+        image.setAttribute('crossOrigin', 'anonymous'); //getting images from external domain
+
+        image.onload = function () {
+            var canvas = document.createElement('canvas');
+            canvas.width = this.naturalWidth;
+            canvas.height = this.naturalHeight; 
+
+            //next three lines for white background in case png has a transparent background
+            var ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#fff';  /// set white fill style
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            canvas.getContext('2d').drawImage(this, 0, 0);
+
+            base_url = canvas.toDataURL('image/png');
+	    callback(base_url)
+		console.log("3")
+        };
+
+        image.src = url;
+   }
+
+getDataUri("https://coxbase.q-gaps.de/webapp/static/img/logo_transparent.png", function(dataUri) {
+    logo = dataUri;
+    console.log(logo)
+    doc.addImage(logo, 'png', 10, 10, 60, 60);
+    console.log("5")
+});
+console.log(base_url)
+console.log(logo)
+	 
 
 // meta
 doc.setFillColor(238,238,238);
@@ -357,7 +453,7 @@ doc.autoTable({ html: '.jspdf', startY:140 })
 
 
 doc.save(id + '.pdf');
-};
+
 
 //doc.rect(10, 20, 100, 20, "F");
 //doc.setFontSize(16);

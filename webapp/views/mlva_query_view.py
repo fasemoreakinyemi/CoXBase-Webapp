@@ -38,6 +38,24 @@ def detailed_mlva_view(request):
     return {"count": query.count(), "results": query.all()}
 
 
+@view_config(
+    route_name="entry_view_mlva_6", renderer="../templates/mlva_tilburg_query_view.jinja2"
+)
+def detailed_mlva_tilburg_view(request):
+    ID = request.matchdict["ID"]
+    Base = automap_base()
+    settings = get_appsettings(
+        "/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini", name="main"
+    )
+    engine = engine_from_config(settings, "db2.")
+    Base.prepare(engine, reflect=True)
+    isolates = Base.classes.tilburg_isolates
+    try:
+        query = request.db2_session.query(isolates).filter(isolates.profile_ID == ID)
+    except DBAPIError:
+        return Response(db_err_msg, content_type="text/plain", status=500)
+    return {"count": query.count(), "results": query.all()}
+
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
 might be caused by one of the following things:

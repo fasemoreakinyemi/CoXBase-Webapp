@@ -8,7 +8,10 @@ var wanted_id = path_name.split("/")[6];
 var typing_method =  path_name.split("/")[5];
 var hst = location.host;
 if (typing_method === "mlva"){
-	var url = "https://" + hst + "/webapp/api_mlva_map/" + wanted_id
+	if(wanted_id === "tilburg"){
+	var url = "https://" + hst + "/webapp/api_mlva_tilburg_map/" + path_name.split("/")[7]
+	}else{
+	var url = "https://" + hst + "/webapp/api_mlva_map/" + wanted_id}
 }else{
 	var url = "https://" + hst + "/webapp/api_mst_map/" + wanted_id
 }

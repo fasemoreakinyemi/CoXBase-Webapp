@@ -119,6 +119,16 @@ def get_mlva_coordinates(request):
     )
     return rp._serialize_coord(query)
 
+@view_config(route_name="api_mlva_tilburg_map", renderer="json")
+def get_mlva_tilburg_coordinates(request):
+    geoTable = getattr(base_automap, "tilburg_geolocation")
+    _column = request.matchdict["ID"]
+    query = (
+        request.db2_session.query(geoTable)
+        .filter(geoTable.mlvaGenotype == _column)
+        .all()
+    )
+    return rp._serialize_coord(query)
 
 # eview map for mst isolates
 @view_config(route_name="api_mst_map", renderer="json")

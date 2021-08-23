@@ -19,9 +19,9 @@ from sqlalchemy import desc
 am = automapper.Automapper("/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini")
 Base_automap = am.generate_base("db2.")
 
-def distance_query(Base, repeat_list, request, distance):
+def distance_query(Base, repeat_list, request, distance, db):
     case_list = []
-    mlvaTable = getattr(Base, "mlva_normalized") #Base.classes.mlva_normalized
+    mlvaTable = getattr(Base, db) #Base.classes.mlva_normalized
     for repeats in repeat_list:
         if float(request.matchdict[repeats]) == 0:
             continue
@@ -44,6 +44,9 @@ def distance_query(Base, repeat_list, request, distance):
         inf = "".join("!!" + line for line in lines)
         return {"line": inf}
     return query
+
+
+
 
 @view_config(route_name="mlvaquery", renderer="../templates/mlva_query.jinja2")
 def mlva_view(request):
@@ -69,8 +72,32 @@ def fpq_view(request):
         "ms33",
         "ms34",
     ]
-    distance = {"0":14, "1":13, "2":12, "3":11, "4":10, "5":9, "xx":5}[request.matchdict["distance"]]
-    query = distance_query(Base_automap,repeat_list, request, distance)  
-
+    distance = {"0":14, "1":13, "2":12, "3":11, "4":10, "5":9, "xx":1}[request.matchdict["distance"]]
+    query = distance_query(Base_automap,
+                           repeat_list,
+                           request,
+                           distance,
+                           "mlva_normalized") 
     return RP._serialize_mlva(query)
+
+@view_config(route_name="tp_query_api", renderer="json")
+def tpq_view(request):
+    RP = process_request.RequestProcessor()
+    repeat_list = [
+        "ms23",
+        "ms24",
+        "ms27",
+        "ms28",
+        "ms33",
+        "ms34",
+    ]
+    distance = {"0":6, "1":5, "2":4, "3":3, "4":2, "5":1, "xx":0}[request.matchdict["distance"]]
+    query = distance_query(Base_automap,
+                           repeat_list,
+                           request,
+                           distance,
+                           "tilburg_profile") 
+
+    return RP._serialize_mlva_tillburg(query)
+
 

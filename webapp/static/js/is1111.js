@@ -58,4 +58,19 @@ function generate_csv(results) {
 
 }
 
+$(".pdf_fill" ).click(function () {
+	var path = location.pathname
+	var path_list = path.split("/")
+	var id = path_list[path_list.length - 1]
+    domtoimage.toPng(document.getElementsByClassName('info_mst_table')[0])
+        .then(function (blob) {
+            var pdf = new jsPDF('l', 'pt', [$('.info_mst_table').width(), $('.info_mst_table').height()]);
+
+            pdf.addImage(blob, 'PNG', 0, 0, $('.info_mst_table').width(), $('.info_mst_table').height());
+            pdf.save(id + ".pdf");
+
+            //that.options.api.optionsChanged();
+        });
+});
+
 });

@@ -176,6 +176,21 @@ class RequestProcessor:
             list_container.append(item_dict)
         return list_container
 
+    @classmethod
+    def _serialize_mlva_tillburg(cls, obj):
+        list_container = []
+        for items in obj:
+            item_dict = {}
+            item_dict["Genotype"] = items.ID
+            item_dict["ms23"] = cls.check_nonetype_int(items.ms23)
+            item_dict["ms24"] = cls.check_nonetype_int(items.ms24)
+            item_dict["ms27"] = cls.check_nonetype_int(items.ms27)
+            item_dict["ms28"] = cls.check_nonetype_int(items.ms28)
+            item_dict["ms33"] = cls.check_nonetype_int(items.ms33)
+            item_dict["ms34"] = cls.check_nonetype_int(items.ms34)
+            list_container.append(item_dict)
+        return list_container
+
     # mlva result to list serializer
     @classmethod
     def _serialize_mlva_tolist(cls, obj):
