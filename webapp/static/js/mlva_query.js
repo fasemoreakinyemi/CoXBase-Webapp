@@ -222,7 +222,7 @@ for (var i=0; i<len; i++) {
 }
 var url = url + "/" + distance
 	$.get(url, 'json').done(function(results) {
-		create_result(results, marker_dict)
+		create_result_no_phyd(results, marker_dict)
 	}).fail(function (e){
 		if (e.error) {
 		alert("error due to" + e.error)
@@ -240,6 +240,15 @@ $('#result').html("<div class='result_header'><h1>Found profile(s)</h1><div styl
 else{
 $('#result').html("<div class='result_header'><h1>Found profile(s)</h1></div>" + json2table(data, marker_dict) + "<div style='margin-top:20px;'> Phylogenetic tree: <button id='tree' class='my_button'>Phyd3</button></div>")}
 };
+
+function create_result_no_phyd(data, marker_dict){
+if  (Object.keys(data).length === 0){
+$('#result').html("<div class='result_header'><h1>Found profile(s)</h1><div style='color:red;' class='well white'>No matches for this query in the database, try using 5+ as the Max Distance</div></div>")
+}
+else{
+$('#result').html("<div class='result_header'><h1>Found profile(s)</h1></div>" + json2table(data, marker_dict) + "</div>")}
+};
+
 
 function render_No_match(){
 $('#result').html("<div class='result_header'><h1>Found profile(s)</h1><h3 style='color:red; padding:20px;'> No match in the database for the queried marker</h3></div>" )
@@ -347,15 +356,27 @@ $("body").on("click", "#tree",function(){
 			mlva_list.push($(this).val());}
 
 	});
+	if(mlva_list.length == 6){
+		$('#resulttable tbody tr').each( function(){
+		var genotype = $(this).find('td:nth-child(7)').text()
+		if (! genotype == ""){
+		ent_list.push(genotype)
+	}})
+	items_list.push(mlva_list)
+	items_list.push(ent_list)
+		
+	}
+	else{
 
 	$('#resulttable tbody tr').each( function(){
 	var genotype = $(this).find('td:nth-child(15)').text()
 	if (! genotype == ""){
 	ent_list.push(genotype)
 	}
-});
+		});
 	items_list.push(mlva_list)
 	items_list.push(ent_list)
+	}
 	$.ajax({
             type:"POST",
             url:"/webapp/tree/mlva_query",

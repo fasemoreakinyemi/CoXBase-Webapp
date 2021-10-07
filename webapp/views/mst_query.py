@@ -70,7 +70,7 @@ def mstq_view(request):
         "COX57",
         "COX61",
     ]
-    distance = {"0":10, "1":9, "2":8, "3":7, "4":6, "5":5, "xx":4}[request.matchdict["distance"]]
+    distance = {"0":10, "1":9, "2":8, "3":7, "4":6, "5":5, "xx":1}[request.matchdict["distance"]]
     query = distance_query(spacer_list, request, distance)
     return RP._serialize_mst(query)  # {len(conditionOr):len(conditionAnd)}
 

@@ -211,6 +211,18 @@ class RequestProcessor:
             list_container.append(cls.check_nonetype_int(items.ms33))
             list_container.append(cls.check_nonetype_int(items.ms34))
         return list_container
+    
+    @classmethod
+    def _serialize_mlva_tolist_tb(cls, obj):
+        list_container = []
+        for items in obj:
+            list_container.append(cls.check_nonetype_int(items.ms23))
+            list_container.append(cls.check_nonetype_int(items.ms24))
+            list_container.append(cls.check_nonetype_int(items.ms27))
+            list_container.append(cls.check_nonetype_int(items.ms28))
+            list_container.append(cls.check_nonetype_int(items.ms33))
+            list_container.append(cls.check_nonetype_int(items.ms34))
+        return list_container
 
     @classmethod
     def _serialize_mlva_tolist_all(cls, obj):
@@ -243,16 +255,16 @@ class RequestProcessor:
         for items in obj:
             item_dict = {}
             item_dict["MST ID"] = int(items.groupid)
-            item_dict["cox2"] = int(items.COX2)
-            item_dict["cox5"] = int(items.COX5)
-            item_dict["cox18"] = int(items.COX18)
-            item_dict["cox20"] = int(items.COX20)
-            item_dict["cox22"] = int(items.COX22)
-            item_dict["cox37"] = int(items.COX37)
-            item_dict["cox51"] = int(items.COX51)
-            item_dict["cox56"] = int(items.COX56)
-            item_dict["cox57"] = int(items.COX57)
-            item_dict["cox61"] = int(items.COX61)
+            item_dict["cox2"] = cls.check_nonetype_int(items.COX2)
+            item_dict["cox5"] = cls.check_nonetype_int(items.COX5)
+            item_dict["cox18"] = cls.check_nonetype_int(items.COX18)
+            item_dict["cox20"] = cls.check_nonetype_int(items.COX20)
+            item_dict["cox22"] = cls.check_nonetype_int(items.COX22)
+            item_dict["cox37"] = cls.check_nonetype_int(items.COX37)
+            item_dict["cox51"] = cls.check_nonetype_int(items.COX51)
+            item_dict["cox56"] = cls.check_nonetype_int(items.COX56)
+            item_dict["cox57"] = cls.check_nonetype_int(items.COX57)
+            item_dict["cox61"] = cls.check_nonetype_int(items.COX61)
             list_container.append(item_dict)
         return list_container
 

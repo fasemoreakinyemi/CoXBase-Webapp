@@ -94,11 +94,17 @@ def mlva_tree_view_3(request):
     index_list = []
     for items in query_container[1]:
         entry_list = []
-        query = (
-            request.db2_session.query(mlvaTable).filter(mlvaTable.ngt == items).all()
+        if len(query_container[0]) == 6:
+            query = (
+                request.db2_session.query(tb_mlvaTable).filter(tb_mlvaTable.ID == items).all()
+            )
+            mlva_values = RP._serialize_mlva_tolist_tb(query)
+        else:
+            query = (
+                    request.db2_session.query(mlvaTable).filter(mlvaTable.ngt == items).all()
         )
-        if query:
             mlva_values = RP._serialize_mlva_tolist(query)
+        if query:
             mlva_values = [float(x) for x in mlva_values]
             mlva_list.append(mlva_values)
             index_list.append(items)
