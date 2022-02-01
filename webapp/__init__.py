@@ -22,6 +22,6 @@ def main(global_config, **settings):
         config.include('pyramid_mailer')
         config.scan('.views')
         config.scan('.process_request')
+        config.add_tween('webapp.access_tween.access_tween_factory')
         config.add_static_view('deform_static', 'deform:static/')
     return config.make_wsgi_app()
-
