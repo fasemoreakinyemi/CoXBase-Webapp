@@ -438,7 +438,7 @@ class ViewProcessor:
             if os.stat(out_file).st_size == 0:  # check if file is empty
                     typing_dict[key] = 0  # 0 for AdaA gene negative
             else:
-                read_fasta = SeqIO.read(out_file, "fasta")
-                typing_dict[key] = read_fasta.seq[value[2]].upper()
+                read_fasta = list(SeqIO.parse(out_file, "fasta"))
+                typing_dict[key] = read_fasta[0].seq[value[2]].upper()
         return typing_dict
 

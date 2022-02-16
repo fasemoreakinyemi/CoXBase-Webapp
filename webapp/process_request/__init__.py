@@ -284,19 +284,27 @@ class RequestProcessor:
     # country list for coxviewer
     @staticmethod
     def _serialize_ctr_dts_iso(obj):
+        file_path = "/home/ubuntu/countries.csv"
+        geofile = pd.read_csv(file_path, sep=",")
         list_container = []
         for items in obj:
+            query = geofile.loc[
+                geofile["country"] == items.isolates.country
+            ]
             item_dict = {}
-            item_dict["name"] = items.name
-            item_dict["year"] = str(items.yearOfIsolation)
-            item_dict["host"] = items.host
-            item_dict["source"] = items.tissue
-            item_dict["location"] = items.geographicOrigin
-            item_dict["province"] = items.province
-            item_dict["plasmid"] = items.plasmidType
-            item_dict["adagene type"] = items.adaGene
-            item_dict["MLVA genotype"] = items.mlvaGenotype
-            item_dict["MST group"] = items.mstGroup
+            item_dict["name"] = items.isolates.name
+            item_dict["country"] = str("".join(list(query["name"].values)))
+            item_dict["year"] = str(items.isolates.yearOfIsolation)
+            item_dict["host"] = items.isolates.host
+            item_dict["source"] = items.isolates.tissue
+            item_dict["plasmid"] = items.isolates.plasmidType
+            item_dict["adagene type"] = items.isolates.adaGene
+            item_dict["MLVA genotype"] = items.isolates.mlvaGenotype
+            item_dict["MST group"] = items.isolates.mstGroup
+            if not items.isolate_pub_ref:
+                item_dict["Pubmed"] = ""
+            else:
+                item_dict["Pubmed"] = items.isolate_pub_ref.pmid
             #   item_dict['ID'] = items.isolateid
             list_container.append(item_dict)
         return list_container
