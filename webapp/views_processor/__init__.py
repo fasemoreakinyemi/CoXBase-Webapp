@@ -441,4 +441,11 @@ class ViewProcessor:
                 read_fasta = list(SeqIO.parse(out_file, "fasta"))
                 typing_dict[key] = read_fasta[0].seq[value[2]].upper()
         return typing_dict
+    
+    @staticmethod
+    def delete_temp_files(file_id, analysis_type):
+        if analysis_type == "combined":
+            shutil.rmtree(os.path.join(sole_outpath, file_id))
+            shutil.rmtree(os.path.join(combined_outpath, file_id))
+            return None
 
