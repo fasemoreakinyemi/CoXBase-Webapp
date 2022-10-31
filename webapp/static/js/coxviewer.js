@@ -13,6 +13,7 @@ $.get(url, 'json').done(function(results) {
 
 function draw_map(results){
 
+
 var coord_array = JSON.parse(JSON.stringify(results));
 var map = L.map('coxviewermap').setView([35, 0], 2.8).setMaxBounds([[-90, -180],[90, 180]]);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -50,8 +51,8 @@ function get_class(cnt){
 		});
 
 		var hst = location.host;
-		var table_url = "https://" + hst + "/webapp/coxviewer_table/" + row['ID']
-		var dashboard_url = "https://" + hst + "/webapp/dashboard/" + row['ID']
+		var table_url = "https://" + hst + "/webapp/coxviewer_table/" + encodeURIComponent(row['name'])
+		var dashboard_url = "https://" + hst + "/webapp/dashboard/" + encodeURIComponent(row['ID'])
 		if (row['count'] > 10) {
 		mypopup = '<div class=""><h2>Details</h2><table class="table"><tbody><tr><td>Country</td><td>' + row['name'] + '</td></tr><tr><td>No of Isolates </td><td>' + row['count'] + '</td></tr><tr><td>Isolates table</td><td><a href=' + table_url + '><button class="popbutton">here</button></a></td><tr><td>Dashboard</td><td><a href=' + dashboard_url + '><button class="popbutton">here</button></a></td></tr></tbody></table></div>'
 		} else {

@@ -18,23 +18,16 @@ rp = process_request.RequestProcessor()
 @view_config(route_name="api_dashboard_year", renderer="json")
 def api_dashboard_year(request):
     _column = request.matchdict["ID"]  # _column is country
-    isolatesTable = getattr(base_automap, "isolates")
+    isolatesTable = getattr(base_automap, "isolates2022")
     isolatesRefTable = getattr(base_automap, "isolate_refs2")
-    if request.authenticated_userid:
-        query = (
-            request.db2_session.query(isolatesTable.yearOfIsolation)
-            .filter(isolatesTable.country == _column)
-            .all()
-        )
-    else:
-        query = (
+    query = (
             request.db2_session.query(isolatesTable.yearOfIsolation)
             .filter(isolatesTable.country == _column)
             .all()
         )
     #  query = request.db2_session.query(model.yearOfIsolation).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(
     #           model.country == _column).all()
-    result_dict = rp.to_dict(query)
+    result_dict = rp.to_dict(query, "int_v")
     return result_dict
 
 
@@ -42,7 +35,7 @@ def api_dashboard_year(request):
 @view_config(route_name="api_dashboard_host", renderer="json")
 def api_dashboard_host(request):
     _column = request.matchdict["ID"]  # _column is country
-    isolatesTable = getattr(base_automap, "isolates")
+    isolatesTable = getattr(base_automap, "isolates2022")
     isolatesRefTable = getattr(base_automap, "isolate_refs2")
     if request.authenticated_userid:
         query = (
@@ -56,7 +49,7 @@ def api_dashboard_host(request):
             .filter(isolatesTable.country == _column).all()
         )
     #      query = request.db2_session.query(model.host).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
-    result_dict = rp.to_dict(query)
+    result_dict = rp.to_dict(query, "str_v")
     return result_dict
 
 
@@ -64,7 +57,7 @@ def api_dashboard_host(request):
 @view_config(route_name="api_dashboard_province", renderer="json")
 def api_dashboard_province(request):
     _column = request.matchdict["ID"]  # _column is country
-    isolatesTable = getattr(base_automap, "isolates")
+    isolatesTable = getattr(base_automap, "isolates2022")
     isolatesRefTable = getattr(base_automap, "isolate_refs2")
     if request.authenticated_userid:
         query = (
@@ -79,7 +72,7 @@ def api_dashboard_province(request):
             .all()
         )
     #   query = request.db2_session.query(model.province).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
-    result_dict = rp.to_dict(query)
+    result_dict = rp.to_dict(query, "str_v")
     return result_dict
 
 
@@ -87,7 +80,7 @@ def api_dashboard_province(request):
 @view_config(route_name="api_dashboard_genotype", renderer="json")
 def api_dashboard_genotype(request):
     _column = request.matchdict["ID"]  # _column is country
-    isolatesTable = getattr(base_automap, "isolates")
+    isolatesTable = getattr(base_automap, "isolates2022")
     isolatesRefTable = getattr(base_automap, "isolate_refs2")
     if request.authenticated_userid:
         query = (
@@ -102,15 +95,14 @@ def api_dashboard_genotype(request):
             .all()
         )
     #   query = request.db2_session.query(model.mlvaGenotype).join(isolatesRef, model.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(model.country == _column).all()
-    result_dict = rp.to_dict(query)
+    result_dict = rp.to_dict(query, "str_v")
     return result_dict
-
 
 
 # eview map for mlva isolates
 @view_config(route_name="api_mlva_map", renderer="json")
 def get_mlva_coordinates(request):
-    geoTable = getattr(base_automap, "isolates_geolocation")
+    geoTable = getattr(base_automap, "isolates2022")
     _column = request.matchdict["ID"]
     query = (
         request.db2_session.query(geoTable)
@@ -121,7 +113,7 @@ def get_mlva_coordinates(request):
 
 @view_config(route_name="api_mlva_tilburg_map", renderer="json")
 def get_mlva_tilburg_coordinates(request):
-    geoTable = getattr(base_automap, "tilburg_geolocation")
+    geoTable = getattr(base_automap, "isolates2022")
     _column = request.matchdict["ID"]
     query = (
         request.db2_session.query(geoTable)
@@ -130,10 +122,11 @@ def get_mlva_tilburg_coordinates(request):
     )
     return rp._serialize_coord(query)
 
+
 # eview map for mst isolates
 @view_config(route_name="api_mst_map", renderer="json")
 def get_mst_coordinates(request):
-    geoTable = getattr(base_automap, "isolates_geolocation")
+    geoTable = getattr(base_automap, "isolates2022")
     _column = request.matchdict["ID"]
     query = (
         request.db2_session.query(geoTable)
@@ -145,12 +138,12 @@ def get_mst_coordinates(request):
 # coxviewer index
 @view_config(route_name="api_coxviewer", renderer="json")
 def get_geo_details(request):
-    isolatesTable = getattr(base_automap, "isolates")
-    isolatesRefTable = getattr(base_automap, "isolate_refs2")
-    if request.authenticated_userid:
-        query = request.db2_session.query(isolatesTable.country).all()
-    else:
-        query = request.db2_session.query(isolatesTable.country).all()
+    isolatesTable = getattr(base_automap, "isolates2022")
+    query = request.db2_session.query(isolatesTable.country).all()
+    #if request.authenticated_userid:
+    #    query = request.db2_session.query(isolatesTable.country).all()
+    #else:
+    #    query = request.db2_session.query(isolatesTable.country).all()
     #   query = request.db2_session.query(isolates.country).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).all()
 
     return rp.to_geoloc_dict(query)
@@ -159,7 +152,7 @@ def get_geo_details(request):
 @view_config(route_name="api_coxviewer2", renderer="json")
 def get_country_details(request):
     country_id = request.matchdict["ID"]
-    isolatesTable = getattr(base_automap, "isolates")
+    isolatesTable = getattr(base_automap, "isolates2022")
     isolatesRefTable = getattr(base_automap, "isolate_refs2")
     # query = request.db2_session.query(isolates).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(isolates.country == country_id).all()
     query = (
@@ -178,3 +171,4 @@ def mst_blast_api(request):
         query=query, db=db, strand="plus", evalue=0.001, out="-", outfmt=0
     )
     return {"result": cline()[0]}
+

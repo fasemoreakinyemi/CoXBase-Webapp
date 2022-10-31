@@ -18,13 +18,11 @@ function make_grid(data){
 	var hot = new Handsontable(container, {
   	data: data,
   	rowHeaders: false,
-	colHeaders: ['Name', 'YearofIsolation', 'Host', 'Source', 'Location',
-			'Province', 'PlasmidType', 'adaGeneType', 'MLVA genotype',
-				'MST genotype', 'is Group'],
+	colHeaders: ['Name', 'YearofIsolation', 'Host', 'Source', 'Country',
+		'Province', 'PlasmidType', 'adaGeneType', 'MLVA genotype',
+				'MST genotype', 'PubMed PMID'],
   	filters: true,
 	hiddenColumns: {
-    		columns: [4],
-    		indicators: false
 	},
   	dropdownMenu: ['filter_by_condition', 'filter_action_bar', 'filter_by_value'],
 	licenseKey: "non-commercial-and-evaluation"

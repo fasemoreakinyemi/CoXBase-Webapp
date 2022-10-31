@@ -8,7 +8,7 @@
     <meta name="Mandela" content="Search form">
     <link rel="shortcut icon" href="{{request.static_url('webapp:static/pyramid-16x16.png')}}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <title>Coxbase</title>
+    <title>CoxBase</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -34,9 +34,9 @@
 					      <p>Select query panel:</p>
  					<select id="select_panel">
     						<!--<option value="3">3 panels </option>
-    						<option value="6">6 panels</option>
 						<option value="141">14 panels Australia</option>-->
-    						<option value="142">14 panels Frangoulidis</option>
+    						<option value="142" selected>14 panels Frangoulidis</option>
+    						<option value="6">6 panels Tilburg</option>
     						<!--<option value="15">15 panels</option>
 						<option value="16">16 panels</option>-->
 					</select>
@@ -116,13 +116,13 @@
     					<option value="0">0</option>
     					<option value="1">1</option>
     					<option value="2">2</option>
-    					<option value="3">3</option>
+    					<option value="3" selected="selected">3</option>
     					<option value="4">4</option>
     					<option value="5">5</option>
 					<option value="xx"> 5+ </option>
   				</select>
 			      </fieldset>
-			      <input type="submit">
+			      <input type="submit" value="Submit Query">
 			<button type="reset" id="clearField">Clear field</button>
 
 		      </form>

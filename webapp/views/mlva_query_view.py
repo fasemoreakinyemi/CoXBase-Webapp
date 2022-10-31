@@ -15,18 +15,18 @@ import logging
 import traceback
 import sys
 
+Base = automap_base()
+settings = get_appsettings(
+        "/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini", name="main"
+    )
+engine = engine_from_config(settings, "db2.")
+Base.prepare(engine, reflect=True)
 
 @view_config(
     route_name="entry_view_mlva", renderer="../templates/mlva_query_view.jinja2"
 )
 def detailed_mlva_view(request):
     ID = request.matchdict["ID"]
-    Base = automap_base()
-    settings = get_appsettings(
-        "/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini", name="main"
-    )
-    engine = engine_from_config(settings, "db2.")
-    Base.prepare(engine, reflect=True)
     isolates = Base.classes.isolates
     isolatesRef = Base.classes.isolate_refs2
     try:
@@ -43,15 +43,9 @@ def detailed_mlva_view(request):
 )
 def detailed_mlva_tilburg_view(request):
     ID = request.matchdict["ID"]
-    Base = automap_base()
-    settings = get_appsettings(
-        "/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini", name="main"
-    )
-    engine = engine_from_config(settings, "db2.")
-    Base.prepare(engine, reflect=True)
-    isolates = Base.classes.tilburg_isolates
+    isolates = Base.classes.isolates2022
     try:
-        query = request.db2_session.query(isolates).filter(isolates.profile_ID == ID)
+        query = request.db2_session.query(isolates).filter(isolates.mlvaGenotype == ID)
     except DBAPIError:
         return Response(db_err_msg, content_type="text/plain", status=500)
     return {"count": query.count(), "results": query.all()}

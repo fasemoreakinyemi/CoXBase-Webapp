@@ -96,7 +96,7 @@ def tpq_view(request):
                            repeat_list,
                            request,
                            distance,
-                           "tilburg_profile") 
+                           "tilburg_profile2022") 
 
     return RP._serialize_mlva_tillburg(query)
 

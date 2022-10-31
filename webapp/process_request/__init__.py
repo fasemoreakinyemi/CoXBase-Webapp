@@ -79,6 +79,13 @@ class RequestProcessor:
             return None
         else:
             return str(float(round(item, 2)))
+    
+    @staticmethod
+    def check_nonetype_coxviewer(item):
+        if item == None:
+            return None
+        else:
+            return str(int(float(item)))
 
     @classmethod
     def get_model(cls, column_from_path):
@@ -95,19 +102,24 @@ class RequestProcessor:
         query_model = cls.__repeat_model_dict.get(column_from_path, None)
         return query_model
 
-    @staticmethod
-    def to_dict(args):
+    @classmethod
+    def to_dict(cls, args, typ):
         base_count = 1
         _result_dict = {}
         tidy_list = [item for item, in args]
         for items in tidy_list:
             if items:
-                if not str(items) in _result_dict:
-                    _result_dict[str(items)] = base_count
+                if typ == "int_v":
+                    items = cls.check_nonetype_coxviewer(items)
                 else:
-                    _result_dict[str(items)] = _result_dict.get(str(items)) + 1
+                    items = str(items)
+                if not items in _result_dict:
+                    _result_dict[items] = base_count
+                else:
+                    _result_dict[items] = _result_dict.get(items) + 1
         return _result_dict
 
+# function to complie and count country entries 
     @staticmethod
     def to_geoloc_dict(args):
         file_path = "/home/ubuntu/countries.csv"
@@ -125,7 +137,7 @@ class RequestProcessor:
         for keys in _result_dict:
             item_dict = {}
             query = geofile.loc[
-                geofile["country"] == keys
+                geofile["name"] == keys
             ]  # geofile.query("country=='{}'".format(keys))
             item_dict["ID"] = keys
             item_dict["count"] = str(_result_dict.get(keys, None))
@@ -175,7 +187,7 @@ class RequestProcessor:
             item_dict["ms34"] = cls.check_nonetype_int(items.ms34)
             list_container.append(item_dict)
         return list_container
-
+    
     @classmethod
     def _serialize_mlva_tillburg(cls, obj):
         list_container = []
@@ -190,6 +202,7 @@ class RequestProcessor:
             item_dict["ms34"] = cls.check_nonetype_int(items.ms34)
             list_container.append(item_dict)
         return list_container
+
 
     # mlva result to list serializer
     @classmethod
@@ -249,8 +262,8 @@ class RequestProcessor:
         return final_list_container, annotation_container
 
     # mst results to json serializer
-    @staticmethod
-    def _serialize_mst(obj):
+    @classmethod
+    def _serialize_mst(cls, obj):
         list_container = []
         for items in obj:
             item_dict = {}
@@ -274,7 +287,7 @@ class RequestProcessor:
         list_container = []
         for items in obj:
             item_dict = {}
-            item_dict["ID"] = items.ID
+            item_dict["ID"] = items.isolateid
             item_dict["name"] = items.name
             item_dict["lat"] = str(items.latitude)
             item_dict["long"] = str(items.longitude)
@@ -282,29 +295,21 @@ class RequestProcessor:
         return list_container
 
     # country list for coxviewer
-    @staticmethod
-    def _serialize_ctr_dts_iso(obj):
-        file_path = "/home/ubuntu/countries.csv"
-        geofile = pd.read_csv(file_path, sep=",")
+    @classmethod
+    def _serialize_ctr_dts_iso(cls, obj):
         list_container = []
         for items in obj:
-            query = geofile.loc[
-                geofile["country"] == items.isolates.country
-            ]
             item_dict = {}
-            item_dict["name"] = items.isolates.name
-            item_dict["country"] = str("".join(list(query["name"].values)))
-            item_dict["year"] = str(items.isolates.yearOfIsolation)
-            item_dict["host"] = items.isolates.host
-            item_dict["source"] = items.isolates.tissue
-            item_dict["plasmid"] = items.isolates.plasmidType
-            item_dict["adagene type"] = items.isolates.adaGene
-            item_dict["MLVA genotype"] = items.isolates.mlvaGenotype
-            item_dict["MST group"] = items.isolates.mstGroup
-            if not items.isolate_pub_ref:
-                item_dict["Pubmed"] = ""
-            else:
-                item_dict["Pubmed"] = items.isolate_pub_ref.pmid
+            item_dict["name"] = items.name
+            item_dict["country"] = items.country
+            item_dict["year"] = cls.check_nonetype_coxviewer(items.yearOfIsolation)
+            item_dict["host"] = items.host
+            item_dict["source"] = items.sample
+            item_dict["plasmid"] = items.plasmidType
+            item_dict["adagene type"] = items.adaGene
+            item_dict["MLVA genotype"] = items.mlvaGenotype
+            item_dict["MST group"] = items.mstGroup
+            item_dict["Pubmed"] = cls.check_nonetype_coxviewer(items.pmid)
             #   item_dict['ID'] = items.isolateid
             list_container.append(item_dict)
         return list_container
@@ -330,22 +335,22 @@ class RequestProcessor:
         return list_container
 
     # country list for coxviewer list method
-    @staticmethod
-    def _serialize_ctr_dts_ls(obj):
+    @classmethod
+    def _serialize_ctr_dts_ls(cls, obj):
         list_container = []
         for items in obj:
             item_list = []
             item_list.append(items.name)
-            item_list.append(str(items.yearOfIsolation))
+            item_list.append(cls.check_nonetype_coxviewer(items.yearOfIsolation))
             item_list.append(items.host)
-            item_list.append(items.tissue)
-            item_list.append(items.geographicOrigin)
+            item_list.append(items.sample)
+            item_list.append(items.country)
             item_list.append(items.province)
             item_list.append(items.plasmidType)
             item_list.append(items.adaGene)
             item_list.append(items.mlvaGenotype)
             item_list.append(items.mstGroup)
-            item_list.append(items.isGroup)
+            item_list.append(cls.check_nonetype_coxviewer(items.pmid))
             list_container.append(item_list)
         return list_container
 

@@ -11,7 +11,7 @@ $(document).on('change', 'select#iso_subject', function() {
 	
 });
 
-country_list = [{label: 'Germany', value: 'DE'}, {label: 'France', value: 'FR'}, {label: 'Switzerland', value: 'CH'}, {label: 'Australia', value: 'AU'}, {label: 'Romania', value: 'RO'}, {label: 'China', value: 'CN'}, {label: 'Sweden', value: 'SE'}, {label: 'Slovakia', value: 'SK'}, {label: 'Mongolia', value: 'MN'}, {label: 'Russia', value: 'RU'}, {label: 'Poland', value: 'PL'}, {label: 'Italy', value: 'IT'}, {label: 'United States', value: 'US'}, {label: 'Greece', value: 'GR'}, {label: 'Austria', value: 'AT'}, {label: 'Japan', value: 'JP'}, {label: 'Netherlands', value: 'NL'}, {label: 'Ukraine', value: 'UA'}, {label: 'Kyrgyzstan', value: 'KG'}, {label: 'Saudi Arabia', value: 'SA'}, {label: 'Central African Republic', value: 'CF'}, {label: 'Canada', value: 'CA'}, {label: 'United Kingdom', value: 'GB'}, {label: 'Morocco', value: 'MA'}, {label: 'Belgium', value: 'BE'}, {label: 'Croatia', value: 'HR'}, {label: 'Denmark', value: 'DK'}, {label: 'Ireland', value: 'IE'}, {label: 'Portugal', value: 'PT'}, {label: 'Spain', value: 'ES'}, {label: 'Cuba', value: 'CU'}, {label: 'Egypt', value: 'EG'}, {label: 'India', value: 'IN'}, {label: 'Qatar', value: 'QA'}, {label: 'Guyana', value: 'GY'}]
+country_list = ['Portugal', 'Romania', 'Belgium', 'Australia', 'Greece', 'Namibia', 'Mongolia', 'Italy', 'Saudi Arabia', 'Slovakia', 'Austria', 'Japan', 'United Kingdom', 'Hungary', 'Ireland', 'United States', 'Canada', 'Cuba', 'Egypt', 'Denmark', 'South Africa', 'Qatar', 'Spain', 'Switzerland', 'Poland', 'Guyana', 'Netherlands', 'Central African Republic', 'China', 'Kyrgyzstan', 'Sweden', 'Morocco', 'Germany', 'Argentina', 'Algeria', 'France', 'Ethiopia', 'Brazil', 'Russia', 'Croatia', 'India', 'Ukraine', 'Iran', 'Lebanon']
 
 ada_list = [{label: "Wildtype", value: 'pos.'},
 	    {label: "Wildtype with insertion", value: 'pos.S'},
@@ -199,12 +199,12 @@ $("body").on("click", "#mlvaTree",function(){
 items_list = [];
 	$('#resulttable tbody tr').each( function(){
 	ent_list = []
-	var genotype = $(this).find('td:nth-child(9)').text()
+	var genotype = $(this).find('td:nth-child(8)').text()
 	if (! genotype == ""){
 	ent_list.push(genotype)
 	var name = $(this).find('td:nth-child(1)').text()
 	ent_list.push(name)
-	var host_type = $(this).find('td:nth-child(3)').text()
+	var host_type = $(this).find('td:nth-child(4)').text()
 	ent_list.push(host_type)
 	items_list.push( ent_list );
 	ent_list = []
@@ -235,12 +235,12 @@ $("body").on("click", "#itolTree",function(){
 items_list = [];
 	$('#resulttable tbody tr').each( function(){
 	ent_list = []
-	var genotype = $(this).find('td:nth-child(9)').text()
+	var genotype = $(this).find('td:nth-child(8)').text()
 	if (! genotype == ""){
 	ent_list.push(genotype)
 	var name = $(this).find('td:nth-child(1)').text()
 	ent_list.push(name)
-	var host_type = $(this).find('td:nth-child(3)').text()
+	var host_type = $(this).find('td:nth-child(4)').text()
 	ent_list.push(host_type)
 	items_list.push( ent_list );
 	ent_list = []

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="{{request.locale_name}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pyramid web application">
+    <meta name="Mandela" content="Search form">
+    <link rel="shortcut icon" href="{{request.static_url('webapp:static/pyramid-16x16.png')}}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <title>CoxBase</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+  crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.11/css/bootstrap-multiselect.css" integrity="sha512-S1l1mfpQS+XBPSgS8cCqElwRx24IcAYrwxLJg6WaFkG9J8bfNuilkoqkGny/rz7jS7Bo03qnzeBtE9LElt/fDg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom styles for this scaffold -->
+    <link href="{{request.static_url('webapp:static/css/main.css')}}" rel="stylesheet">
+    <!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--	<script>
+		function validateform(){
+        if (document.forms['mlvaInput']['fastaentry'].value == "" && document.forms['mlvaInput']['fastafile'].value == "") {
+		alert('hahah');
+                return false;
+        }
+};
+
+</script>-->
+  </head>
+
+  <body>
+
+	  {% include 'nav.jinja2' %}
+    <!--main-->
+    <div class="container_mlva_banner">
+	    <h1> Multi marker analysis </h1>
+	    <div style="margin-bottom:40px;">
+		    <p> Genotyping of highly infectious and bacteria is very important both in life science, multi marker analysis<br> is a method to improve the already existing genotyping methods in <i>C. burnetii</i></p>
+		    <p> We have selected a curated list of MLVA markers and MST spacers below. They can be combined or used individually</p></div>
+	    <form name="multimarkerInput" id="multimarker_form">
+		    <div class="flex_container">
+			    <fieldset style="float:left;display:inline;"><legend>Upload fasta sequence</legend>
+				    <p style="padding-right:2em">Please upload FASTA file</p>
+				    <input id="fileInput" name="fastafile" type="file">
+			    </fieldset>
+			    <fieldset style="float:left;display:inline;margin-left:50px;"><legend>MLVA markers</legend>
+				    <p style="padding-right:2em">Please select the MLVA markers of interest</p>
+				    <select name="mlva_field"  size="7" multiple="multiple" id="mlva_field">
+					    <option value="ms01"> MS 01</option>
+					    <option value="ms03"> MS 03</option>
+					    <option value="ms20"> MS 20</option>
+					    <option value="ms27"> MS 27</option>
+					    <option value="ms31"> MS 31</option>
+					    <option value="ms33"> MS 33</option>
+					    <option value="ms34"> MS 34</option>
+				    </select>
+				    <!--<div style="text-align:left">
+					    <input type="button" onclick='listbox_selectall("locus",true)' value="All" style="margin-top:1em" class="small_submit" />
+					    <input type="button" onclick='listbox_selectall("locus",false)' value="None" style="margin:1em 0 0 0.2em" class="small_submit" />
+				    </div>-->
+			    </fieldset>
+			    <fieldset style="float:left;display:inline;margin-left:50px;"><legend>MST spacers</legend>
+				    <p style="padding-right:2em">Please select the MST spacers of interest</p>
+				    <select name="mst_field"  size="8" multiple="multiple" id="mst_field">
+					    <option value="cox5">cox 5</option>
+					    <option value="cox18">cox 18</option>
+					    <option value="cox20">cox 20</option>
+					    <option value="cox22">cox 22</option>
+					    <option value="cox37">cox 37</option>
+					    <option value="cox51">cox 51</option>
+					    <option value="cox61">cox 61</option>
+				    </select>
+				    <!--<div style="text-align:left">
+					    <input type="button" onclick='listbox_selectall("locus",true)' value="All" style="margin-top:1em" class="small_submit" />
+					    <input type="button" onclick='listbox_selectall("locus",false)' value="None" style="margin:1em 0 0 0.2em" class="small_submit" />
+				    </div>-->
+			  </fieldset>
+			  <fieldset style="float:left;display:inline;margin-left:50px;"><legend>Action</legend>
+				  <input type="submit" name="submit" value="Submit" class="submit" />
+			  </fieldset>
+			  <div style="clear:both"></div>
+		    </div>
+    </div>
+
+	    </form>
+	    <div id="result" class="container" style="margin-top:10px;"></div>
+	    <div id="empty_error">
+	    </div>
+	    <div id="loader" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;"><img src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" width="64" height="64" /><br>Loading..</div>
+    </div>
+    
+
+
+    {% include 'footer.jinja2' %}
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.11/js/bootstrap-multiselect.min.js" integrity="sha512-9/grV87RNiwN4/OmsX3FgnjNI1D6d2/RC4GpUpywFlBjWi24PH+n1K3cDs4QTgSVYxKUhYAzyBsgUsIILap4vA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{request.static_url('webapp:static/js/multimarker.js')}}" type="text/javascript"></script>
+    <script src="{{request.static_url('webapp:static/js/extras.js')}}" type="text/javascript"></script>
+  </body>
+</html>

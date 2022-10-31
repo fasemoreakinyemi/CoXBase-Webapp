@@ -90,6 +90,7 @@ def mlva_tree_view_3(request):
         item_list.append(items)
     query_container = json.loads(item_list[0])
     mlvaTable = Base.classes.mlva_normalized
+    tb_mlvaTable = Base.classes.tilburg_profile2022
     mlva_list = []
     index_list = []
     for items in query_container[1]:

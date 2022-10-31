@@ -17,21 +17,19 @@ from .. import views_processor
 def combined_result_view(request):
     VP = views_processor.ViewProcessor()
     session = request.db2_session
-
-    if "fastafile" not in request.POST or "fastaentry" not in request.POST:
-        raise HTTPNotFound()
-    filename = ""
     process_ID = uuid.uuid4().hex
-    try:
-        filename = request.POST["fastafile"].filename
-    except:
-        pass
-    if filename is not "":
+    if "fastafile" in request.POST:
         inputfile = request.POST["fastafile"].file
-        file_path = VP.create_file_from_fastafile(inputfile, process_ID, "combined")
+        file_path = VP.create_file_from_fastafile(inputfile,
+                                                  process_ID,
+                                                  "combined")
     else:
-        sequence = memoryview(request.POST["fastaentry"].encode("utf-8"))
-        file_path = VP.create_file_from_fastaentry(sequence, process_ID)
+        if "fastaentry" in request.POST:
+            sequence = memoryview(request.POST["fastaentry"].encode("utf-8"))
+            file_path = VP.create_file_from_fastaentry(sequence, process_ID)
+        else:
+            raise HTTPNotFound()
+
 
     # mlva
     command = VP.create_epcr_command(file_path, process_ID,"combined", "mlva")
@@ -79,6 +77,7 @@ def combined_result_view(request):
     session.execute(insert(models.SubmissionTable).values([submission_dict]))
 
     session.commit()
+    VP.delete_temp_files(process_ID, "combined")
     url = request.route_url("resCombined", ID=process_ID)
     return HTTPFound(location=url)
 

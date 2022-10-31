@@ -17,7 +17,6 @@ engine = engine_from_config(settings, "db2.")
 Base.prepare(engine, reflect=True)
 RP = process_request.RequestProcessor()
 
-
 @view_config(route_name="isolate_query", renderer="../templates/isolate_query.jinja2")
 def isolate_query_view(request):
     return {}
@@ -29,8 +28,8 @@ def isolate_query_api_view(request):
     combo = request.matchdict["combo"]
     query_container = json.loads(container)
 
-    isolates_table = Base.classes.isolates
-    isolatesRef = Base.classes.isolate_refs2
+    isolates_table = Base.classes.isolates2022
+    isolatesRef = Base.classes.isolate_pub_ref
 
     conditionAnd = []
     conditionOr = []
@@ -135,8 +134,9 @@ def isolate_query_fc_view(request):
 
 @view_config(route_name="isolate_fc_api", renderer="json")
 def get_all_isolates(request):
-    isolates = Base.classes.isolates
+    isolates = Base.classes.isolates2022
     isolatesRef = Base.classes.isolate_refs2
     query = request.db2_session.query(isolates).all()
     #  query = request.db2_session.query(isolates).filter(isolates.country == country_id).all()
     return RP._serialize_ctr_dts_ls(query)
+

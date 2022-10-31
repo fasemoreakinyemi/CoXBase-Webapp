@@ -8,7 +8,7 @@
     <meta name="Mandela" content="Search form">
     <link rel="shortcut icon" href="{{request.static_url('webapp:static/pyramid-16x16.png')}}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <title>Coxbase</title>
+    <title>CoxBase</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -27,7 +27,7 @@
     <!--main-->
     <div class="container_well">
       <div class="well well-lg cream">
-	      There are <b>{{count}}</b> isolate(s) with this profile
+	      There are <b>{{count}}</b> isolate(s) with this MST profile
       </div>
       <div id="view_map" style="width: 100%; height: 400px;"></div>
     </div>
@@ -38,7 +38,6 @@
                           <tr>
                                   <th>Name</th>
                                   <th>Year of Isolation</th>
-                                  <th>Place of Isolation</th>
                                   <th>Country isocode</th>
                                   <th>Source</th>
                                   <th>Pubmed</th>
@@ -49,12 +48,12 @@
                           </tr>
                           {% for item in results %}
                           <tr>
-                                  <td>{{item.isolates.name}}</td>
-                                  <td>{{item.isolates.yearOfIsolation}}</td>
-				  <td>{{item.isolates.geographicOrigin}}</td>
-				  <td>{{item.isolates.country}}</td>
-				  <td>{{item.isolates.host}}</td>
-				  <td><a href="https://pubmed.ncbi.nlm.nih.gov/{{item.isolate_pub_ref.pmid}}/">publication</a></td>
+                                  <td>{{item.name}}</td>
+                                  <td>{{item.yearOfIsolation|int}}</td>
+				  <td>{{item.country}}</td>
+				  <td>{{item.host}}</td>
+				  <td><a
+                          href="https://pubmed.ncbi.nlm.nih.gov/{{item.pmid}}/">publication</a></td>
                           </tr>
                           {% endfor %}
                   </table>

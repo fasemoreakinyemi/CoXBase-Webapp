@@ -125,6 +125,52 @@ ul {
   top: 0;
 }
 
+.pdf_fill{
+  position: relative;
+  display:block;
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+   /* box-shadow: 0 0 15px rgba(0,0,0,0.2);*/
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom:1px;
+  outline: 0;
+  overflow:hidden;
+  background: none;
+  z-index: 1;
+  cursor: pointer;
+  transition:         0.08s ease-in;
+  -o-transition:      0.08s ease-in;
+  -ms-transition:     0.08s ease-in;
+  -moz-transition:    0.08s ease-in;
+  -webkit-transition: 0.08s ease-in;
+}
+
+.pdf_fill:hover {
+  color: #fff;
+}
+
+.pdf_fill:before {
+  content: "";
+  position: absolute;
+  background: #34495e;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  color: #fff;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: -1;
+  -webkit-transition: top 0.09s ease-in;
+}
+
+.pdf_fill:hover:before {
+  top: 0;
+}
+
+
 
 /*## csv fill is1111 button ##*/
 /*## isolate query ##*/
@@ -241,7 +287,7 @@ display: inline;
 
 .info_mst_table table td, .info_mst_table table th {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 8px 1px;
 }
 
 .info_mst_table table tr:nth-child(even){background-color: #f2f2f2;}
@@ -257,7 +303,7 @@ display: inline;
 .info_mst_table table th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
+  text-align: center;
   background-color: #34495e;
   color: white
   }

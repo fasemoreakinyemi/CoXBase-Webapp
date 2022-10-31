@@ -2,27 +2,51 @@ $(document).ready(function()
 {
 
 window.validateform = function(){
-	if (document.forms['mlvaInput']['fastaentry'].value == "" && document.forms['mlvaInput']['fastafile'].value == "") {
-		throw_empty_error()
-    		$("#loader").remove();
-		return false;
+	if (document.forms['mlvaInput']['fastafile'].value != "") {
+
+		if (document.forms['mlvaInput']['fastaentry'].value != "") {
+			throw_multiple_error()
+    			$("#loader").remove();
+			return false;
+
+		}
+
+		return true;
 	}
-	else if (document.forms['mlvaInput']['fastaentry'].value !== "" && document.forms['mlvaInput']['fastafile'].value !== "") {
-		throw_multiple_error()
-    		$("#loader").remove();
-		return false;
-	}
-	else if (document.forms['mlvaInput']['fastaentry'].value !== "" && document.forms['mlvaInput']['fastaentry'].value.charAt(0) != ">") {
-		throw_not_fasta_error()
-		return false;
+	else {
+		if (document.forms['mlvaInput']['fastaentry'].value !== ""  && document.forms['mlvaInput']['fastaentry'].value.charAt(0) == ">") {
+		return true; }
+		else {
+			throw_empty_error()
+    			$("#loader").remove();
+			return false;
+		}
 	}
 
 	
 };
+//window.validateform = function(){
+//	if (document.forms['mlvaInput']['fastaentry'].value == "" && document.forms['mlvaInput']['fastafile'].value == "") {
+//		throw_empty_error()
+//    		$("#loader").remove();
+//		return false;
+//	}
+//	else if (document.forms['mlvaInput']['fastaentry'].value !== "" && document.forms['mlvaInput']['fastafile'].value !== "") {
+//		throw_multiple_error()
+//    		$("#loader").remove();
+//		return false;
+//	}
+//	else if (document.forms['mlvaInput']['fastaentry'].value !== "" && document.forms['mlvaInput']['fastaentry'].value.charAt(0) != ">") {
+//		throw_not_fasta_error()
+//		return false;
+//	}
+//
+//	
+//};
 
 function throw_empty_error(){
 	$('#result').empty()
-	$('#empty_error_mlva').html("<div class=''><div class='well blue_card'><span><i class='fas fa-exclamation-triangle fa-2x'></i></span> Please upload a file in fasta format or paste your sequence in the sequence field <span><i class='fas fa-exclamation-triangle fa-2x'></i></span></div>")
+	$('#empty_error_mlva').html("<div class=''><div class='well blue_card'><span><i class='fas fa-exclamation-triangle fa-2x'></i></span> Please upload a file in fasta format or paste your sequence in the sequence field with > at first position <span><i class='fas fa-exclamation-triangle fa-2x'></i></span></div>")
     $("#loader").css("display", "none");
 }
 function throw_multiple_error(){

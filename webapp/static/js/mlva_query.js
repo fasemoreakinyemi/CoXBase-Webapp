@@ -71,7 +71,7 @@ var num_cols = header_array.length;
 if (num_cols==14){
 	sample_list = [4,7,9,6,6,8,29,4,4,6,5.5,19,9,5]}
 else{
-	sample_list = [8,29,4,6,9,5]}
+	sample_list = [9,27,4,6,9,5]}
 
 var num_rows = 1;
 var table_body = "<table class='query_table'>";
@@ -307,8 +307,8 @@ $(document).on('click',"#sampleQuery",function(event){
 	$('input[name="ms20"]').val(9);
 	$('input[name="ms21"]').val(6);
 	$('input[name="ms22"]').val(6);
-	$('input[name="ms23"]').val(8);
-	$('input[name="ms24"]').val(29);
+	$('input[name="ms23"]').val(9);
+	$('input[name="ms24"]').val(27);
 	$('input[name="ms26"]').val(4);
 	$('input[name="ms27"]').val(4);
 	$('input[name="ms28"]').val(6);

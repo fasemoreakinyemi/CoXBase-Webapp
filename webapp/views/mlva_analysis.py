@@ -16,21 +16,18 @@ from webapp import views_processor
 
 @view_config(route_name="mlvaresult")
 def mlvaprocess_view(request):
-    VP = views_processor.ViewProcessor()
-    if "fastafile" not in request.POST or "fastaentry" not in request.POST:
-        raise HTTPNotFound()
-    filename = ""
     process_ID = uuid.uuid4().hex
-    try:
-        filename = request.POST["fastafile"].filename
-    except:
-        pass
-    if filename is not "":
+    VP = views_processor.ViewProcessor()
+    if "fastafile" in request.POST:
         inputfile = request.POST["fastafile"].file
         file_path = VP.create_file_from_fastafile(inputfile, process_ID, "sole")
     else:
-        sequence = memoryview(request.POST["fastaentry"].encode("utf-8"))
-        file_path = VP.create_file_from_fastaentry(sequence, process_ID)
+        if "fastaentry" in request.POST:
+            sequence = memoryview(request.POST["fastaentry"].encode("utf-8"))
+            file_path = VP.create_file_from_fastaentry(sequence, process_ID)
+        else:
+            raise HTTPNotFound()
+    
     command = VP.create_epcr_command(file_path, process_ID, "sole", "mlva")
     subprocess.call(command)
     try:

@@ -1,6 +1,11 @@
 
+    <script async src="https://cse.google.com/cse.js?cx=cec8953b4636d130c"></script>
+  </head>
+
+  <body>
 	<nav class="navbar navbar-default">
-  	<ul class="nav navbar-nav navbar-right">
+           <a href="/webapp" style="margin-left:50px;margin-top:150px;"><img class="" style="position: absolute;bottom: 30px" src="{{request.static_url('webapp:static/img/image10.png') }}" width="120px" alt="pyramid web framework"></a>
+  	<ul class="nav navbar-nav navbar-right" style="bottom: 20px">
     		<li class="">
 		<a href="{{request.route_url('home')}}"><i class="fa fa-home" style="font-size:20px"></i></a>
     		</li>
@@ -30,6 +35,8 @@
                 <li class="divider"></li>
                 <li><a href="{{request.route_url('SNPHanalysis')}}">SNP</a></li>
                 <li class="divider"></li>
+                <li><a href="{{request.route_url('multi_marker')}}">multi marker</a></li>
+                <li class="divider"></li>
                 <li><a href="{{request.route_url('combined')}}">combined</a></li>
                 </ul>
    		</li>
@@ -50,13 +57,13 @@
 		<!--<li class="">
       		<a class="" href="{{request.route_url(route or 'login')}}">{{status or 'Log in'}}</a>
     		</li>-->
-	
-		<form class="navbar-form navbar-left" action="#">
+		<li><div style="width:266px";><div class="gcse-search"></div></div></li>	
+	<!--	<form class="navbar-form navbar-left" action="#">
       		<div class="form-group">
         	<input type="text" class="form-control" placeholder="Search">
       		</div>
       		<button type="submit" class="btn btn-default">Submit</button>
-    		</form>
+    		</form>-->
 	</ul>
 	</nav>
 

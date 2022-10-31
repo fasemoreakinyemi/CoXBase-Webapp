@@ -82,8 +82,8 @@ class ViewProcessor:
         return command
 
     @staticmethod
-    def extract_mlva_values(process_ID, analysis_type):
-        flank_len_dict = {
+    def extract_mlva_values(process_ID, analysis_type, marker_list=None):
+        all_flank_len_dict = {
             "ms01": 176,
             "ms03": 142,
             "ms20": 96,
@@ -99,6 +99,12 @@ class ViewProcessor:
             "ms33": 193,
             "ms34": 175,
         }
+        if marker_list == None:
+            flank_len_dict = all_flank_len_dict
+        else:
+            flank_len_dict = {}
+            for markers in marker_list:
+                flank_len_dict[markers] = all_flank_len_dict[markers]
         repeat_size_dict = {
             "ms01": 16,
             "ms03": 12,
@@ -261,7 +267,7 @@ class ViewProcessor:
         return detected_element_dict
 
     @staticmethod
-    def mstprocessor(file_path, process_ID, analysis_type):
+    def mstprocessor(file_path, process_ID, analysis_type, spacer_list=None):
         if analysis_type == "sole":
             output_dir = "{}/{}".format(sole_outpath,
                                         process_ID)
@@ -270,7 +276,7 @@ class ViewProcessor:
                                             process_ID)
         os.mkdir(output_dir)
         spacer_dict = {"ID": process_ID}
-        primer_dict = {
+        all_primer_dict = {
             "cox18": ["CGCAGACGAATTAGCCAATC", "TTCGATGATCCGATGGCCTT"],
             "cox2": ["CAACCCTGAATACCCAAGGA", "GAAGCTTCTGATAGGCGGGA"],
             "cox20": ["GATATTTATCAGCGTCAAAGCAA", "TCTATTATTGCAATGCAAGTGG"],
@@ -282,6 +288,12 @@ class ViewProcessor:
             "cox57": ["TGGAAATGGAAGGCGGATTC", "GGTTGGAAGGCGTAAGCCTTT"],
             "cox61": ["GAAGATAGAGCGGCAAGGAT", "GGGATTTCAACTTCCGATAGA"],
         }
+        if spacer_list == None:
+            primer_dict = all_primer_dict
+        else:
+            primer_dict = {}
+            for spacers in spacer_list:
+                primer_dict[spacers] = all_primer_dict[spacers]
 
         for key, value in primer_dict.items():
             spacer = key
@@ -441,11 +453,15 @@ class ViewProcessor:
                 read_fasta = list(SeqIO.parse(out_file, "fasta"))
                 typing_dict[key] = read_fasta[0].seq[value[2]].upper()
         return typing_dict
-    
+
     @staticmethod
     def delete_temp_files(file_id, analysis_type):
         if analysis_type == "combined":
             shutil.rmtree(os.path.join(sole_outpath, file_id))
             shutil.rmtree(os.path.join(combined_outpath, file_id))
             return None
+
+
+
+
 

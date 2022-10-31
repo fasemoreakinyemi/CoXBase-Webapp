@@ -112,5 +112,16 @@ def includeme(config):
     # miscellaneous
     config.add_route('news_api_homepage', '/newsAPI')
     config.add_route('news_api', '/newsAPI/{lang}/{search}')
+    # multi marker analysis
+    config.add_route('multi_marker', '/multimarker')
+    config.add_route('multi_marker_result', '/result/multimarker')
+    # antibiotic prediction page
+    config.add_route('arg_pred', '/analysis/arg-prediction')
+    # antibiotic fasta submision 
+    config.add_route('arg_pred_api', '/result/arg-prediction')
+    # antibiotic fasta task status
+    config.add_route('res_arg_pred', '/status/arg-prediction/{ID}')
+    # antibiotic fasta task page 
+    config.add_route('res_arg_pred_page', '/result-status/arg-prediction/{ID}')
 
 
