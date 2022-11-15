@@ -312,7 +312,7 @@ display: inline;
 
 /*### COXVIEWER TABLE ###*/
 .handsontable th {
-  background-color: #ff8b6d;
+  background-color: #ff8b6d !important;
   letter-spacing: 1px;
 }
 .ht_master tr:nth-of-type(even) > td {

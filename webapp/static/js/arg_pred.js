@@ -43,10 +43,13 @@ function make_grid(data){
 	var hot = new Handsontable(container, {
   	data: data,
   	rowHeaders: false,
-	className: "htLeft",
+	colWidths: 300,
+	manualColumnResize: true,
 	colHeaders: ["Name", "Length", "Sequence", "Category", "Probability"],
   	filters: true,
+	contextMenu: ['copy'],
   	dropdownMenu: ['filter_by_condition', 'filter_action_bar', 'filter_by_value'],
+	style: ''
 	licenseKey: "non-commercial-and-evaluation"
 });
 	hot.updateSettings({
@@ -60,7 +63,6 @@ function makeChart(pred) {
   for (const num of Labels) {
   counts[num] = counts[num] ? counts[num] + 1 : 1;
 	}
-  console.log(Labels)
 
   var chart = new Chart('chart', {
     type: 'bar',
