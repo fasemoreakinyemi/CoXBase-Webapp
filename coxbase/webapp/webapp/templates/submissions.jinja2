@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="{{request.locale_name}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pyramid web application">
+    <meta name="Mandela" content="Search form">
+    <link rel="shortcut icon" href="{{request.static_url('webapp:static/pyramid-16x16.png')}}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <title>CoxBase</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+  crossorigin=""/>
+
+
+    <!-- Custom styles for this scaffold -->
+    <link href="{{request.static_url('webapp:static/css/main.css')}}" rel="stylesheet">
+    <!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+  </head>
+
+  <body>
+	  {% include 'nav.jinja2' %}
+	 <form name="subform" action="/webapp/submissions/form" method="POST" id="subForm" onsubmit="return validateform()" style="margin-top:50px">
+	 <div class="card" style="margin: 0 auto;width: 1200px;margin-bottom:200px;">
+		 <p> Select submission type: </p>
+	  <select  name="submissionType" id="select_panel" class="js-example-basic-single">
+		  <option selected="selected" value="mlva"> MLVA Data </option>
+		  <option value="mst"> MST Data </option>
+	  </select>
+
+	  <div class="form-row" style="margin-top:15px">
+   			 <div class="form-group">
+      				<label for="nameOfIsolate">Name of Isolate</label>
+      				<input type="text" class="form-control" name="isolateName">
+    			  </div>
+		</div>
+		<div class="row">
+  			<div class="col-xs-6">
+    			<label for="source">Source</label>
+    			<input type="" class="form-control" name="isolateSource" >
+  			</div>
+ 			<div class="col-xs-6">
+    			<label for="host">Host</label>
+    			<input type="text" class="form-control" name="isolateHost">
+  			</div>
+		</div>
+    		<div class="row" style="margin-top:15px">
+  			<div class="col-xs-8">
+      			<label for="placeOfIsolation">Place of Isolation</label>
+      			<input type="text" class="form-control" name="placeOfIsolation">
+  			</div>
+  			<div class="col-xs-4">
+      			<label for="yearOfIsolation">Year of Isolation</label>
+      			<input type="text" class="form-control" name="yearOfIsolation">
+  			</div>
+		</div>
+
+		<div class="row" style="margin-top:15px">
+  		<div class="col-xs-5">
+      			<label for="country">Country</label>
+   			 <input type="text" class="form-control" name="country">
+  		</div>
+  		<div class="col-xs-4">
+      			<label for="state">Longitude</label>
+    			<input type="text" class="form-control" name="longitude">
+ 		 </div>
+  		<div class="col-xs-3">
+      			<label for="zip">Latitude</label>
+    			<input type="text" class="form-control" name="latitude">
+ 		 </div>
+		</div>
+			      <fieldset class="table_opt">
+				      <legend>Enter marker details below</legend>
+				      <div id="table_div">
+				      <table class="query_table">
+					      <tr> 
+						      <th class="query_table_header">ms01</th>
+						      <th class="query_table_header">ms03</th>
+						      <th class="query_table_header">ms20</th>
+						      <th class="query_table_header">ms21</th>
+						      <th class="query_table_header">ms22</th>
+						      <th class="query_table_header">ms23</th>
+						      <th class="query_table_header">ms24</th>
+						      <th class="query_table_header">ms26</th>
+						      <th class="query_table_header">ms27</th>
+						      <th class="query_table_header">ms28</th>
+						      <th class="query_table_header">ms30</th>
+						      <th class="query_table_header">ms31</th>
+						      <th class="query_table_header">ms33</th>
+						      <th class="query_table_header">ms34</th>
+					      </tr>
+					      <tr>
+						      <td><input class="tr_entry" name="ms01" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms03" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms20" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms21" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms22" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms23" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms24" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms26" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms27" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms28" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms30" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms31" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms33" type="number" min="0" step="any"></td>
+						      <td><input class="tr_entry" name="ms34" type="number" min="0" step="any"></td>
+					      </tr>
+				      </table>
+				      </div>
+			      </fieldset>
+		<div class="row">
+  			<div class="col-xs-6">
+    			<label for="pubmedID">Pubmed ID of publication</label>
+    			<input type="" class="form-control" name="pubmedID" >
+  			</div>
+ 			<div class="col-xs-6">
+    			<label for="genomeAccession">Genome accession</label>
+    			<input type="" class="form-control" name="genomeAccession">
+  			</div>
+		</div>
+    		<div class="row" style="margin-top:15px">
+  			<div class="col-xs-8">
+      			<label for="email">Contact email address</label>
+      			<input type="email" class="form-control" name="email">
+  			</div>
+  			<div class="col-xs-4">
+      			<label for="nameOfsubmitter">Name of submitter</label>
+      			<input type="" class="form-control" name="submitterName">
+  			</div>
+		</div>
+		<div class="checkbox">
+    			<label>
+				<input name="aof"  id="aof" type="checkbox"> Agreement to fair use <span style="color : red;" id="agreement"></span>
+   			 </label>
+  		</div>
+		<input type="submit" value="submit">
+
+	  </form>
+
+    <!--main-->
+    <!--<iframe id="seqviewerPanel" src="https://www.ncbi.nlm.nih.gov/projects/sviewer/embedded_iframe.html?iframe=sviframe&id=nc_002971.4" width="900">-->
+	    <!-- <div id="seqviewerPanel"></div>-->
+	 </div>
+
+	 <!--<iframe id="seqviewerPel" src="https://www.ncbi.nlm.nih.gov/projects/sviewer/embedded_iframe.html" style="width:0;height:0;border:0; border:none;">-->
+	    <!-- <div id="seqviewerPanel"></div>-->
+
+    {% include 'footer.jinja2' %}
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="{{request.static_url('webapp:static/js/extras.js')}}" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.js"></script>
+    <script src="{{request.static_url('webapp:static/js/submission.js')}}" type="text/javascript"></script>
+
+  </body>
+</html>

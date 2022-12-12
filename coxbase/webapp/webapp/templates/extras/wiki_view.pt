@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Wiki: View</title>
+    <link rel="stylesheet"
+          href="${request.static_url('webapp:static/deform/static/css/form.css')}" type="text/css"/>
+    <script src="${request.static_url('webapp:static/deform/static/scripts/jquery-2.0.3.min.js')}"
+            type="text/javascript"></script>
+    <script src="${request.static_url('webapp:static/deform/static/scripts/bootstrap.min.js')}"
+            type="text/javascript"></script>
+</head>
+<body>
+<h1>Wiki</h1>
+
+<a href="${request.route_url('wikipage_add')}">Add
+    WikiPage</a>
+<ul>
+    <li tal:repeat="page pages">
+        <a href="${request.route_url('wikipage_view', uid=page.uid)}">
+                ${page.title}
+        </a>
+    </li>
+</ul>
+</body>
+</html>

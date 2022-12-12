@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="{{request.locale_name}}">
+  <head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pyramid web application">
+    <meta name="Mandela" content="Search form">
+    <link rel="shortcut icon" href="{{request.static_url('webapp:static/pyramid-16x16.png')}}">
+
+    <title>Coxbase</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Custom styles for this scaffold -->
+    <link href="{{request.static_url('webapp:static/search.css')}}" rel="stylesheet">
+    
+    <!--deform-->
+    <link rel="stylesheet"
+          href="{{request.static_url('webapp:static/deform/static/css/form.css')}}" type="text/css"/>
+    <script src="{{request.static_url('webapp:static/deform/static/scripts/jquery-2.0.3.min.js')}}"
+            type="text/javascript"></script>
+    <script src="{{request.static_url('webapp:static/deform/static/scripts/bootstrap.min.js')}}"
+            type="text/javascript"></script>
+
+    <!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" integrity="sha384-0s5Pv64cNZJieYFkXYOTId2HMA2Lfb6q2nAcx2n0RTLUnCAoTTsS0nKEO27XyKcY" crossorigin="anonymous"></script>
+      <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" integrity="sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo" crossorigin="anonymous"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!--main-->
+    <div class="">
+	    <h1 class="banner"> Welcome to coxbase</h1>
+      <div class="container">
+        <div class="row">
+		<div>
+		  <h2>Results</h2><br>
+		  <table>
+			  <tr>
+				  <th>Feature Name</th>
+				  <th>Chromosome</th>
+				  <th>Feature Type</th>
+				  <th>Length</th>
+				  <th>Strand</th>
+			  	  <th>Product</th>
+				  <!-- {% if results.ProteinProduct %}-->
+			  <th>Product</th>
+				<!--	{%- endif %}-->
+
+			  </tr>
+			  {% for item in results %}
+			  <tr>
+				  <td><a href="{{ 'details/%s'%item.FeatureNum|urlencode }}">{{item.FeatureName}}</a></td>
+				  <td>{{item.FeatureChromosome}}</td>
+				  <td>{{item.FeatureType}}</td>
+				  <td>{{item.FeatureEnd - item.FeatureStart}}
+				  <td>{{item.FeatureStrand}}</td>
+				  <td>{{item.ProteinProduct}}</td>
+			  </tr>
+			  {% endfor %}
+		  </table>
+		  <p>{{res}}</p>
+
+	  </div>
+        </div>
+	<!--foooter-->
+           <!-- <ul>
+              <li><i class="glyphicon glyphicon-cog icon-muted"></i><a href="https://github.com/Pylons/pyramid">Github Project</a></li>
+              <li><i class="glyphicon glyphicon-globe icon-muted"></i><a href="https://webchat.freenode.net/?channels=pyramid">IRC Channel</a></li>
+              <li><i class="glyphicon glyphicon-home icon-muted"></i><a href="https://pylonsproject.org">Pylons Project</a></li>
+	   </ul>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+{% extends './primer_query.jinja2' %}
+{% block primerresults %}  
+ <div class="export_control"><button onclick="exportprimertableToCSV('coxiella_primers.csv')">Export result table To CSV File</button>
+ </div>
+ <div class="result_control">
+        <div class="info">
+			  <table>
+                          <tr>
+                                  <th>Name</th>
+                                  <th>Forward sequence</th>
+                                  <th>Reverse sequence</th>
+                                  <th>Publication</th>
+                                  <th>Description</th>
+
+                          </tr>
+                          {% for item in results %}
+                          <tr>
+                                  <td>{{item.name}}</td>
+                                  <td>{{item.forward}}</td>
+				  <td>{{item.reverse}}</td>
+                                  {% if item.pmid %}
+				  <td><a href="https://www.ncbi.nlm.nih.gov/pubmed/{{item.pmid}}" target="_blanK">Publication</a></td>
+				  {% else %}
+				  <td></td>
+				  {%- endif %}
+                                  {% if item.description != None %}
+                                  <td>{{item.description}}</td>
+				  {% else %}
+				  <td></td>
+				  {%- endif %}
+				
+				  
+                          </tr>
+                          {% endfor %}
+                  </table>
+	</div>
+      </div>
+{% endblock %}
+

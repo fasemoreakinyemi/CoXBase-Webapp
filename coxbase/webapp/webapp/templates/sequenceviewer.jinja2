@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="{{request.locale_name}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pyramid web application">
+    <meta name="Mandela" content="Search form">
+    <link rel="shortcut icon" href="{{request.static_url('webapp:static/pyramid-16x16.png')}}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <title>CoxBase</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+  crossorigin=""/>
+
+
+    <!-- Custom styles for this scaffold -->
+    <link href="{{request.static_url('webapp:static/css/main.css')}}" rel="stylesheet">
+    <!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+  </head>
+
+  <body>
+	  {% include 'nav.jinja2' %}
+	 <div id="seqviewerContainer" class="seqviewerContainer card">
+	  <select id="seqviewer" class="js-example-basic-single">
+		  <option value="NC_002971.4">Coxiella burnetii RSA 493</option>
+		  <option value="NC_009727.1">Coxiella burnetii Dugway 5J108-111</option>
+		  <option value="NC_011528.1">Coxiella burnetii CbuK_Q154</option>
+		  <option value="NZ_CP018150.1">Coxiella burnetii 'MSU Goat Q177'</option>
+		  <option value="NC_010117.1">Coxiella burnetii RSA 331</option>
+		  <option value="NC_011527.1">Coxiella burnetii CbuG_Q212</option>
+		  <option value="NZ_LK937696.1">Coxiella burnetii Z3055</option>
+		  <option value="NZ_CP040059.1">Coxiella burnetii RSA439</option>
+		  <option value="NZ_CP014557.1">Coxiella burnetii 18430</option>
+		  <option value="NZ_CP014555.1">Coxiella burnetii 2574</option>
+		  <option value="NZ_CP014553.1">Coxiella burnetii 701CbB1</option>
+		  <option value="NZ_CP014565.1">Coxiella burnetii Scurry_Q217</option>
+		  <option value="NZ_CP014559.1">Coxiella burnetii Henzerling</option>
+		  <option value="NZ_CP014561.1">Coxiella burnetii Heizberg</option>
+		  <option value="NZ_CP007555.1">Coxiella burnetii Namibia </option>
+		  <option value="NZ_CP014563.1">Coxiella burnetii Schperling</option>
+		  <option value="NZ_CP014549.1">Coxiella burnetii CbCVIC1</option>
+		  <option value="HG825990.3">Coxiella burnetii Cb175_Guyana</option>
+		  <option value="NZ_JPVV01000067.1">Coxiella burnetii AuQ01</option>
+	  </select>
+
+
+    <!--main-->
+    <!--<iframe id="seqviewerPanel" src="https://www.ncbi.nlm.nih.gov/projects/sviewer/embedded_iframe.html?iframe=sviframe&id=nc_002971.4" width="900">-->
+	    <!-- <div id="seqviewerPanel"></div>-->
+	 </div>
+
+	 <!--<iframe id="seqviewerPel" src="https://www.ncbi.nlm.nih.gov/projects/sviewer/embedded_iframe.html" style="width:0;height:0;border:0; border:none;">-->
+	    <!-- <div id="seqviewerPanel"></div>-->
+
+    {% include 'footer.jinja2' %}
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="{{request.static_url('webapp:static/js/extras.js')}}" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    <script src="{{request.static_url('webapp:static/js/seqviewer.js')}}" type="text/javascript"></script>
+
+  </body>
+</html>

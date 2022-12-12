@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="{{request.locale_name}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pyramid web application">
+    <meta name="Mandela" content="Search form">
+    <link rel="shortcut icon" href="{{request.static_url('webapp:static/pyramid-16x16.png')}}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <title>CoxBase</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+  crossorigin=""/>
+
+    <!-- Custom styles for this scaffold -->
+    <link href="{{request.static_url('webapp:static/css/main.css')}}" rel="stylesheet">
+    <link href="{{request.static_url('webapp:static/css/jquery_ui.css')}}" rel="stylesheet">
+    <link href="{{request.static_url('webapp:static/css/phylotree.css')}}" rel="stylesheet">
+    <!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+  </head>
+
+  <body>
+
+	  {% include 'nav.jinja2' %}
+    <!--main-->
+    
+      <div class="container">
+	      <div class="card_mlva">
+		      <form id="isolate_form" method="POST">
+			      <div class="isolate_fieldset" style="white-space:nowrap">
+				      <fieldset id="" style="float:left;display:inline"><legend>Isolate query fields</legend>
+					      <span id="combo" style="display:none;"><label for="combo_para">Combine with: </label>
+						      <select style="margin-bottom:20px;"name="combo_para"  id="combo_para">
+							      <option value="AND">AND</option>
+							      <option value="OR">OR</option>
+						      </select>
+					      </span>
+					      <ul id="query_list">
+						      <li>
+							      <span style="white-space:nowrap">
+								      <select name="iso_subject" id="iso_subject">
+									      <option selected value="year" >year</option>
+									      <option value="host">host</option>
+									      <option value="country">country</option>
+									      <option value="plasmid">plasmid</option>
+									      <option value="ada">adaGene</option>
+									      <option value="mst">MST group</option>
+									      <option value="mlva">MLVA Genotype</option>
+								      </select>
+								      <select name="iso_operator" id="iso_operator" >
+									      <option value="=">=</option>
+									      <option value="contains">contains</option>
+									      <option value="starts">starts with</option>
+									      <option value="ends">ends with</option>
+									      <option value="NOT">NOT</option>
+								      </select>
+								      <input type="text" name=""  class="value_entry" id="iso_value" placeholder="Enter value..." />
+								      <a class="add_button"><i class="fas fa-plus"></i>
+								       <span class="tooltiptext">click to add more field</span></a>
+							      </span>
+						      </li>
+					      </ul>
+				      </fieldset>
+
+				      <fieldset style="float:left;display:inline;margin-left:50px;"><legend>action</legend>
+					      <input name="submit" type="submit" style="margin-left:0px;" value="submit">
+					      <button type="reset" id="clearField">clear field</button>
+				      </fieldset>
+				      <fieldset style="float:left;display:inline;margin-left:50px;"><legend>search</legend>
+					      <button onclick="location.href='/webapp/query/isolates/faceted'" > faceted search</button>
+				      </fieldset>
+			      </div>
+
+		      </form>
+      </div>
+      <div id="result_error">
+      </div>
+<!--	<div class="row1">
+	<svg id="tree_display" height="600" width="458.4"></svg>
+</div>-->
+      <div class="info">
+      <div id="result">
+	      </div>
+      </div>
+	 </div>
+	 </div>
+      <div class="container2" style="visibility:hidden;">
+	<div class="card">
+		
+		<h3> Genotyping Information</h3 >
+
+		<!--	<div class="outer_row">-->
+		<div class="row1" style="float:right; clear:both;">
+
+			<p id="genotype_info">Filter Tree: </p>
+			<div class="form-group navbar-form navbar-right" id=""> <!--style="float:right; clear:both;">-->
+			<input type="text" id = 'branch_filter' class="form-control" placeholder="Filter branches with ID">
+			</div>
+			<p id="genotype_info" style> Change tree ID: </p>
+			<div class="btn-group" id="genotype_info">
+				<button id="Country">Country</button>
+  				<button id="Host">Host</button>
+			</div>
+	</div>
+	</div>
+	</div>
+
+
+
+    {% include 'footer.jinja2' %}
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" charset="utf-8"></script>
+    <script src="{{request.static_url('webapp:static/js/phylotree.js')}}" type="text/javascript"></script>
+    <script src="{{request.static_url('webapp:static/js/isolate_query.js')}}" type="text/javascript"></script>
+    <script src="{{request.static_url('webapp:static/js/extras.js')}}" type="text/javascript"></script>
+  </body>
+</html>

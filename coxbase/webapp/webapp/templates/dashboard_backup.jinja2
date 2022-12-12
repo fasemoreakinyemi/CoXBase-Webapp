@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="{{request.locale_name}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pyramid web application">
+    <meta name="Mandela" content="Search form">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <title>Coxbase</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+  crossorigin=""/>
+
+    <!-- Custom styles for this scaffold -->
+    <link href="{{request.static_url('webapp:static/css/dashboard.css')}}" rel="stylesheet">
+    <link href="{{request.static_url('webapp:static/css/phylotree.css')}}" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <![endif]-->
+  </head>
+
+  <body>
+	  {% include 'nav.jinja2' %}
+    <!--main-->
+    <h1 class="banner"> Coxbase [ Demo-page ]</h1>
+      <div class="container">
+	      <div class="card">
+  			<div class="table">
+				<h3> Charts </h3>
+    			<ul id="horizontal-list">
+			    <li><button class="my_button" ID="SampleYear">Year</button></li>
+			    <li><button class="my_button" ID="SampleHost">Host</button></li>
+			    <li><button class="my_button" ID="TypingID">TypingID</button></li>
+			    <li><button class="my_button" ID="CountryProvince">State</button></li>
+			</ul>
+			</div>
+        		<div class="row1">
+			<canvas id="barchart"></canvas>
+		</div>
+		    </div>
+	      </div>
+      </div>
+	
+   
+      <div class="container2">
+	      <div class="card">
+			<h3> Geographical Information of German Isolates</h3>
+			<div class=row1>
+			<div id='map' style="float:left;"></div>
+			<div id='new-parent' class="info" style="margin-bottom:20pt;"></div>
+			</div>
+	      </div>
+      </div>
+      <div class="container2">
+	<div class="card">
+		
+		<h3> Genotyping Information</h3 >
+
+		<!--	<div class="outer_row">-->
+		<div class="row1" style="float:right; clear:both;">
+
+			<p id="genotype_info">Filter Tree: </p>
+			<div class="form-group navbar-form navbar-right" id=""> <!--style="float:right; clear:both;">-->
+			<input type="text" id = 'branch_filter' class="form-control" placeholder="Filter branches with ID">
+			</div>
+			<p id="genotype_info" style> Change tree ID: </p>
+			<div class="btn-group" id="genotype_info">
+				<button id="Country">Country</button>
+  				<button id="Host">Host</button>
+			</div>
+	</div>
+	</div>
+
+	<div class="row1">
+	<svg id="tree_display" width="258.4"></svg>
+	</div>
+	</div>
+	</div>
+	</div>
+ 
+
+      <!--  <div class="row2">
+			  <select name="species">
+			  {% for item in Province %}
+			  <option value="{{item}}">{{item}}</option>
+			  {% endfor %}
+				</select>
+		<canvas id="barchartfilter"></canvas>
+
+      </div>-->
+      </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{request.static_url('webapp:static/js/phylotree.js')}}" type="text/javascript"></script>
+    <script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+    <script src="{{request.static_url('webapp:static/js/dashboard.js')}}" type="text/javascript"></script>
+    <script src="{{request.static_url('webapp:static/js/deu-states.js')}}" type="text/javascript"></script>
+    <script src="{{request.static_url('webapp:static/js/map.js')}}" type="text/javascript"></script>
+    <script src="{{request.static_url('webapp:static/js/phylotree.js')}}" type="text/javascript"></script>
+    <script src="{{request.static_url('webapp:static/js/display_tree.js')}}" type="text/javascript"></script>
+    <script src="{{request.static_url('webapp:static/js/extras.js')}}" type="text/javascript"></script>
+  </body>
+</html>
