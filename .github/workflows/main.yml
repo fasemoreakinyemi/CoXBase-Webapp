@@ -13,26 +13,25 @@ jobs:
       matrix:
         os:
           - ubuntu-18.04
-        python-version:
-          - [3.7, 3.8, 3.9]
+        python-version: [3.7, 3.8, 3.9]
     steps:
-      - name: 'Set up Python ${{ matrix.python-version }}'
-        uses: actions/setup-python@v2
-        with:
-          python-version: '${{ matrix.python-version }}'
-      - name: Show working dir
-        shell: bash
-        run: ls
-      - name: Set up MySQL
-        run: |
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}  
+    - name: Show working dir
+      shell: bash
+      run: ls
+    - name: Set up MySQL
+      run: |
           sudo /etc/init.d/mysql start
           mysql -u root < webapp/scripts/sql/createuser.sql
           mysql -u root < webapp/scripts/sql/createdb.sql
           mysql -u root < webapp/scripts/sql/mlva_schema.sql
           mysql -u root < webapp/scripts/sql/insert_data.sql
-      - run: pip install -r requirements.txt
-      - run: pip install coverage
-      - run: pip install coveralls
-      - run: coverage run -m pytest webapp/test
-      - run: coveralls
+    - run: pip install -r requirements.txt
+    - run: pip install coverage
+    - run: pip install coveralls
+    - run: coverage run -m pytest webapp/test
+    - run: coveralls
 
