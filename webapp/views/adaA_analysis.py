@@ -14,6 +14,7 @@ import pyfastcopy
 from Bio import pairwise2, SeqIO
 from webapp import views_processor
 
+
 @view_config(route_name="adaresult")
 def adaAprocess_view(request):
     process_ID = uuid.uuid4().hex
@@ -57,6 +58,5 @@ def resadaA_view(request):
     if query is None:
         raise HTTPNotFound()
     return {"result": query}
-
 
 

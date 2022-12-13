@@ -15,6 +15,8 @@ from .signup import UserTable
 from .is1111 import is1111Profile
 from .adaA import adaAProfile
 from .snp_hornstra import snpHornstra 
+from .phylotree import NewickTable 
+from .accesstable import accessTable
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup
 configure_mappers()

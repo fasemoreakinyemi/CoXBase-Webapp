@@ -15,6 +15,7 @@ from Bio import pairwise2, SeqIO
 from webapp import views_processor
 import sys
 
+
 @view_config(route_name="mstresult")
 def mstprocess_view(request):
     process_ID = uuid.uuid4().hex
@@ -97,4 +98,3 @@ def phlMST_view(request):
     if query is None:
         raise HTTPNotFound()
     return {"results": query}
-

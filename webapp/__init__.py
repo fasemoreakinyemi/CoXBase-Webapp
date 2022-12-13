@@ -15,7 +15,8 @@ def main(global_config, **settings):
         authz_policy = ACLAuthorizationPolicy()
         config.set_authentication_policy(authn_policy)
         config.set_authorization_policy(authz_policy)
-
+        config.include('pyramid_celery')
+        config.configure_celery(global_config['__file__'])
         config.include('.models')
         config.include('pyramid_jinja2')
         config.include('.routes')

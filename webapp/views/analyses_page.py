@@ -32,3 +32,7 @@ def combine_view(request):
 @view_config(route_name="SNPHanalysis", renderer="../templates/hornstra_analysis.jinja2")
 def hornstraanalysis_view(request):
     return {}
+
+@view_config(route_name="arg_pred", renderer="../templates/arg_pred_analysis.jinja2")
+def arg_pred_analysis_view(request):
+    return {}

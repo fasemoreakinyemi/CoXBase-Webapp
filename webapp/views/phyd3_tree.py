@@ -15,7 +15,7 @@ from .. import models
 
 Base = automap_base()
 settings = get_appsettings(
-    "/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini", name="main"
+    "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
 )
 engine = engine_from_config(settings, "db2.")
 Base.prepare(engine, reflect=True)

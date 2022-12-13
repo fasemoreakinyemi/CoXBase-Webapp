@@ -25,4 +25,8 @@ class MyRequest(Request):
         request.db1_session.close()
 
     def close_dbs_2(self, request):
-        request.db2_session.close()
+        request.db1_session.close()
+    
+    @reify
+    def view_name(self):
+        return Request.view_name

@@ -3,6 +3,7 @@
 from pyramid.view import view_config
 from pyramid.paster import get_appsettings
 from sqlalchemy import engine_from_config, create_engine
+from sqlalchemy.sql import insert
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy import or_
 from sqlalchemy import and_
@@ -14,7 +15,7 @@ from .. import models
 
 Base = automap_base()
 settings = get_appsettings(
-    "/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini", name="main"
+    "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
 )
 engine = engine_from_config(settings, "db2.")
 Base.prepare(engine, reflect=True)

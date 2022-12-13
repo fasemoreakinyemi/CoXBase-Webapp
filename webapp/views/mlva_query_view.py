@@ -13,42 +13,53 @@ from sqlalchemy import or_
 from .. import models
 import logging
 import traceback
+from webapp import process_request
 import sys
 
-Base = automap_base()
-settings = get_appsettings(
-        "/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini", name="main"
-    )
-engine = engine_from_config(settings, "db2.")
-Base.prepare(engine, reflect=True)
 
 @view_config(
     route_name="entry_view_mlva", renderer="../templates/mlva_query_view.jinja2"
 )
 def detailed_mlva_view(request):
     ID = request.matchdict["ID"]
+    Base = automap_base()
+    settings = get_appsettings(
+        "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
+    )
+    engine = engine_from_config(settings, "db2.")
+    Base.prepare(engine, reflect=True)
     isolates = Base.classes.isolates
-    isolatesRef = Base.classes.isolate_refs2
+    isolatesRef = Base.classes.isolate_pub_ref
     try:
-        query = request.db2_session.query(isolates).filter(isolates.mlvaGenotype == ID)
+        query = request.db2_session.query(isolates,
+                                          isolatesRef).join(isolatesRef,
+                                                            isolates.isolateid
+                                                            ==
+                                                            isolatesRef.isolate_id,isouter=True).filter(isolates.mlvaGenotype == ID)
         # query = request.db2_session.query(isolates).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(
         #    isolates.mlvaGenotype == ID)
     except DBAPIError:
         return Response(db_err_msg, content_type="text/plain", status=500)
     return {"count": query.count(), "results": query.all()}
 
-
 @view_config(
     route_name="entry_view_mlva_6", renderer="../templates/mlva_tilburg_query_view.jinja2"
 )
 def detailed_mlva_tilburg_view(request):
     ID = request.matchdict["ID"]
+    Base = automap_base()
+    settings = get_appsettings(
+        "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
+    )
+    engine = engine_from_config(settings, "db2.")
+    Base.prepare(engine, reflect=True)
     isolates = Base.classes.isolates2022
     try:
         query = request.db2_session.query(isolates).filter(isolates.mlvaGenotype == ID)
     except DBAPIError:
         return Response(db_err_msg, content_type="text/plain", status=500)
     return {"count": query.count(), "results": query.all()}
+
 
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem

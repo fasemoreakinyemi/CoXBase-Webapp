@@ -15,7 +15,7 @@ import configparser
 
 
 config = configparser.ConfigParser()
-config.read("/home/travis/build/foerstner-lab/CoxBase-Webapp/webapp/views_processor/paths_config.ini")
+config.read("/home/ubuntu/coxbase/coxbase/webapp/webapp/views_processor/paths_config.ini")
 sole_outpath = config['OUTPATH']['sole']
 combined_outpath = config['OUTPATH']['combined']
 
@@ -460,7 +460,6 @@ class ViewProcessor:
             shutil.rmtree(os.path.join(sole_outpath, file_id))
             shutil.rmtree(os.path.join(combined_outpath, file_id))
             return None
-
 
 
 

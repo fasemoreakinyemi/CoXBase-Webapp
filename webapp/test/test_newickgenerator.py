@@ -12,11 +12,18 @@ import os
 import configparser
 
 
+config = configparser.ConfigParser()
+config.read("/home/ubuntu/coxbase/coxbase/webapp/webapp/views_processor/paths_config.ini")
+sole_outpath = config['OUTPATH']['sole']
+combined_outpath = config['OUTPATH']['combined']
+
+
 class CoxviewerViewTests(unittest.TestCase):
     def setUp(self):
         from newick_generator import NewickProcessor
         self.config = testing.setUp()
         self.mock_data = Mock_data()
+        self.input_file = config['TESTDATA']['fasta']
         self.np = NewickProcessor()
 
     def tearDown(self):

@@ -9,8 +9,13 @@ from Bio.Blast.Applications import NcbiblastnCommandline
 from webapp import models
 from webapp import process_request
 from webapp import automapper
+import configparser
+import os
 
-am = automapper.Automapper("/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini")
+config = configparser.ConfigParser()
+config.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
+dev_path = config['OUTPATH']['dev']
+am = automapper.Automapper(dev_path)
 base_automap = am.generate_base("db2.")
 rp = process_request.RequestProcessor()
 
@@ -171,4 +176,3 @@ def mst_blast_api(request):
         query=query, db=db, strand="plus", evalue=0.001, out="-", outfmt=0
     )
     return {"result": cline()[0]}
-

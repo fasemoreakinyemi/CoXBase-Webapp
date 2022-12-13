@@ -18,11 +18,10 @@ import sys
 
 Base = automap_base()
 settings = get_appsettings(
-    "/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini", name="main"
+    "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
 )
 engine = engine_from_config(settings, "db2.")
 Base.prepare(engine, reflect=True)
-
 
 def distance_query(spacer_list, request, distance):
     case_list = []
@@ -79,7 +78,7 @@ def mstq_view(request):
 def detailed_mst_view(request):
     ID = request.matchdict["ID"]
     isolates = Base.classes.isolates2022
-    isolatesRef = Base.classes.isolate_refs2
+    isolatesRef = Base.classes.isolate_pub_ref
     try:
         query = request.db2_session.query(isolates).filter(isolates.mstGroup == ID)
     except DBAPIError:

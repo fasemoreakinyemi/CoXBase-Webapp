@@ -123,5 +123,3 @@ def includeme(config):
     config.add_route('res_arg_pred', '/status/arg-prediction/{ID}')
     # antibiotic fasta task page 
     config.add_route('res_arg_pred_page', '/result-status/arg-prediction/{ID}')
-
-

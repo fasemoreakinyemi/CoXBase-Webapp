@@ -49,12 +49,12 @@ function make_grid(data){
   	filters: true,
 	contextMenu: ['copy'],
   	dropdownMenu: ['filter_by_condition', 'filter_action_bar', 'filter_by_value'],
-	style: ''
+	style: '',
 	licenseKey: "non-commercial-and-evaluation"
 });
 	hot.updateSettings({
         readOnly: true
-    });}
+    })}
 
 function makeChart(pred) {
   var count_dict = {}

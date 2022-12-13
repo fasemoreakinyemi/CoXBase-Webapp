@@ -11,11 +11,12 @@ from webapp import process_request
 
 Base = automap_base()
 settings = get_appsettings(
-    "/home/travis/build/foerstner-lab/CoxBase-Webapp/development.ini", name="main"
+    "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
 )
 engine = engine_from_config(settings, "db2.")
 Base.prepare(engine, reflect=True)
 RP = process_request.RequestProcessor()
+
 
 @view_config(route_name="isolate_query", renderer="../templates/isolate_query.jinja2")
 def isolate_query_view(request):
@@ -139,4 +140,3 @@ def get_all_isolates(request):
     query = request.db2_session.query(isolates).all()
     #  query = request.db2_session.query(isolates).filter(isolates.country == country_id).all()
     return RP._serialize_ctr_dts_ls(query)
-

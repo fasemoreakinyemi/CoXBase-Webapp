@@ -16,6 +16,10 @@ from itolapi import Itol
 import configparser
 
 
+config = configparser.ConfigParser()
+config.read("/home/ubuntu/coxbase/coxbase/webapp/webapp/views_processor/paths_config.ini")
+
+
 class NewickProcessor:
     def createDF(self, lst):
         return pd.DataFrame(lst)
