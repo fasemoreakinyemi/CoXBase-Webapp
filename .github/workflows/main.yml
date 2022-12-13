@@ -20,8 +20,9 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}  
     - name: Show working dir
+      run: echo $PATH
       shell: bash
-      run: ls ${{ github.GITHUB_WORKSPACE }}
+   #   run: ls ${{ github.GITHUB_WORKSPACE }}
     - name: Set up MySQL
       run: |
           sudo /etc/init.d/mysql start
