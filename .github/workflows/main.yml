@@ -38,16 +38,12 @@ jobs:
       run: sudo service mysql start
     - name: Verify MySQL
       run: mysql --user=root --password=root
-    - name: List existing SQL databases
-      run: mysql --user=root --password=root --execute="show databases;" <--- my_db is not shown
-
     - name: Load database
       run: |
-          sudo /etc/init.d/mysql start
-          mysql -u root < webapp/scripts/sql/createuser.sql
-          mysql -u root < webapp/scripts/sql/createdb.sql
-          mysql -u root < webapp/scripts/sql/mlva_schema.sql
-          mysql -u root < webapp/scripts/sql/insert_data.sql
+          mysql ---user=root --password=root < webapp/scripts/sql/createuser.sql
+          mysql --user=root --password=root < webapp/scripts/sql/createdb.sql
+          mysql --user=root --password=root < webapp/scripts/sql/mlva_schema.sql
+          mysql --user=root --password=root < webapp/scripts/sql/insert_data.sql
     - run: pip install -r requirements.txt
     - run: pip install coverage
     - run: pip install coveralls
