@@ -40,7 +40,7 @@ jobs:
       run: mysql --user=root --password=root
     - name: Load database
       run: |
-          mysql ---user=root --password=root < webapp/scripts/sql/createuser.sql
+          mysql --user=root --password=root < webapp/scripts/sql/createuser.sql
           mysql --user=root --password=root < webapp/scripts/sql/createdb.sql
           mysql --user=root --password=root < webapp/scripts/sql/mlva_schema.sql
           mysql --user=root --password=root < webapp/scripts/sql/insert_data.sql
