@@ -23,14 +23,24 @@ jobs:
     - name: Show working dir
       shell: bash
       run: ls
-
-   #   run: ls ${{ github.GITHUB_WORKSPACE }}
-    #- name: Shutdown default MySQL
-    #  run: sudo /etc/init.d/mysqld stop 
-    - name: Set up MySQL
+    - name: Shutdown Default Ubuntu MySQL (SUDO)
+      run: sudo service mysql stop
+    - name: Install MySQL
       uses: mirromutth/mysql-action@v1.1
       with:
-       mysql version: '8.0'
+          host port: 3306
+          container port: 3306
+          mysql version: '8.0'
+          mysql user: root
+          mysql password: root
+          
+    - name: Start MySQL
+      run: sudo service mysql start
+    - name: Verify MySQL
+      run: mysql --user=root --password=root
+    - name: List existing SQL databases
+      run: mysql --user=root --password=root --execute="show databases;" <--- my_db is not shown
+
     - name: Load database
       run: |
           sudo /etc/init.d/mysql start
