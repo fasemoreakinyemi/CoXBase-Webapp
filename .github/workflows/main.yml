@@ -37,13 +37,13 @@ jobs:
     - name: Start MySQL
       run: sudo service mysql start
     - name: Verify MySQL
-      run: mysql --user=root --password=root
+      run: mysql --user=root --password=root --execute="SET GLOBAL local_infile=1;"
     - name: Load database
       run: |
-          mysql --user=root --password=root < webapp/scripts/sql/createuser.sql
-          mysql --user=root --password=root < webapp/scripts/sql/createdb.sql
-          mysql --user=root --password=root < webapp/scripts/sql/mlva_schema.sql
-          mysql --user=root --password=root < webapp/scripts/sql/insert_data.sql
+          mysql --local-infile=1 --user=root --password=root < webapp/scripts/sql/createuser.sql
+          mysql --local-infile=1 --user=root --password=root < webapp/scripts/sql/createdb.sql
+          mysql --local-infile=1 --user=root --password=root < webapp/scripts/sql/mlva_schema.sql
+          mysql --local-infile=1 --user=root --password=root < webapp/scripts/sql/insert_data.sql
     - run: pip install -r requirements.txt
     - run: pip install coverage
     - run: pip install coveralls
