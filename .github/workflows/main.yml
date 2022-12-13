@@ -25,8 +25,8 @@ jobs:
       run: ls
 
    #   run: ls ${{ github.GITHUB_WORKSPACE }}
-    - name: Shutdown default MySQL
-      run: sudo /etc/init.d/mysqld stop 
+    #- name: Shutdown default MySQL
+    #  run: sudo /etc/init.d/mysqld stop 
     - name: Set up MySQL
       uses: mirromutth/mysql-action@v1.1
       with:
