@@ -28,7 +28,7 @@ jobs:
     - name: Set up MySQL
       run: |
           sudo /etc/init.d/mysql start
-          mysql -u root < /CoxBase-Webapp/webapp/scripts/sql/createuser.sql
+          mysql -u root < webapp/scripts/sql/createuser.sql
           mysql -u root < webapp/scripts/sql/createdb.sql
           mysql -u root < webapp/scripts/sql/mlva_schema.sql
           mysql -u root < webapp/scripts/sql/insert_data.sql
