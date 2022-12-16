@@ -46,6 +46,7 @@ jobs:
           mysql --local-infile=1 --user=root --password=root < webapp/scripts/sql/insert_data.sql
     - run: pip install --upgrade pip
     - run: pip install wheel
+    - run: pip install pytest
     - run: pip install pandas
     - run: pip install -r requirements.txt
     - run: pip install coverage
