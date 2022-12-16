@@ -15,17 +15,18 @@ from .. import models
 import logging
 import traceback
 import sys
+from webapp import automapper
+import os
 
-Base = automap_base()
-settings = get_appsettings(
-    "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
-)
-engine = engine_from_config(settings, "db2.")
-Base.prepare(engine, reflect=True)
+head_path = os.path.dirname(__file__).split("webapp/views")[0]
+config_path = os.path.join(head_path, 'development.ini')
+am = automapper.Automapper(config_path)
+base_automap = am.generate_base("db2.")
+
 
 def distance_query(spacer_list, request, distance):
     case_list = []
-    mstgroups = Base.classes.mstgroups2
+    mstgroups = getattr(base_automap, 'mstgroups2')
     for spacers in spacer_list:
         if int(request.matchdict[spacers]) == 0:
             continue
@@ -56,7 +57,7 @@ def mst_view(request):
 @view_config(route_name="mst_query_api", renderer="json")
 def mstq_view(request):
     RP = process_request.RequestProcessor()
-    mstgroups = Base.classes.mstgroups2
+    mstgroups = getattr(base_automap, 'mstgroups2')
     spacer_list = [
         "COX2",
         "COX5",
@@ -77,8 +78,7 @@ def mstq_view(request):
 @view_config(route_name="entry_view_mst", renderer="../templates/mst_view.jinja2")
 def detailed_mst_view(request):
     ID = request.matchdict["ID"]
-    isolates = Base.classes.isolates2022
-    isolatesRef = Base.classes.isolate_pub_ref
+    isolates = getattr(base_automap, "isolates2022")
     try:
         query = request.db2_session.query(isolates).filter(isolates.mstGroup == ID)
     except DBAPIError:

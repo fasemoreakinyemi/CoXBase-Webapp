@@ -53,9 +53,9 @@ var mymap = L.map('view_map').setView([51, -10], 4);
 //	}).addTo(mymap);
 	var redMarker = L.AwesomeMarkers.icon({
     		icon: 'bug',
-		prefix : 'ion',
-    		markerColor: 'orange',
-		iconColor: 'black'
+		prefix : 'fa',
+    		markerColor: 'black',
+		iconColor: 'orange'
   		});
 	latitude_list = []
 	longitude_list = []

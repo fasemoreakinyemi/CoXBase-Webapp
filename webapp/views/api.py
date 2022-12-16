@@ -9,13 +9,11 @@ from Bio.Blast.Applications import NcbiblastnCommandline
 from webapp import models
 from webapp import process_request
 from webapp import automapper
-import configparser
 import os
 
-config = configparser.ConfigParser()
-config.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
-dev_path = config['OUTPATH']['dev']
-am = automapper.Automapper(dev_path)
+head_path = os.path.dirname(__file__).split("webapp/views")[0]
+config_path = os.path.join(head_path, 'development.ini')
+am = automapper.Automapper(config_path)
 base_automap = am.generate_base("db2.")
 rp = process_request.RequestProcessor()
 

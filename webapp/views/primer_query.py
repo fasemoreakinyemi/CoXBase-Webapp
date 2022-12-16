@@ -14,13 +14,13 @@ from .. import models
 import logging
 import traceback
 import sys
+from webapp import automapper
+import os
 
-Base = automap_base()
-settings = get_appsettings(
-    "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
-)
-engine = engine_from_config(settings, "db2.")
-Base.prepare(engine, reflect=True)
+head_path = os.path.dirname(__file__).split("webapp/views")[0]
+config_path = os.path.join(head_path, 'development.ini')
+am = automapper.Automapper(config_path)
+base_automap = am.generate_base("db2.")
 
 
 @view_config(route_name="primerquery", renderer="../templates/primer_query.jinja2")
@@ -33,7 +33,7 @@ def primer_view(request):
     renderer="../templates/primer_query_results.jinja2",
 )
 def primer_results_view(request):
-    primers = Base.classes.primer
+    primers = getattr(base_automap, "primer")
     is_query = text("primers.name like 'IS%'")
     query_dict = {
         "mlva": primers.name.like("ms__\_%"),

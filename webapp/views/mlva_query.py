@@ -14,12 +14,12 @@ import sys
 from webapp import automapper
 from sqlalchemy import func, case
 from sqlalchemy import desc
-
 import os
-print(os.getcwd())
-print("------------------------")
 
-am = automapper.Automapper("/home/ubuntu/coxbase/coxbase/webapp/development.ini")
+
+head_path = os.path.dirname(__file__).split("webapp/views")[0]
+config_path = os.path.join(head_path, 'development.ini')
+am = automapper.Automapper(config_path)
 Base_automap = am.generate_base("db2.")
 
 def distance_query(Base, repeat_list, request, distance, db):

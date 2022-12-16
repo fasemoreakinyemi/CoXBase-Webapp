@@ -8,13 +8,14 @@ from sqlalchemy import or_
 from sqlalchemy import and_
 import json
 from webapp import process_request
+from webapp import automapper
+import os
 
-Base = automap_base()
-settings = get_appsettings(
-    "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
-)
-engine = engine_from_config(settings, "db2.")
-Base.prepare(engine, reflect=True)
+head_path = os.path.dirname(__file__).split("webapp/views")[0]
+config_path = os.path.join(head_path, 'development.ini')
+am = automapper.Automapper(config_path)
+base_automap = am.generate_base("db2.")
+
 RP = process_request.RequestProcessor()
 
 
@@ -29,8 +30,8 @@ def isolate_query_api_view(request):
     combo = request.matchdict["combo"]
     query_container = json.loads(container)
 
-    isolates_table = Base.classes.isolates2022
-    isolatesRef = Base.classes.isolate_pub_ref
+    isolates_table = getattr(base_automap, "isolates2022")
+   # isolatesRef = Base.classes.isolate_pub_ref
 
     conditionAnd = []
     conditionOr = []
@@ -135,8 +136,8 @@ def isolate_query_fc_view(request):
 
 @view_config(route_name="isolate_fc_api", renderer="json")
 def get_all_isolates(request):
-    isolates = Base.classes.isolates2022
-    isolatesRef = Base.classes.isolate_refs2
+    isolates = getattr(base_automap, "isolates2022")
+    #isolatesRef = Base.classes.isolate_refs2
     query = request.db2_session.query(isolates).all()
     #  query = request.db2_session.query(isolates).filter(isolates.country == country_id).all()
     return RP._serialize_ctr_dts_ls(query)

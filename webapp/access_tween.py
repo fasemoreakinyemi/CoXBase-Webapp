@@ -5,9 +5,7 @@ from datetime import datetime
 from webapp import models
 
 def access_tween_factory(handler, registry):
-    print("up here")
     if asbool(registry.settings.get('do_stats')):
-        print("here")
         # if statistics support is enabled, return a wrapper
         def save_request_props_tween(request):
             date = datetime.now()

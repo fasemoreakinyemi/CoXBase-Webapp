@@ -15,6 +15,13 @@ import logging
 import traceback
 from webapp import process_request
 import sys
+from webapp import automapper
+import os
+
+head_path = os.path.dirname(__file__).split("webapp/views")[0]
+config_path = os.path.join(head_path, 'development.ini')
+am = automapper.Automapper(config_path)
+base_automap = am.generate_base("db2.")
 
 
 @view_config(
@@ -22,20 +29,9 @@ import sys
 )
 def detailed_mlva_view(request):
     ID = request.matchdict["ID"]
-    Base = automap_base()
-    settings = get_appsettings(
-        "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
-    )
-    engine = engine_from_config(settings, "db2.")
-    Base.prepare(engine, reflect=True)
-    isolates = Base.classes.isolates
-    isolatesRef = Base.classes.isolate_pub_ref
+    isolates = getattr(base_automap, "isolates2022")
     try:
-        query = request.db2_session.query(isolates,
-                                          isolatesRef).join(isolatesRef,
-                                                            isolates.isolateid
-                                                            ==
-                                                            isolatesRef.isolate_id,isouter=True).filter(isolates.mlvaGenotype == ID)
+        query = request.db2_session.query(isolates).filter(isolates.mlvaGenotype == ID)
         # query = request.db2_session.query(isolates).join(isolatesRef, isolates.isolateid == isolatesRef.isolate_id).filter(isolatesRef.pmid  == 25037926).filter(
         #    isolates.mlvaGenotype == ID)
     except DBAPIError:
@@ -47,13 +43,7 @@ def detailed_mlva_view(request):
 )
 def detailed_mlva_tilburg_view(request):
     ID = request.matchdict["ID"]
-    Base = automap_base()
-    settings = get_appsettings(
-        "/home/ubuntu/coxbase/coxbase/webapp/development.ini", name="main"
-    )
-    engine = engine_from_config(settings, "db2.")
-    Base.prepare(engine, reflect=True)
-    isolates = Base.classes.isolates2022
+    isolates = getattr(base_automap, "isolates2022")
     try:
         query = request.db2_session.query(isolates).filter(isolates.mlvaGenotype == ID)
     except DBAPIError:

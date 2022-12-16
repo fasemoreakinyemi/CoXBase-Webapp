@@ -47,11 +47,11 @@
                           </tr>
                           {% for item in results %}
                           <tr>
-                                  <td>{{item.isolates.name}}</td>
-                                  <td>{{item.isolates.yearOfIsolation}}</td>
-				  <td>{{item.isolates.country}}</td>
-				  <td>{{item.isolates.host}}</td>
-				  <td><a href="https://pubmed.ncbi.nlm.nih.gov/{{item.isolate_pub_ref.pmid}}/">publication</a></td>
+                                  <td>{{item.name}}</td>
+                                  <td>{{item.yearOfIsolation}}</td>
+				  <td>{{item.country}}</td>
+				  <td>{{item.host}}</td>
+				  <td><a href="https://pubmed.ncbi.nlm.nih.gov/{{item.pmid}}/">publication</a></td>
                           </tr>
                           {% endfor %}
                   </table>
@@ -71,6 +71,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.min.js"></script>
     <script src="{{request.static_url('webapp:static/js/mlva_query.js')}}" type="text/javascript"></script>
     <script src="{{request.static_url('webapp:static/js/view_map.js')}}" type="text/javascript"></script>
     <script src="{{request.static_url('webapp:static/js/extras.js')}}" type="text/javascript"></script>
